@@ -1,10 +1,8 @@
 # ProyectoFinalBeisbol
 Proyecto P1
 <br/>
-<li>
-<ul><b>2012-0127 - Carlos Manzueta</b></ul>
+<li><b>2012-0127 - Carlos Manzueta</b></li>
   <br/>
-  <ul> <b>2015-0793 - Juan D. López</b></ul>
+ <li><b>2015-0793 - Juan D. López</b></li>
   <br/>
-  <ul> <b>2015-1712 - Joshua Díaz (Capitán)</b></ul>
-</li>
+<li> <b>2015-1712 - Joshua Díaz (Capitán)</b></li>
