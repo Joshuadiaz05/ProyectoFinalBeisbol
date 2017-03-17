@@ -1,4 +1,4 @@
-# Sistema de estadísticas de la serie nacional de Baseball.
+# Sistema de estadísticas de la Serie Nacional de Baseball.
 ### Proyecto Final Béisbol
 
 * Control de los equipos y su nómina.
