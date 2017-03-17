@@ -1,5 +1,5 @@
 # Sistema de estadísticas de la serie nacional de Baseball.
-### Proyecto Final Beisbol
+### Proyecto Final Béisbol
 
 * Control de los equipos y su nómina.
 * Control de desempeños individuales de los jugadores.
