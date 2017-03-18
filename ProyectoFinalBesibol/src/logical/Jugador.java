@@ -18,8 +18,23 @@ public class Jugador {
 	private double piesAncho;
 	private ArrayList<Titulo> miTitulo;
 
-	public Jugador() {
-		// TODO Auto-generated constructor stub
+	public Jugador(int numero, String nombre, String apellido, double peso, String posicion, double altura,
+			boolean lesion, Date fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
+			double piesAltura, double piesAncho) {
+		super();
+		miTitulo = new ArrayList<Titulo>();
+		this.numero = numero;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.peso = peso;
+		this.posicion = posicion;
+		this.altura = altura;
+		this.lesion = lesion;
+		this.fechanacimiento = fechanacimiento;
+		this.lugarciudadNacimiento = lugarciudadNacimiento;
+		this.lugarpaisNacimiento = lugarpaisNacimiento;
+		this.piesAltura = piesAltura;
+		this.piesAncho = piesAncho;
 	}
 
 	public int getNumero() {
@@ -125,6 +140,5 @@ public class Jugador {
 	public void setMiTitulo(ArrayList<Titulo> miTitulo) {
 		this.miTitulo = miTitulo;
 	}
-	
-	
+
 }
