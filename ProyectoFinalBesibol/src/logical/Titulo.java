@@ -2,7 +2,7 @@ package logical;
 
 public class Titulo {
 	private String Nombre;
-	private Jugador jugador;
+	private Jugadores jugador;
 
 	public Titulo() {
 		// TODO Auto-generated constructor stub
@@ -16,11 +16,11 @@ public class Titulo {
 		Nombre = nombre;
 	}
 
-	public Jugador getJugador() {
+	public Jugadores getJugador() {
 		return jugador;
 	}
 
-	public void setJugador(Jugador jugador) {
+	public void setJugador(Jugadores jugador) {
 		this.jugador = jugador;
 	}
 	

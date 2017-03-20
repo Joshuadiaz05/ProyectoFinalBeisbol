@@ -3,7 +3,7 @@ package logical;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Jugador {
+public class Jugadores {
 	private int numero;
 	private String nombre;
 	private String apellido;
@@ -18,7 +18,7 @@ public class Jugador {
 	private double piesAncho;
 	private ArrayList<Titulo> miTitulo;
 
-	public Jugador(int numero, String nombre, String apellido, double peso, String posicion, double altura,
+	public Jugadores(int numero, String nombre, String apellido, double peso, String posicion, double altura,
 			boolean lesion, Date fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
 			double piesAltura, double piesAncho) {
 		super();
