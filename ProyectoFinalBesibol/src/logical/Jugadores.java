@@ -16,13 +16,11 @@ public class Jugadores {
 	private String lugarpaisNacimiento;
 	private double piesAltura;
 	private double piesAncho;
-	private ArrayList<Titulo> miTitulo;
 
 	public Jugadores(int numero, String nombre, String apellido, double peso, String posicion, double altura,
 			boolean lesion, Date fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
 			double piesAltura, double piesAncho) {
 		super();
-		miTitulo = new ArrayList<Titulo>();
 		this.numero = numero;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -132,13 +130,4 @@ public class Jugadores {
 	public void setPiesAncho(double piesAncho) {
 		this.piesAncho = piesAncho;
 	}
-
-	public ArrayList<Titulo> getMiTitulo() {
-		return miTitulo;
-	}
-
-	public void setMiTitulo(ArrayList<Titulo> miTitulo) {
-		this.miTitulo = miTitulo;
-	}
-
 }
