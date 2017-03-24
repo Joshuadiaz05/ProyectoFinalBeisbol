@@ -125,6 +125,7 @@ public class RegistrarEquipo extends JDialog {
 							Equipos miEquipo = new Equipos(nombre, agno, manager, region, nombreEstadio);
 							LigaBeisbol.getInstance().insertarEquipo(miEquipo);
 							JOptionPane.showMessageDialog(null, "El equipo " + nombre + " se registró correctamente", "Registrado", JOptionPane.INFORMATION_MESSAGE);
+							dispose();
 						}
 					}
 				});

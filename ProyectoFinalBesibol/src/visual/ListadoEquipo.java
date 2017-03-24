@@ -67,14 +67,20 @@ public class ListadoEquipo extends JDialog {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			
+			JButton btnNewButton = new JButton("Caracteristicas");
+			btnNewButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+			buttonPane.add(btnNewButton);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
+				JButton okButton = new JButton("Aceptar");
+				okButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+				//okButton.setActionCommand("");
 				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				//getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
