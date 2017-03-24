@@ -7,12 +7,20 @@ public class LigaBeisbol {
 	private ArrayList<Equipos> equipo;
 	private ArrayList<Jugadores> jugador;
 	private ArrayList<Partido> partido;
+	private static LigaBeisbol cadena = null;
 	
 	public LigaBeisbol() {
 		super();
 		equipo = new ArrayList<>();
 		jugador = new ArrayList<>();
 		partido = new ArrayList<>();
+	}
+	
+	public static LigaBeisbol getInstance() {
+		if (cadena == null) {
+			cadena = new LigaBeisbol();
+		}
+		return cadena;
 	}
 	
 	public ArrayList<Equipos> getEquipo() {

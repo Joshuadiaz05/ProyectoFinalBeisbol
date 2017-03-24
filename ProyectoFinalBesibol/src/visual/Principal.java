@@ -40,7 +40,7 @@ public class Principal extends JFrame {
 			public void run() {
 				try {
 					// BusinessBlackSteelSkin
-					// SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.BusinessBlackSteelSkin");
+					SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.BusinessBlackSteelSkin");
 					Principal frame = new Principal();
 					frame.pack();
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -59,7 +59,7 @@ public class Principal extends JFrame {
 		getContentPane().setLayout(null);
 
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 1276, 21);
+		menuBar.setBounds(0, 0, 1366, 21);
 		getContentPane().add(menuBar);
 
 		JMenu mnEquipos = new JMenu("Equipos");
@@ -67,6 +67,12 @@ public class Principal extends JFrame {
 		menuBar.add(mnEquipos);
 
 		JMenuItem mntmCrearEquipo = new JMenuItem("Crear Equipo");
+		mntmCrearEquipo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RegistrarEquipo reg = new RegistrarEquipo();
+				reg.setVisible(true);
+			}
+		});
 		mnEquipos.add(mntmCrearEquipo);
 
 		JMenuItem mntmVerListado = new JMenuItem("Ver Listado");
