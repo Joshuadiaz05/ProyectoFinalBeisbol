@@ -8,11 +8,11 @@ public class LigaBeisbol {
 	private ArrayList<Jugadores> jugador;
 	private ArrayList<Partido> partido;
 	
-	public LigaBeisbol(ArrayList<Equipos> equipo, ArrayList<Jugadores> jugador, ArrayList<Partido> partido) {
+	public LigaBeisbol() {
 		super();
-		this.equipo = equipo;
-		this.jugador = jugador;
-		this.partido = partido;
+		equipo = new ArrayList<>();
+		jugador = new ArrayList<>();
+		partido = new ArrayList<>();
 	}
 	
 	public ArrayList<Equipos> getEquipo() {
@@ -32,6 +32,24 @@ public class LigaBeisbol {
 	}
 	public void setPartido(ArrayList<Partido> partido) {
 		this.partido = partido;
+	}
+	
+	public void insertarEquipo(Equipos _pEquipo){
+		equipo.add(_pEquipo);
+	}
+	
+	public Equipos BuscarPorNombre(String pEquipo){
+		Equipos miEquipo = null;
+		boolean find = false;
+		int i = 0;
+		while(i < equipo.size() && !find){
+			if(equipo.get(i).getNombre().equalsIgnoreCase(pEquipo)){
+				miEquipo = equipo.get(i);
+				find = true;
+			}
+			i++;
+		}
+		return miEquipo;
 	}
 
 }
