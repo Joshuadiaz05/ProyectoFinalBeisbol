@@ -11,6 +11,7 @@ public class Partido {
 	private String hora;
 	private int carrerasCasa;
 	private int carrerasVisita;
+	
 	public Partido(Date fecha, String equipoCasa, String equipoVisita, String estadio, String hora, int carrerasCasa,
 			int carrerasVisita) {
 		super();
@@ -22,6 +23,7 @@ public class Partido {
 		this.carrerasCasa = carrerasCasa;
 		this.carrerasVisita = carrerasVisita;
 	}
+	
 	public Date getFecha() {
 		return fecha;
 	}

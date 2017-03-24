@@ -14,12 +14,12 @@ public class Jugadores {
 	private Date fechanacimiento;
 	private String lugarciudadNacimiento;
 	private String lugarpaisNacimiento;
-	private double piesAltura;
-	private double piesAncho;
+	private String universidad;
+	private String equipo;
 
 	public Jugadores(int numero, String nombre, String apellido, double peso, String posicion, double altura,
 			boolean lesion, Date fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
-			double piesAltura, double piesAncho) {
+			String equipo) {
 		super();
 		this.numero = numero;
 		this.nombre = nombre;
@@ -31,8 +31,7 @@ public class Jugadores {
 		this.fechanacimiento = fechanacimiento;
 		this.lugarciudadNacimiento = lugarciudadNacimiento;
 		this.lugarpaisNacimiento = lugarpaisNacimiento;
-		this.piesAltura = piesAltura;
-		this.piesAncho = piesAncho;
+		this.equipo = equipo;
 	}
 
 	public int getNumero() {
@@ -115,19 +114,11 @@ public class Jugadores {
 		this.lugarpaisNacimiento = lugarpaisNacimiento;
 	}
 
-	public double getPiesAltura() {
-		return piesAltura;
+	public String getEquipo() {
+		return equipo;
 	}
 
-	public void setPiesAltura(double piesAltura) {
-		this.piesAltura = piesAltura;
-	}
-
-	public double getPiesAncho() {
-		return piesAncho;
-	}
-
-	public void setPiesAncho(double piesAncho) {
-		this.piesAncho = piesAncho;
+	public void setEquipo(String equipo) {
+		this.equipo = equipo;
 	}
 }
