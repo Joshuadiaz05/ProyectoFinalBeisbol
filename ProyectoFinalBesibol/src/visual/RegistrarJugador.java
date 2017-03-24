@@ -3,7 +3,10 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import com.toedter.calendar.JCalendar;
+
+import com.toedter.calendar.JDateChooser;
+
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -11,13 +14,21 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
+
+import logical.Equipos;
+import logical.Jugadores;
+import logical.LigaBeisbol;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import com.toedter.calendar.JDateChooser;
+//import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Label;
 import javax.swing.JSpinner;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RegistrarJugador extends JDialog {
 
@@ -25,11 +36,17 @@ public class RegistrarJugador extends JDialog {
 	private JTextField textnombre;
 	private JTextField textapellido;
 	private JTextField textlugarnacimiento;
-	private JTextField textField;
-
+	private JTextField textUniversidad;
+	private JSpinner spinneraltura;
+	private JSpinner spinnerpeso;
+	private JSpinner spinnernumero;
+	private JComboBox cBposicion;
+	private JComboBox cBpais;
+	private JComboBox cBEquipo;
+	
 	/**
 	 * Launch the application.
-	 */
+	 *
 	public static void main(String[] args) {
 		try {
 			RegistrarJugador dialog = new RegistrarJugador();
@@ -52,6 +69,11 @@ public class RegistrarJugador extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
+			ArrayList<String> equipos = new ArrayList<String>();
+			for (int i = 0; i < LigaBeisbol.getInstance().getEquipo().size(); i++) {
+				equipos.add(LigaBeisbol.getInstance().getEquipo().get(i).getNombre());
+			}
+			
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel.setBounds(10, 11, 689, 304);
@@ -59,7 +81,7 @@ public class RegistrarJugador extends JDialog {
 			panel.setLayout(null);
 
 			JLabel lblNombre = new JLabel("Nombres");
-			lblNombre.setFont(new Font("Times New Roman", Font.BOLD, 14));
+			lblNombre.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			lblNombre.setBounds(10, 11, 71, 18);
 			panel.add(lblNombre);
 
@@ -69,7 +91,7 @@ public class RegistrarJugador extends JDialog {
 			textnombre.setColumns(10);
 
 			JLabel lblApellidos = new JLabel("Apellidos");
-			lblApellidos.setFont(new Font("Times New Roman", Font.BOLD, 14));
+			lblApellidos.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			lblApellidos.setBounds(360, 11, 71, 18);
 			panel.add(lblApellidos);
 
@@ -79,8 +101,8 @@ public class RegistrarJugador extends JDialog {
 			panel.add(textapellido);
 
 			JLabel lblFechaDeNaciomiento = new JLabel("Fecha de Nacimiento");
-			lblFechaDeNaciomiento.setFont(new Font("Times New Roman", Font.BOLD, 14));
-			lblFechaDeNaciomiento.setBounds(10, 65, 147, 18);
+			lblFechaDeNaciomiento.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+			lblFechaDeNaciomiento.setBounds(10, 65, 166, 18);
 			panel.add(lblFechaDeNaciomiento);
 
 			JDateChooser dateChooser = new JDateChooser();
@@ -88,11 +110,11 @@ public class RegistrarJugador extends JDialog {
 			panel.add(dateChooser);
 
 			JLabel lblPas = new JLabel("Pa\u00EDs");
-			lblPas.setFont(new Font("Times New Roman", Font.BOLD, 14));
+			lblPas.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			lblPas.setBounds(360, 68, 71, 18);
 			panel.add(lblPas);
 
-			JComboBox cBpais = new JComboBox();
+			cBpais = new JComboBox();
 			cBpais.setModel(new DefaultComboBoxModel(new String[] { "<Seleccione>", "Afganist\u00E1n", "Albania",
 					"Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina",
 					"Armenia", "Australia", "Austria", "Azerbaiy\u00E1n", "Bahamas", "Banglad\u00E9s", "Barbados",
@@ -129,21 +151,21 @@ public class RegistrarJugador extends JDialog {
 			panel.add(cBpais);
 
 			JLabel lblCiudad = new JLabel("Lugar de Nacimiento");
-			lblCiudad.setFont(new Font("Times New Roman", Font.BOLD, 14));
-			lblCiudad.setBounds(10, 122, 147, 18);
+			lblCiudad.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+			lblCiudad.setBounds(10, 122, 166, 18);
 			panel.add(lblCiudad);
 
 			textlugarnacimiento = new JTextField();
-			textlugarnacimiento.setBounds(167, 122, 506, 20);
+			textlugarnacimiento.setBounds(177, 122, 496, 20);
 			panel.add(textlugarnacimiento);
 			textlugarnacimiento.setColumns(10);
 
 			JLabel lblPeso = new JLabel("Peso");
-			lblPeso.setFont(new Font("Times New Roman", Font.BOLD, 14));
+			lblPeso.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			lblPeso.setBounds(360, 188, 71, 18);
 			panel.add(lblPeso);
 
-			JSpinner spinnerpeso = new JSpinner();
+			spinnerpeso = new JSpinner();
 			spinnerpeso.setBounds(441, 188, 63, 20);
 			panel.add(spinnerpeso);
 
@@ -152,16 +174,16 @@ public class RegistrarJugador extends JDialog {
 			lblAltura.setBounds(548, 188, 63, 18);
 			panel.add(lblAltura);
 
-			JSpinner spinneraltura = new JSpinner();
+			spinneraltura = new JSpinner();
 			spinneraltura.setBounds(610, 188, 63, 20);
 			panel.add(spinneraltura);
 
 			JLabel lblPosicin = new JLabel("Posici\u00F3n");
-			lblPosicin.setFont(new Font("Times New Roman", Font.BOLD, 14));
+			lblPosicin.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			lblPosicin.setBounds(10, 191, 119, 18);
 			panel.add(lblPosicin);
 
-			JComboBox cBposicion = new JComboBox();
+			cBposicion = new JComboBox();
 			cBposicion.setModel(new DefaultComboBoxModel(
 					new String[] { "Pitcher", "Catcher", "Primera base", "Segunda base", "Tercera base", "Short stop",
 							"Left fielder", "Center fielder", "Right fielder", "Bateador designado" }));
@@ -170,23 +192,32 @@ public class RegistrarJugador extends JDialog {
 			panel.add(cBposicion);
 
 			JLabel lblUniversidad = new JLabel("Universidad");
-			lblUniversidad.setFont(new Font("Times New Roman", Font.BOLD, 14));
+			lblUniversidad.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			lblUniversidad.setBounds(10, 266, 84, 18);
 			panel.add(lblUniversidad);
 
-			textField = new JTextField();
-			textField.setColumns(10);
-			textField.setBounds(91, 265, 232, 20);
-			panel.add(textField);
+			textUniversidad = new JTextField();
+			textUniversidad.setColumns(10);
+			textUniversidad.setBounds(91, 265, 232, 20);
+			panel.add(textUniversidad);
 
 			JLabel lblEquipo = new JLabel("Equipo");
-			lblEquipo.setFont(new Font("Times New Roman", Font.BOLD, 14));
+			lblEquipo.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			lblEquipo.setBounds(360, 269, 63, 18);
 			panel.add(lblEquipo);
 
-			JComboBox comboBox = new JComboBox();
-			comboBox.setBounds(441, 268, 232, 20);
-			panel.add(comboBox);
+			cBEquipo = new JComboBox(equipos.toArray());
+			cBEquipo.setBounds(441, 268, 232, 20);
+			panel.add(cBEquipo);
+			
+			JLabel lblNumero = new JLabel("Numero");
+			lblNumero.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+			lblNumero.setBounds(360, 230, 71, 18);
+			panel.add(lblNumero);
+			
+			spinnernumero = new JSpinner();
+			spinnernumero.setBounds(441, 230, 63, 20);
+			panel.add(spinnernumero);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -194,6 +225,33 @@ public class RegistrarJugador extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Registrar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(textnombre.getText().equalsIgnoreCase("") || textapellido.getText().equalsIgnoreCase("") || textlugarnacimiento.getText().equalsIgnoreCase("") || textUniversidad.getText().equalsIgnoreCase("")){
+							JOptionPane.showMessageDialog(null, "Por favor! Complete todos los Campos", null,
+									JOptionPane.WARNING_MESSAGE, null);
+						}else{
+							String nom = textnombre.getText();
+							String apell = textapellido.getText();
+							String ciudad = textlugarnacimiento.getText();
+							String univ = textUniversidad.getText();
+							int numero = Integer.parseInt(spinnernumero.getValue().toString());
+							double peso = Integer.parseInt(spinnerpeso.getValue().toString());
+							double altura = Integer.parseInt(spinneraltura.getValue().toString());
+							String posicion = cBposicion.getSelectedItem().toString();
+							String pais = cBpais.getSelectedItem().toString();
+							String equipotext =  cBEquipo.getSelectedItem().toString();
+							Equipos equipo = LigaBeisbol.getInstance().BuscarPorNombre(equipotext);
+							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, ciudad, pais, equipotext);
+							equipo.agregarjugador(nuevojugador);
+							LigaBeisbol.getInstance().insertarJugador(nuevojugador);
+							JOptionPane.showMessageDialog(null, "El jugador "+nom+" se ha registrado sasctifactoriamente!", null,
+									JOptionPane.INFORMATION_MESSAGE, null);
+							clean();
+						}
+						
+					}
+				});
 				okButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
@@ -201,10 +259,28 @@ public class RegistrarJugador extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	
+	public void clean(){
+		textnombre.setText("");
+		textapellido.setText("");
+		textlugarnacimiento.setText("");
+		textUniversidad.setText("");
+		spinnernumero.setValue(1);
+		spinnerpeso.setValue(1);
+		spinneraltura.setValue(120);
+		cBposicion.setSelectedItem(0);
+		cBpais.setSelectedItem(0);
+		cBEquipo.setSelectedItem(0);
 	}
 }

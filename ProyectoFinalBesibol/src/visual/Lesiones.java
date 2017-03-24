@@ -16,6 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JEditorPane;
 import javax.swing.border.TitledBorder;
+import javax.swing.DefaultComboBoxModel;
 
 public class Lesiones extends JDialog {
 
@@ -90,6 +91,7 @@ public class Lesiones extends JDialog {
 			panel.add(lblTipo);
 
 			JComboBox cBtipo = new JComboBox();
+			cBtipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Esguinces o torceduras.", "Lesiones en la rodilla.", "Hinchaz\u00F3n muscular.", "Lesiones en el tend\u00F3n de Aquiles.", "Dolor a lo largo de la canilla.", "Fracturas.", "Dislocaciones."}));
 			cBtipo.setBounds(365, 74, 181, 20);
 			panel.add(cBtipo);
 

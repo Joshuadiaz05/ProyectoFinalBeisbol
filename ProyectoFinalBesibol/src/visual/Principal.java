@@ -77,9 +77,9 @@ public class Principal extends JFrame {
 
 		JMenuItem mntmVerListado = new JMenuItem("Ver Listado");
 		mntmVerListado.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ListadoEquipo ver = new ListadoEquipo();
-				ver.setVisible(true);
+			public void actionPerformed(ActionEvent e) {
+				ListadoEquipo listado = new ListadoEquipo();
+				listado.setVisible(true);
 			}
 		});
 		mnEquipos.add(mntmVerListado);
@@ -92,6 +92,12 @@ public class Principal extends JFrame {
 		menuBar.add(mnJugadores);
 
 		JMenuItem mntmRegistrarJugador = new JMenuItem("Registrar Jugador");
+		mntmRegistrarJugador.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarJugador regjug = new RegistrarJugador();
+				regjug.setVisible(true);
+			}
+		});
 		mnJugadores.add(mntmRegistrarJugador);
 
 		JMenu mnPartidos = new JMenu("Partidos");
@@ -99,6 +105,12 @@ public class Principal extends JFrame {
 		menuBar.add(mnPartidos);
 
 		JMenuItem mntmCrearEvento = new JMenuItem("Crear Evento");
+		mntmCrearEvento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarPartido regpar = new RegistrarPartido();
+				regpar.setVisible(true);
+			}
+		});
 		mnPartidos.add(mntmCrearEvento);
 
 		JMenuItem mntmVerAgenda = new JMenuItem("Ver Agenda");
@@ -109,6 +121,12 @@ public class Principal extends JFrame {
 		menuBar.add(mnLesiones);
 
 		JMenuItem mntmJugadorLesionado = new JMenuItem("Jugador Lesionado");
+		mntmJugadorLesionado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Lesiones lesion = new  Lesiones();
+						lesion.setVisible(true);
+			}
+		});
 		mnLesiones.add(mntmJugadorLesionado);
 
 		JMenuItem mntmSustituirJugadoresLesionados = new JMenuItem("Sustituir Jugadores Lesionados");

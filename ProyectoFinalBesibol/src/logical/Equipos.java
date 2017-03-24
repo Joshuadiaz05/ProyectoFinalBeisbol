@@ -72,4 +72,11 @@ public class Equipos {
 		this.estadio = estadio;
 	}
 	
+	public String toString(){
+		return nombre;
+	}
+	
+	public void agregarjugador(Jugadores nuevojugador){
+		jugador.add(nuevojugador);
+	}
 }

@@ -16,9 +16,9 @@ public class Jugadores {
 	private String lugarpaisNacimiento;
 	private String universidad;
 	private String equipo;
-
+	
 	public Jugadores(int numero, String nombre, String apellido, double peso, String posicion, double altura,
-			boolean lesion, Date fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
+			Date fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
 			String equipo) {
 		super();
 		this.numero = numero;
@@ -27,13 +27,27 @@ public class Jugadores {
 		this.peso = peso;
 		this.posicion = posicion;
 		this.altura = altura;
-		this.lesion = lesion;
 		this.fechanacimiento = fechanacimiento;
 		this.lugarciudadNacimiento = lugarciudadNacimiento;
 		this.lugarpaisNacimiento = lugarpaisNacimiento;
 		this.equipo = equipo;
 	}
 
+	public Jugadores(int numero, String nombre, String apellido, double peso, String posicion, double altura,
+		    String lugarciudadNacimiento, String lugarpaisNacimiento,
+			String equipo) {
+		super();
+		this.numero = numero;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.peso = peso;
+		this.posicion = posicion;
+		this.altura = altura;
+		this.lugarciudadNacimiento = lugarciudadNacimiento;
+		this.lugarpaisNacimiento = lugarpaisNacimiento;
+		this.equipo = equipo;
+	}
+	
 	public int getNumero() {
 		return numero;
 	}

@@ -46,6 +46,10 @@ public class LigaBeisbol {
 		equipo.add(_pEquipo);
 	}
 	
+	public void insertarJugador(Jugadores _pJugador){
+		jugador.add(_pJugador);
+	}
+	
 	public Equipos BuscarPorNombre(String pEquipo){
 		Equipos miEquipo = null;
 		boolean find = false;
@@ -59,5 +63,4 @@ public class LigaBeisbol {
 		}
 		return miEquipo;
 	}
-
 }
