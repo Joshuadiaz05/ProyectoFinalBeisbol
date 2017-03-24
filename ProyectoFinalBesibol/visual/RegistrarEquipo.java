@@ -1,4 +1,4 @@
-package Visual;
+package visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -38,12 +38,12 @@ public class RegistrarEquipo extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("Registrar Equipo");
 		lblNewLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
 		lblNewLabel.setBounds(10, 11, 207, 37);
 		contentPanel.add(lblNewLabel);
-		
+
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 59, 540, 2);
 		contentPanel.add(separator);

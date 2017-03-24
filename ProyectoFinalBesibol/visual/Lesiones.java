@@ -1,4 +1,4 @@
-package Visual;
+package visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -79,29 +79,29 @@ public class Lesiones extends JDialog {
 				lblFecha.setBounds(10, 75, 58, 17);
 				panel.add(lblFecha);
 			}
-			
+
 			JDateChooser dateChooser = new JDateChooser();
 			dateChooser.setBounds(78, 73, 181, 20);
 			panel.add(dateChooser);
-			
+
 			JLabel lblTipo = new JLabel("Tipo");
 			lblTipo.setFont(new Font("Times New Roman", Font.BOLD, 14));
 			lblTipo.setBounds(297, 75, 64, 17);
 			panel.add(lblTipo);
-			
+
 			JComboBox cBtipo = new JComboBox();
 			cBtipo.setBounds(365, 74, 181, 20);
 			panel.add(cBtipo);
-			
+
 			JLabel lblComentario = new JLabel("Observaci\u00F3n");
 			lblComentario.setFont(new Font("Times New Roman", Font.BOLD, 14));
 			lblComentario.setBounds(244, 122, 84, 17);
 			panel.add(lblComentario);
-			
+
 			JTextArea textArea = new JTextArea();
 			textArea.setBounds(10, 150, 536, 98);
 			panel.add(textArea);
-			
+
 			JEditorPane editorPane = new JEditorPane();
 			editorPane.setBounds(85, 150, 397, 98);
 			panel.add(editorPane);
