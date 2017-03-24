@@ -76,6 +76,12 @@ public class Principal extends JFrame {
 		mnEquipos.add(mntmCrearEquipo);
 
 		JMenuItem mntmVerListado = new JMenuItem("Ver Listado");
+		mntmVerListado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ListadoEquipo ver = new ListadoEquipo();
+				ver.setVisible(true);
+			}
+		});
 		mnEquipos.add(mntmVerListado);
 
 		JMenuItem mntmPosicionesEnEl = new JMenuItem("Posiciones en el Campo");
