@@ -46,7 +46,7 @@ public class ListadoEquipo extends JDialog {
 		contentPanel.add(separator);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setBorder(null);
 		panel.setBounds(20, 73, 641, 299);
 		contentPanel.add(panel);
 		panel.setLayout(null);

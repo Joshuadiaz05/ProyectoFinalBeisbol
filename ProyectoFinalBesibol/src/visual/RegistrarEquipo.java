@@ -33,6 +33,8 @@ public class RegistrarEquipo extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegistrarEquipo() {
+		setModal(true);
+		setResizable(false);
 		setBounds(100, 100, 588, 277);
 		getContentPane().setLayout(new BorderLayout());
 		setLocationRelativeTo(null);

@@ -57,6 +57,7 @@ public class Principal extends JFrame {
 	public Principal() {
 		setTitle("Liga de Beisbol");
 		getContentPane().setLayout(null);
+		setBounds(100, 100, 1366, 768);
 
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 1366, 21);
@@ -153,7 +154,7 @@ public class Principal extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel.setBounds(10, 32, 316, 218);
+		panel.setBounds(10, 32, 437, 316);
 		getContentPane().add(panel);
 
 	}
