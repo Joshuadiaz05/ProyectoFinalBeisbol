@@ -16,6 +16,7 @@ public class Jugadores {
 	private String lugarpaisNacimiento;
 	private String universidad;
 	private String equipo;
+	private Estadisticas estadistica;
 	
 	public Jugadores(int numero, String nombre, String apellido, double peso, String posicion, double altura,
 			Date fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
@@ -135,4 +136,5 @@ public class Jugadores {
 	public void setEquipo(String equipo) {
 		this.equipo = equipo;
 	}
+	
 }

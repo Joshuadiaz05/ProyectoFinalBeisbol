@@ -13,6 +13,9 @@ public class Equipos {
 	private int derrotas;
 	private String estadio;
 	private ArrayList<Jugadores> jugador;
+	private int jj;
+	private int jg;
+	private int jp;
 	
 	public Equipos(String nombre, String agnocreacion, String manager, String region, String estadio) {
 		super();
@@ -22,6 +25,9 @@ public class Equipos {
 		this.region = region;
 		this.estadio = estadio;
 		jugador = new ArrayList<>();
+		jj=0;
+		jg=0;
+		jp=0;
 	}
 
 	public String getNombre() {
@@ -78,5 +84,15 @@ public class Equipos {
 	
 	public void agregarjugador(Jugadores nuevojugador){
 		jugador.add(nuevojugador);
+	}
+	
+	public void JuegosGanados(){
+		jj++;
+		jg++;
+	}
+	
+	public void JuegosPerdidos(){
+		jj++;
+		jp++;
 	}
 }

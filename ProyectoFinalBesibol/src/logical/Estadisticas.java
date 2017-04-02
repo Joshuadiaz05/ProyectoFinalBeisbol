@@ -6,24 +6,27 @@ public class Estadisticas {
 	private int jg;
 	private int jp;
 	private int hits;
+	private int dobles;
+	private int triples;
 	private int homeruns;
 	private int basebola;
 	private int turnosjugados;
-	private float slg;
-	private float promediobateo;
+	private int deball;
+	private int errores;
+	private int carreraAnotadas;
 	
-	public Estadisticas(int jj, int jg, int jp, int hits, int homeruns, int basebola, int turnosjugados, float slg,
-			float promediobateo) {
+	public Estadisticas(int jj, int jg, int jp, int hits, int dobles, int triples, int homeruns, int basebola, int turnosjugados, int carreras) {
 		super();
 		this.jj = jj;
 		this.jg = jg;
 		this.jp = jp;
 		this.hits = hits;
+		this.dobles = dobles;
+		this.triples = triples;
 		this.homeruns = homeruns;
 		this.basebola = basebola;
 		this.turnosjugados = turnosjugados;
-		this.slg = slg;
-		this.promediobateo = promediobateo;
+		this.carreraAnotadas = carreras;
 	}
 
 	public int getJj() {
@@ -58,6 +61,30 @@ public class Estadisticas {
 		this.hits = hits;
 	}
 
+	public int getDobles() {
+		return dobles;
+	}
+
+	public void setDobles(int dobles) {
+		this.dobles = dobles;
+	}
+
+	public int getTripes() {
+		return triples;
+	}
+
+	public void setTriples(int triples) {
+		this.triples = triples;
+	}
+
+	public int getDeball() {
+		return deball;
+	}
+
+	public void setDeball(int deball) {
+		this.deball = deball;
+	}
+
 	public int getHomeruns() {
 		return homeruns;
 	}
@@ -82,22 +109,14 @@ public class Estadisticas {
 		this.turnosjugados = turnosjugados;
 	}
 
-	public float getSlg() {
+	public float obtenerPromedioBateo(){
+		float promediobateo=hits/turnosjugados;
+		return (float) promediobateo;
+	}
+	
+	public float obtenerSlugging(){
+		float slg = ((hits+dobles)+(2*triples)+(3*homeruns))/turnosjugados;
 		return slg;
 	}
-
-	public void setSlg(float slg) {
-		this.slg = slg;
-	}
-
-	public float getPromediobateo() {
-		return promediobateo;
-	}
-
-	public void setPromediobateo(float promediobateo) {
-		this.promediobateo = promediobateo;
-	}
-
-	
 	
 }
