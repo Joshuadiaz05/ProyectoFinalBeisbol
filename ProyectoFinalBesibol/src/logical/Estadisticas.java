@@ -1,6 +1,8 @@
 package logical;
 
-public class Estadisticas {
+import java.io.Serializable;
+
+public class Estadisticas implements Serializable{
 
 	private int jj;
 	private int jg;

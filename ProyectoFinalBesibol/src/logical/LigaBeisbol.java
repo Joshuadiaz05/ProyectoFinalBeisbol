@@ -1,13 +1,22 @@
 package logical;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class LigaBeisbol {
+public class LigaBeisbol implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Equipos> equipo;
 	private ArrayList<Jugadores> jugador;
 	private ArrayList<Partido> partido;
-	private static LigaBeisbol cadena = null;
+	private static LigaBeisbol liga = null;
 	
 	public LigaBeisbol() {
 		super();
@@ -17,10 +26,14 @@ public class LigaBeisbol {
 	}
 	
 	public static LigaBeisbol getInstance() {
-		if (cadena == null) {
-			cadena = new LigaBeisbol();
+		if (liga == null) {
+			liga = new LigaBeisbol();
 		}
-		return cadena;
+		return liga;
+	}
+	
+	public static void setLigaBeisbol(LigaBeisbol miBeisbol){
+		LigaBeisbol.liga = miBeisbol;
 	}
 	
 	public ArrayList<Equipos> getEquipo() {
@@ -63,4 +76,60 @@ public class LigaBeisbol {
 		}
 		return miEquipo;
 	}
+	
+	public Jugadores buscarjugador(String nombre){
+		Jugadores miJugador = null;
+		boolean find = false;
+		int i = 0;
+		while(i < jugador.size() && !find){
+			if(jugador.get(i).getNombre().equalsIgnoreCase(nombre)){
+				miJugador = jugador.get(i);
+				find = true;
+			}
+			i++;
+		}		
+		return miJugador;
+	}
+	
+	
+	public void eliminarEquipo(Equipos miEquipo) {
+		equipo.remove(miEquipo);
+	}
+
+	//ARCHIVOS
+	public void cargarArchivo(LigaBeisbol beisbol) {
+			 try {
+				    FileInputStream f = new FileInputStream("Archivo.dat");
+					ObjectInputStream ob = new ObjectInputStream(f);
+					LigaBeisbol beisb = (LigaBeisbol)ob.readObject();
+					LigaBeisbol.setLigaBeisbol(beisb);
+					ob.close();
+				 
+				} catch (Exception e) {	
+					e.printStackTrace();
+				}
+			
+		}
+		public void guardarArchivo(LigaBeisbol beisbol){
+		 	 File f = new File("Archivo.dat");
+			 FileOutputStream file = null;
+			 ObjectOutputStream ob = null;
+			try {
+				file = new FileOutputStream(f);
+				 ob = new  ObjectOutputStream (file);
+				 ob.writeObject(beisbol);
+				 
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally{
+				try{
+					if(ob!= null){
+						ob.close();
+					}
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+		}
 }

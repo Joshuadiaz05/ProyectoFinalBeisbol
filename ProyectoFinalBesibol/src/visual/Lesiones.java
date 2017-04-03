@@ -3,6 +3,7 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -12,36 +13,33 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import com.toedter.calendar.JDateChooser;
+
+
+import logical.Equipos;
+import logical.Jugadores;
+import logical.LigaBeisbol;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JEditorPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Lesiones extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private JComboBox cBjugador;
+	private JComboBox cBtipo;
+	private JComboBox cBequipo;
+	private JDateChooser dateChooser;
+	private JEditorPane editorPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			Lesiones dialog = new Lesiones();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
 	public Lesiones() {
 		setTitle("Lesiones");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imag/crutches-293962_960_720.png"));
-		setBounds(100, 100, 592, 355);
+		setBounds(100, 100, 412, 355);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -49,64 +47,138 @@ public class Lesiones extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel.setBounds(10, 11, 556, 263);
+			panel.setBounds(10, 11, 375, 263);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
 				JLabel lblEquipo = new JLabel("Equipo");
 				lblEquipo.setFont(new Font("Times New Roman", Font.BOLD, 14));
-				lblEquipo.setBounds(10, 22, 58, 17);
+				lblEquipo.setBounds(201, 18, 58, 17);
 				panel.add(lblEquipo);
 			}
 			{
-				JComboBox cBequipo = new JComboBox();
-				cBequipo.setBounds(78, 21, 181, 20);
+				cBequipo = new JComboBox();
+				cBequipo.setEnabled(false);
+				cBequipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione Equipo>"}));
+				for(Equipos aux : LigaBeisbol.getInstance().getEquipo())	{
+					cBequipo.addItem(aux.getNombre());
+				}
+				cBequipo.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						cBjugador.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione Jugador>"}));
+						for (Equipos aux : LigaBeisbol.getInstance().getEquipo()){
+							for (Jugadores aux2 : aux.getJugador()){
+								cBjugador.setEnabled(true);
+								if (cBequipo.getSelectedItem().toString().equalsIgnoreCase(aux.getNombre())){
+									cBjugador.addItem(aux2.getNombre()+" "+aux2.getApellido());
+									cBjugador.setEnabled(true);
+								}
+							}
+						}
+						if (cBequipo.getSelectedIndex()==0)
+							cBjugador.setEnabled(false);
+					}
+				});
+				cBequipo.setBounds(201, 39, 154, 20);
 				panel.add(cBequipo);
 			}
 			{
 				JLabel lblJugador = new JLabel("Jugador");
 				lblJugador.setFont(new Font("Times New Roman", Font.BOLD, 14));
-				lblJugador.setBounds(297, 23, 58, 17);
+				lblJugador.setBounds(10, 82, 58, 17);
 				panel.add(lblJugador);
 			}
 			{
-				JComboBox cBjugador = new JComboBox();
-				cBjugador.setBounds(365, 21, 181, 20);
+				cBjugador = new JComboBox();
+				cBjugador.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						if (cBjugador.getSelectedIndex()!=0){
+							dateChooser.setEnabled(true);
+							cBtipo.setEnabled(true);
+						}
+					}
+				});
+				cBjugador.setEnabled(false);
+				cBjugador.setBounds(10, 100, 154, 20);
 				panel.add(cBjugador);
 			}
 			{
 				JLabel lblFecha = new JLabel("Fecha");
 				lblFecha.setFont(new Font("Times New Roman", Font.BOLD, 14));
-				lblFecha.setBounds(10, 75, 58, 17);
+				lblFecha.setBounds(201, 82, 58, 17);
 				panel.add(lblFecha);
 			}
 
-			JDateChooser dateChooser = new JDateChooser();
-			dateChooser.setBounds(78, 73, 181, 20);
+			dateChooser = new JDateChooser();
+			dateChooser.setEnabled(false);
+			dateChooser.setBounds(201, 100, 154, 20);
 			panel.add(dateChooser);
 
 			JLabel lblTipo = new JLabel("Tipo");
 			lblTipo.setFont(new Font("Times New Roman", Font.BOLD, 14));
-			lblTipo.setBounds(297, 75, 64, 17);
+			lblTipo.setBounds(10, 142, 64, 17);
 			panel.add(lblTipo);
 
-			JComboBox cBtipo = new JComboBox();
-			cBtipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Esguinces o torceduras.", "Lesiones en la rodilla.", "Hinchaz\u00F3n muscular.", "Lesiones en el tend\u00F3n de Aquiles.", "Dolor a lo largo de la canilla.", "Fracturas.", "Dislocaciones."}));
-			cBtipo.setBounds(365, 74, 181, 20);
+			cBtipo = new JComboBox();
+			cBtipo.setEnabled(false);
+			cBtipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Esguinces o torceduras de ligamentos y tendones", "Lesiones en la rodilla", "Hinchaz\u00F3n muscular", "Lesiones en el tend\u00F3n de Aquiles", "Dolor a lo largo del hueso de la canilla", "Fracturas", "Dislocaciones"}));
+			cBtipo.setBounds(10, 162, 345, 20);
 			panel.add(cBtipo);
 
 			JLabel lblComentario = new JLabel("Observaci\u00F3n");
 			lblComentario.setFont(new Font("Times New Roman", Font.BOLD, 14));
-			lblComentario.setBounds(244, 122, 84, 17);
+			lblComentario.setBounds(10, 222, 84, 17);
 			panel.add(lblComentario);
 
-			JTextArea textArea = new JTextArea();
-			textArea.setBounds(10, 150, 536, 98);
-			panel.add(textArea);
-
-			JEditorPane editorPane = new JEditorPane();
-			editorPane.setBounds(85, 150, 397, 98);
+			editorPane = new JEditorPane();	
+			editorPane.setBounds(104, 208, 251, 44);
 			panel.add(editorPane);
+			{
+				JLabel lblRegion = new JLabel("Region");
+				lblRegion.setFont(new Font("Times New Roman", Font.BOLD, 14));
+				lblRegion.setBounds(10, 18, 58, 17);
+				panel.add(lblRegion);
+			}
+			
+			JComboBox cBregion = new JComboBox();
+			cBregion.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					if (cBregion.getSelectedItem().toString().equalsIgnoreCase("Norte")){
+						for(Equipos aux : LigaBeisbol.getInstance().getEquipo())	{
+								if(aux.getRegion().equalsIgnoreCase("Norte")){
+									cBequipo.addItem(aux.getNombre());
+								}
+							}
+					}else if (cBregion.getSelectedItem().toString().equalsIgnoreCase("Sur")){
+						for(Equipos aux : LigaBeisbol.getInstance().getEquipo())	{
+							if(aux.getRegion().equalsIgnoreCase("Sur")){
+								cBequipo.addItem(aux.getNombre());
+							}
+						}
+					}else if (cBregion.getSelectedItem().toString().equalsIgnoreCase("Este")){
+						for(Equipos aux : LigaBeisbol.getInstance().getEquipo())	{
+							if(aux.getRegion().equalsIgnoreCase("Este")){
+								cBequipo.addItem(aux.getNombre());
+							}
+						}
+					}else if (cBregion.getSelectedItem().toString().equalsIgnoreCase("Oeste")){
+						for(Equipos aux : LigaBeisbol.getInstance().getEquipo())	{
+							if(aux.getRegion().equalsIgnoreCase("Oeste")){
+								cBequipo.addItem(aux.getNombre());
+							}
+						}
+					}
+
+					if (cBregion.getSelectedIndex()==0){
+						cBequipo.setEnabled(false);
+					}else{
+						cBequipo.setEnabled(true);
+					}
+				}
+			});
+			cBregion.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione la Region>", "Norte", "Sur", "Este", "Oeste"}));
+			cBregion.setBounds(10, 39, 154, 20);
+			panel.add(cBregion);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -114,6 +186,16 @@ public class Lesiones extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Confirmar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String equipo = cBequipo.getSelectedItem().toString();
+						String tipoLesion = cBtipo.getSelectedItem().toString();
+						String nombrejugador = cBjugador.getSelectedItem().toString();
+						String fechalesion = dateChooser.getDateFormatString();
+						String comentario = editorPane.getText();
+						logical.Lesiones lesion = new logical.Lesiones(equipo, nombrejugador, fechalesion, tipoLesion, comentario);
+					}
+				});
 				okButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);

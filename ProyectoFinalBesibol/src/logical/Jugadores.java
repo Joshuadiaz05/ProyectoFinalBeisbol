@@ -1,9 +1,10 @@
 package logical;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Jugadores {
+public class Jugadores implements Serializable{
 	private int numero;
 	private String nombre;
 	private String apellido;

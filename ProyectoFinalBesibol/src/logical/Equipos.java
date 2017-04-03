@@ -1,9 +1,10 @@
 package logical;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Equipos {
+public class Equipos implements Serializable{
 
 	private String nombre;
 	private String agnocreacion;

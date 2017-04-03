@@ -29,6 +29,7 @@ import java.awt.Label;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SpinnerNumberModel;
 
 public class RegistrarJugador extends JDialog {
 
@@ -44,26 +45,10 @@ public class RegistrarJugador extends JDialog {
 	private JComboBox cBpais;
 	private JComboBox cBEquipo;
 	
-	/**
-	 * Launch the application.
-	 *
-	public static void main(String[] args) {
-		try {
-			RegistrarJugador dialog = new RegistrarJugador();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
 	public RegistrarJugador() {
 		setTitle("Registrar Jugador");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imag/baseball.png"));
-		setBounds(100, 100, 725, 394);
+		setBounds(100, 100, 540, 442);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -76,7 +61,7 @@ public class RegistrarJugador extends JDialog {
 			
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel.setBounds(10, 11, 689, 304);
+			panel.setBounds(10, 11, 504, 348);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 
@@ -86,32 +71,32 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblNombre);
 
 			textnombre = new JTextField();
-			textnombre.setBounds(91, 10, 232, 20);
+			textnombre.setBounds(10, 34, 225, 20);
 			panel.add(textnombre);
 			textnombre.setColumns(10);
 
 			JLabel lblApellidos = new JLabel("Apellidos");
 			lblApellidos.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblApellidos.setBounds(360, 11, 71, 18);
+			lblApellidos.setBounds(270, 11, 71, 18);
 			panel.add(lblApellidos);
 
 			textapellido = new JTextField();
 			textapellido.setColumns(10);
-			textapellido.setBounds(441, 10, 232, 20);
+			textapellido.setBounds(270, 34, 225, 20);
 			panel.add(textapellido);
 
 			JLabel lblFechaDeNaciomiento = new JLabel("Fecha de Nacimiento");
 			lblFechaDeNaciomiento.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblFechaDeNaciomiento.setBounds(10, 65, 166, 18);
+			lblFechaDeNaciomiento.setBounds(10, 69, 166, 18);
 			panel.add(lblFechaDeNaciomiento);
 
 			JDateChooser dateChooser = new JDateChooser();
-			dateChooser.setBounds(167, 64, 156, 20);
+			dateChooser.setBounds(10, 94, 225, 20);
 			panel.add(dateChooser);
 
 			JLabel lblPas = new JLabel("Pa\u00EDs");
 			lblPas.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblPas.setBounds(360, 68, 71, 18);
+			lblPas.setBounds(270, 69, 71, 18);
 			panel.add(lblPas);
 
 			cBpais = new JComboBox();
@@ -147,40 +132,42 @@ public class RegistrarJugador extends JDialog {
 					"Uganda", "Uruguay", "Uzbekist\u00E1n", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Yibuti",
 					"Zambia", "Zimbabue" }));
 			cBpais.setSelectedIndex(0);
-			cBpais.setBounds(441, 68, 232, 20);
+			cBpais.setBounds(270, 94, 225, 20);
 			panel.add(cBpais);
 
 			JLabel lblCiudad = new JLabel("Lugar de Nacimiento");
 			lblCiudad.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblCiudad.setBounds(10, 122, 166, 18);
+			lblCiudad.setBounds(10, 126, 166, 18);
 			panel.add(lblCiudad);
 
 			textlugarnacimiento = new JTextField();
-			textlugarnacimiento.setBounds(177, 122, 496, 20);
+			textlugarnacimiento.setBounds(10, 151, 485, 20);
 			panel.add(textlugarnacimiento);
 			textlugarnacimiento.setColumns(10);
 
 			JLabel lblPeso = new JLabel("Peso");
 			lblPeso.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblPeso.setBounds(360, 188, 71, 18);
+			lblPeso.setBounds(10, 246, 71, 18);
 			panel.add(lblPeso);
 
 			spinnerpeso = new JSpinner();
-			spinnerpeso.setBounds(441, 188, 63, 20);
+			spinnerpeso.setModel(new SpinnerNumberModel(new Integer(130), new Integer(1), null, new Integer(1)));
+			spinnerpeso.setBounds(66, 247, 71, 20);
 			panel.add(spinnerpeso);
 
 			JLabel lblAltura = new JLabel("Altura");
 			lblAltura.setFont(new Font("Times New Roman", Font.BOLD, 14));
-			lblAltura.setBounds(548, 188, 63, 18);
+			lblAltura.setBounds(180, 247, 63, 18);
 			panel.add(lblAltura);
 
 			spinneraltura = new JSpinner();
-			spinneraltura.setBounds(610, 188, 63, 20);
+			spinneraltura.setModel(new SpinnerNumberModel(new Integer(170), null, null, new Integer(1)));
+			spinneraltura.setBounds(244, 247, 71, 20);
 			panel.add(spinneraltura);
 
 			JLabel lblPosicin = new JLabel("Posici\u00F3n");
 			lblPosicin.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblPosicin.setBounds(10, 191, 119, 18);
+			lblPosicin.setBounds(10, 188, 119, 18);
 			panel.add(lblPosicin);
 
 			cBposicion = new JComboBox();
@@ -188,36 +175,44 @@ public class RegistrarJugador extends JDialog {
 					new String[] { "Pitcher", "Catcher", "Primera base", "Segunda base", "Tercera base", "Short stop",
 							"Left fielder", "Center fielder", "Right fielder", "Bateador designado" }));
 			cBposicion.setSelectedIndex(0);
-			cBposicion.setBounds(91, 191, 232, 20);
+			cBposicion.setBounds(10, 212, 232, 20);
 			panel.add(cBposicion);
 
 			JLabel lblUniversidad = new JLabel("Universidad");
 			lblUniversidad.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblUniversidad.setBounds(10, 266, 84, 18);
+			lblUniversidad.setBounds(270, 188, 144, 18);
 			panel.add(lblUniversidad);
 
 			textUniversidad = new JTextField();
 			textUniversidad.setColumns(10);
-			textUniversidad.setBounds(91, 265, 232, 20);
+			textUniversidad.setBounds(270, 212, 225, 20);
 			panel.add(textUniversidad);
 
 			JLabel lblEquipo = new JLabel("Equipo");
 			lblEquipo.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblEquipo.setBounds(360, 269, 63, 18);
+			lblEquipo.setBounds(10, 283, 63, 18);
 			panel.add(lblEquipo);
 
 			cBEquipo = new JComboBox(equipos.toArray());
-			cBEquipo.setBounds(441, 268, 232, 20);
+			cBEquipo.setBounds(10, 312, 485, 20);
 			panel.add(cBEquipo);
 			
 			JLabel lblNumero = new JLabel("Numero");
 			lblNumero.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblNumero.setBounds(360, 230, 71, 18);
+			lblNumero.setBounds(351, 246, 63, 18);
 			panel.add(lblNumero);
 			
 			spinnernumero = new JSpinner();
-			spinnernumero.setBounds(441, 230, 63, 20);
+			spinnernumero.setBounds(423, 247, 72, 20);
 			panel.add(spinnernumero);
+			
+			JLabel lblLb = new JLabel("Kg");
+			lblLb.setBounds(140, 250, 22, 14);
+			panel.add(lblLb);
+			
+			JLabel lblCm = new JLabel("Cm");
+			lblCm.setBounds(319, 250, 22, 14);
+			panel.add(lblCm);
 		}
 		{
 			JPanel buttonPane = new JPanel();

@@ -1,22 +1,23 @@
 package logical;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import sun.util.calendar.BaseCalendar.Date;
 
-public class Lesiones {
+public class Lesiones implements Serializable{
 
 	private String equipo;
 	private String nombrejugador;
-	private Date fechalesion;
+	private String fechalesion;
 	private String tipoLesion;
 	private String comentario;
 	
-	public Lesiones(String equipo, String nombrejugador, Date fechalesion, String tipoLesion, String comentario) {
+	public Lesiones(String equipo, String nombrejugador, String fechalesion2, String tipoLesion, String comentario) {
 		super();
 		this.equipo = equipo;
 		this.nombrejugador = nombrejugador;
-		this.fechalesion = fechalesion;
+		this.fechalesion = fechalesion2;
 		this.tipoLesion = tipoLesion;
 		this.comentario = comentario;
 	}
@@ -37,11 +38,11 @@ public class Lesiones {
 		this.nombrejugador = nombrejugador;
 	}
 
-	public Date getFechalesion() {
+	public String getFechalesion() {
 		return fechalesion;
 	}
 
-	public void setFechalesion(Date fechalesion) {
+	public void setFechalesion(String fechalesion) {
 		this.fechalesion = fechalesion;
 	}
 

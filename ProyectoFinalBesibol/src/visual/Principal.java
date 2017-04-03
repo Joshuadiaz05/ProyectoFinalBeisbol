@@ -11,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 
 import org.jvnet.substance.SubstanceLookAndFeel;
 
+import logical.LigaBeisbol;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -18,6 +20,8 @@ import javax.swing.JOptionPane;
 
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
@@ -31,6 +35,7 @@ import javax.swing.border.EtchedBorder;
 public class Principal extends JFrame {
 
 	private Dimension dim;
+	private static LigaBeisbol liga;
 
 	/**
 	 * Launch the application.
@@ -41,7 +46,7 @@ public class Principal extends JFrame {
 				try {
 					// BusinessBlackSteelSkin
 					SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.BusinessBlackSteelSkin");
-					Principal frame = new Principal();
+					Principal frame = new Principal(liga);
 					frame.pack();
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
@@ -54,11 +59,12 @@ public class Principal extends JFrame {
 		});
 	}
 
-	public Principal() {
+	public Principal(final LigaBeisbol liga) {
 		setTitle("Liga de Beisbol");
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 1366, 768);
 
+		LigaBeisbol.getInstance().cargarArchivo(liga);
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 1366, 21);
 		getContentPane().add(menuBar);
@@ -86,6 +92,12 @@ public class Principal extends JFrame {
 		mnEquipos.add(mntmVerListado);
 
 		JMenuItem mntmPosicionesEnEl = new JMenuItem("Posiciones en el Campo");
+		mntmPosicionesEnEl.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PosicionCampo posicion = new PosicionCampo();
+				posicion.setVisible(true);
+			}
+		});
 		mnEquipos.add(mntmPosicionesEnEl);
 
 		JMenu mnJugadores = new JMenu("Jugadores");
@@ -157,5 +169,13 @@ public class Principal extends JFrame {
 		panel.setBounds(10, 32, 437, 316);
 		getContentPane().add(panel);
 
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				LigaBeisbol.getInstance().guardarArchivo(LigaBeisbol.getInstance());
+				;
+				e.getWindow().dispose();
+			}
+		});
 	}
 }
