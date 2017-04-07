@@ -94,10 +94,18 @@ public class Principal extends JFrame {
 		JMenuItem mntmPosicionesEnEl = new JMenuItem("Posiciones en el Campo");
 		mntmPosicionesEnEl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PosicionCampo posicion = new PosicionCampo();
-				posicion.setVisible(true);
+				
 			}
 		});
+		
+		JMenuItem menuItem = new JMenuItem("Tabla de Posiciones");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TablaPosiciones tp = new TablaPosiciones();
+				tp.setVisible(true);
+			}
+		});
+		mnEquipos.add(menuItem);
 		mnEquipos.add(mntmPosicionesEnEl);
 
 		JMenu mnJugadores = new JMenu("Jugadores");
@@ -112,6 +120,9 @@ public class Principal extends JFrame {
 			}
 		});
 		mnJugadores.add(mntmRegistrarJugador);
+		
+		JMenuItem menuItem_1 = new JMenuItem("Ver Estadisticas");
+		mnJugadores.add(menuItem_1);
 
 		JMenu mnPartidos = new JMenu("Partidos");
 		mnPartidos.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -151,24 +162,6 @@ public class Principal extends JFrame {
 
 		JMenuItem mntmIniciarPartido = new JMenuItem("Iniciar Partido");
 		mnSimulacin.add(mntmIniciarPartido);
-
-		JMenu mnEstadisticas = new JMenu("Estadisticas");
-		menuBar.add(mnEstadisticas);
-
-		JMenuItem mntmVerEstadisticas = new JMenuItem("Ver Estadisticas");
-		mnEstadisticas.add(mntmVerEstadisticas);
-
-		JMenu mnPosiciones = new JMenu("Posiciones");
-		menuBar.add(mnPosiciones);
-
-		JMenuItem mntmTablaDePosiciones = new JMenuItem("Tabla de Posiciones");
-		mntmTablaDePosiciones.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				TablaPosiciones tablepos = new TablaPosiciones();
-				tablepos.setVisible(true);
-			}
-		});
-		mnPosiciones.add(mntmTablaDePosiciones);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));

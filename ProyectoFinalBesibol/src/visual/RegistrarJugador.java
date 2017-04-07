@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import com.toedter.calendar.JDateChooser;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -44,6 +45,7 @@ public class RegistrarJugador extends JDialog {
 	private JComboBox cBposicion;
 	private JComboBox cBpais;
 	private JComboBox cBEquipo;
+	private JDateChooser dateChooser;
 	
 	public RegistrarJugador() {
 		setTitle("Registrar Jugador");
@@ -90,7 +92,7 @@ public class RegistrarJugador extends JDialog {
 			lblFechaDeNaciomiento.setBounds(10, 69, 166, 18);
 			panel.add(lblFechaDeNaciomiento);
 
-			JDateChooser dateChooser = new JDateChooser();
+			dateChooser = new JDateChooser();
 			dateChooser.setBounds(10, 94, 225, 20);
 			panel.add(dateChooser);
 
@@ -237,10 +239,11 @@ public class RegistrarJugador extends JDialog {
 							String pais = cBpais.getSelectedItem().toString();
 							String equipotext =  cBEquipo.getSelectedItem().toString();
 							Equipos equipo = LigaBeisbol.getInstance().BuscarPorNombre(equipotext);
-							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, ciudad, pais, equipotext);
+							Date fechanacimiento = dateChooser.getDate();
+							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, fechanacimiento, ciudad, pais, univ, equipotext);
 							equipo.agregarjugador(nuevojugador);
 							LigaBeisbol.getInstance().insertarJugador(nuevojugador);
-							JOptionPane.showMessageDialog(null, "El jugador "+nom+" se ha registrado sasctifactoriamente!", null,
+							JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha registrado sasctifactoriamente!", null,
 									JOptionPane.INFORMATION_MESSAGE, null);
 							clean();
 						}

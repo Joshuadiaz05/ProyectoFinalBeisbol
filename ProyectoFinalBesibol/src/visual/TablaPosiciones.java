@@ -23,6 +23,8 @@ import javax.swing.SwingConstants;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TablaPosiciones extends JDialog {
 
@@ -39,6 +41,8 @@ public class TablaPosiciones extends JDialog {
 	private static DefaultTableModel tablemodel2;
 	private static DefaultTableModel tablemodel3;
 	private static DefaultTableModel tablemodel4;
+	public static Equipos inde;
+	public static String nombreEquipo = "";
 
 	/**
 	 * Create the dialog.
@@ -60,7 +64,7 @@ public class TablaPosiciones extends JDialog {
 		contentPanel.add(lblNewLabel);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 56, 746, 2);
+		separator.setBounds(10, 56, 716, 2);
 		contentPanel.add(separator);
 		
 		JPanel norte = new JPanel();
@@ -73,6 +77,17 @@ public class TablaPosiciones extends JDialog {
 		norte.add(scrollPane);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = table.getSelectedRow();
+				nombreEquipo = (String) table.getModel().getValueAt(index, 0);
+				inde = LigaBeisbol.getInstance().BuscarPorNombre(nombreEquipo);
+				EquipoCaracteristicas ve = new EquipoCaracteristicas();
+				ve.setVisible(true);
+			}
+		});
+
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 		String[] columnsheaders = {"Equipo", "V", "D", "Pct", "PD",	"Local", "Visitante"};
@@ -95,6 +110,16 @@ public class TablaPosiciones extends JDialog {
 		sur.add(scrollPane_1);
 		
 		table_1 = new JTable();
+		table_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = table_1.getSelectedRow();
+				nombreEquipo = (String) table_1.getModel().getValueAt(index, 0);
+				inde = LigaBeisbol.getInstance().BuscarPorNombre(nombreEquipo);
+				EquipoCaracteristicas ve = new EquipoCaracteristicas();
+				ve.setVisible(true);
+			}
+		});
 		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_1.setViewportView(table_1);
 		String[] columnsheaders2 = {"Equipo", "V", "D", "Pct", "PD", "Local", "Visitante"};
@@ -117,6 +142,16 @@ public class TablaPosiciones extends JDialog {
 		oeste.add(scrollPane_2);
 		
 		table_2 = new JTable();
+		table_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = table_2.getSelectedRow();
+				nombreEquipo = (String) table_2.getModel().getValueAt(index, 0);
+				inde = LigaBeisbol.getInstance().BuscarPorNombre(nombreEquipo);
+				EquipoCaracteristicas ve = new EquipoCaracteristicas();
+				ve.setVisible(true);
+			}
+		});
 		table_2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_2.setViewportView(table_2);
 		String[] columnsheaders3 = {"Equipo", "V", "D", "Pct", "PD", "Local", "Visitante"};
@@ -140,6 +175,16 @@ public class TablaPosiciones extends JDialog {
 		tablemodel4 = new DefaultTableModel();
 		tablemodel4.setColumnIdentifiers(columnsheaders4);
 		table_3.setModel(tablemodel4);
+		table_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = table_3.getSelectedRow();
+				nombreEquipo = (String) table_3.getModel().getValueAt(index, 0);
+				inde = LigaBeisbol.getInstance().BuscarPorNombre(nombreEquipo);
+				EquipoCaracteristicas ve = new EquipoCaracteristicas();
+				ve.setVisible(true);
+			}
+		});
 		
 		JLabel lblDivisinOeste = new JLabel("Divisi\u00F3n Oeste");
 		lblDivisinOeste.setFont(new Font("Trebuchet MS", Font.BOLD, 16));

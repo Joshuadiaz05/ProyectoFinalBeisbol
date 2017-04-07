@@ -91,7 +91,6 @@ public class LigaBeisbol implements Serializable{
 		return miJugador;
 	}
 	
-	
 	public void eliminarEquipo(Equipos miEquipo) {
 		equipo.remove(miEquipo);
 	}

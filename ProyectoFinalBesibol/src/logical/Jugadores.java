@@ -17,11 +17,12 @@ public class Jugadores implements Serializable{
 	private String lugarpaisNacimiento;
 	private String universidad;
 	private String equipo;
-	private Estadisticas estadistica;
+	private boolean titular;
+	private ArrayList<Estadisticas> estadistica;
 	
 	public Jugadores(int numero, String nombre, String apellido, double peso, String posicion, double altura,
 			Date fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
-			String equipo) {
+			String universidad, String equipo) {
 		super();
 		this.numero = numero;
 		this.nombre = nombre;
@@ -29,27 +30,16 @@ public class Jugadores implements Serializable{
 		this.peso = peso;
 		this.posicion = posicion;
 		this.altura = altura;
+		lesion = false;
+		titular = false;
 		this.fechanacimiento = fechanacimiento;
 		this.lugarciudadNacimiento = lugarciudadNacimiento;
 		this.lugarpaisNacimiento = lugarpaisNacimiento;
+		this.universidad = universidad;
 		this.equipo = equipo;
+		estadistica = new ArrayList<Estadisticas>();
 	}
 
-	public Jugadores(int numero, String nombre, String apellido, double peso, String posicion, double altura,
-		    String lugarciudadNacimiento, String lugarpaisNacimiento,
-			String equipo) {
-		super();
-		this.numero = numero;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.peso = peso;
-		this.posicion = posicion;
-		this.altura = altura;
-		this.lugarciudadNacimiento = lugarciudadNacimiento;
-		this.lugarpaisNacimiento = lugarpaisNacimiento;
-		this.equipo = equipo;
-	}
-	
 	public int getNumero() {
 		return numero;
 	}
@@ -136,6 +126,30 @@ public class Jugadores implements Serializable{
 
 	public void setEquipo(String equipo) {
 		this.equipo = equipo;
+	}
+
+	public String getUniversidad() {
+		return universidad;
+	}
+
+	public void setUniversidad(String universidad) {
+		this.universidad = universidad;
+	}
+
+	public ArrayList<Estadisticas> getEstadistica() {
+		return estadistica;
+	}
+
+	public void setEstadistica(ArrayList<Estadisticas> estadistica) {
+		this.estadistica = estadistica;
+	}
+
+	public boolean isTitular() {
+		return titular;
+	}
+
+	public void setTitular(boolean titular) {
+		this.titular = titular;
 	}
 	
 }
