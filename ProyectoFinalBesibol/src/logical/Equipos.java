@@ -79,6 +79,46 @@ public class Equipos implements Serializable{
 		this.estadio = estadio;
 	}
 	
+	public int getVictorias() {
+		return victorias;
+	}
+
+	public void setVictorias(int victorias) {
+		this.victorias = victorias;
+	}
+
+	public int getDerrotas() {
+		return derrotas;
+	}
+
+	public void setDerrotas(int derrotas) {
+		this.derrotas = derrotas;
+	}
+
+	public int getJj() {
+		return jj;
+	}
+
+	public void setJj(int jj) {
+		this.jj = jj;
+	}
+
+	public int getJg() {
+		return jg;
+	}
+
+	public void setJg(int jg) {
+		this.jg = jg;
+	}
+
+	public int getJp() {
+		return jp;
+	}
+
+	public void setJp(int jp) {
+		this.jp = jp;
+	}
+
 	public String toString(){
 		return nombre;
 	}

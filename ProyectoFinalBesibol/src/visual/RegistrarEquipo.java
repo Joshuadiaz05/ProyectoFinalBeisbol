@@ -19,6 +19,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 
@@ -77,8 +79,13 @@ public class RegistrarEquipo extends JDialog {
 		contentPanel.add(tdfNombre);
 		tdfNombre.setColumns(10);
 		
-		JComboBox cbxAgno = new JComboBox();
-		cbxAgno.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "1990", "1991"}));
+		
+		ArrayList<String> years_tmp = new ArrayList<String>();
+		years_tmp.add("<Seleccione>");
+        for(int years = 1900 ; years<=Calendar.getInstance().get(Calendar.YEAR);years++){
+        	years_tmp.add(years+"");
+       }
+		JComboBox cbxAgno = new JComboBox(years_tmp.toArray());
 		cbxAgno.setSelectedIndex(0);
 		cbxAgno.setFont(new Font("Tw Cen MT", Font.BOLD, 16));
 		cbxAgno.setBounds(431, 67, 131, 32);

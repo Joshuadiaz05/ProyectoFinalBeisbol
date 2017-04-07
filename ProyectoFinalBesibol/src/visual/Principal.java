@@ -162,6 +162,12 @@ public class Principal extends JFrame {
 		menuBar.add(mnPosiciones);
 
 		JMenuItem mntmTablaDePosiciones = new JMenuItem("Tabla de Posiciones");
+		mntmTablaDePosiciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TablaPosiciones tablepos = new TablaPosiciones();
+				tablepos.setVisible(true);
+			}
+		});
 		mnPosiciones.add(mntmTablaDePosiciones);
 
 		JPanel panel = new JPanel();
