@@ -62,11 +62,11 @@ public class Principal extends JFrame {
 	public Principal(final LigaBeisbol liga) {
 		setTitle("Liga de Beisbol");
 		getContentPane().setLayout(null);
-		setBounds(100, 100, 1366, 768);
+		setBounds(100, 100, 1920, 1080);
 
 		LigaBeisbol.getInstance().cargarArchivo(liga);
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 1366, 21);
+		menuBar.setBounds(0, 0, 1920, 21);
 		getContentPane().add(menuBar);
 
 		JMenu mnEquipos = new JMenu("Equipos");
