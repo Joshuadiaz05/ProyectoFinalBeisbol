@@ -70,7 +70,7 @@ public class Lesiones extends JDialog {
 							for (Jugadores aux2 : aux.getJugador()){
 								cBjugador.setEnabled(true);
 								if (cBequipo.getSelectedItem().toString().equalsIgnoreCase(aux.getNombre())){
-									cBjugador.addItem(aux2.getNombre()+" "+aux2.getApellido());
+									cBjugador.addItem(aux2.getNombre());
 									cBjugador.setEnabled(true);
 								}
 							}
@@ -194,6 +194,8 @@ public class Lesiones extends JDialog {
 						String fechalesion = dateChooser.getDateFormatString();
 						String comentario = editorPane.getText();
 						logical.Lesiones lesion = new logical.Lesiones(equipo, nombrejugador, fechalesion, tipoLesion, comentario);
+						LigaBeisbol.getInstance().buscarjugador(nombrejugador).setLesion(true);
+						LigaBeisbol.getInstance().buscarjugador(nombrejugador).setTitular(false);
 					}
 				});
 				okButton.setFont(new Font("Times New Roman", Font.BOLD, 12));

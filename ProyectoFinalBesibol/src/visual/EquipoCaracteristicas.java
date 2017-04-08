@@ -157,6 +157,7 @@ public class EquipoCaracteristicas extends JDialog {
 			}
 		}
 		cargarJugadoresPorEquipo();
+		cargarJugadoresLesionadoPorEquipo();
 	}
 	public static void cargarJugadoresPorEquipo(){
 		tablemodel.setRowCount(0);
@@ -165,22 +166,23 @@ public class EquipoCaracteristicas extends JDialog {
 		table.getColumnModel().getColumn(0).setCellRenderer(tcr);
 		fila = new Object[tablemodel.getColumnCount()];
 		for (Jugadores e : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
-			fila[0] = e.getNombre();
-			tablemodel.addRow(fila);
+			if(!e.isLesion()){
+				fila[0] = e.getNombre();
+				tablemodel.addRow(fila);
+			}
 		}
 	}
 	public static void cargarJugadoresLesionadoPorEquipo(){
-		tablemodel.setRowCount(0);
+		tablemodel2.setRowCount(0);
 		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 		tcr.setHorizontalAlignment(SwingConstants.CENTER);
-		table.getColumnModel().getColumn(0).setCellRenderer(tcr);
-		fila = new Object[tablemodel.getColumnCount()];
+		table_1.getColumnModel().getColumn(0).setCellRenderer(tcr);
+		fila2 = new Object[tablemodel2.getColumnCount()];
 		for (Jugadores e : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
-			//if(){
-				
-			//}
-			fila[0] = e.getNombre();
-			tablemodel.addRow(fila);
+			if(e.isLesion()==true){
+				fila2[0] = e.getNombre();
+				tablemodel2.addRow(fila2);
+			}
 		}
 	}
 }

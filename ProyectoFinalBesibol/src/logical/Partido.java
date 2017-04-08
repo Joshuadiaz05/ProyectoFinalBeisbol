@@ -12,16 +12,13 @@ public class Partido {
 	private int carrerasCasa;
 	private int carrerasVisita;
 	
-	public Partido(Date fecha, String equipoCasa, String equipoVisita, String estadio, String hora, int carrerasCasa,
-			int carrerasVisita) {
+	public Partido(Date fecha, String equipoCasa, String equipoVisita, String estadio, String hora) {
 		super();
 		this.fecha = fecha;
 		this.equipoCasa = equipoCasa;
 		this.equipoVisita = equipoVisita;
 		Estadio = estadio;
 		this.hora = hora;
-		this.carrerasCasa = carrerasCasa;
-		this.carrerasVisita = carrerasVisita;
 	}
 	
 	public Date getFecha() {

@@ -77,6 +77,10 @@ public class LigaBeisbol implements Serializable{
 		return miEquipo;
 	}
 	
+	public void insertarPartido(Partido nuevoPartido){
+		partido.add(nuevoPartido);
+	}
+	
 	public Jugadores buscarjugador(String nombre){
 		Jugadores miJugador = null;
 		boolean find = false;

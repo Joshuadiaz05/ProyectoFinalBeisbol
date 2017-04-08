@@ -51,6 +51,9 @@ public class RegistrarJugador extends JDialog {
 		setTitle("Registrar Jugador");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imag/baseball.png"));
 		setBounds(100, 100, 540, 442);
+		setLocationRelativeTo(null);
+		setModal(true);
+		setResizable(false);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
