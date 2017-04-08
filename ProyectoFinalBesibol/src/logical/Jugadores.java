@@ -18,7 +18,7 @@ public class Jugadores implements Serializable{
 	private String universidad;
 	private String equipo;
 	private boolean titular;
-	private ArrayList<Estadisticas> estadistica;
+	private Estadisticas estadistica;
 	
 	public Jugadores(int numero, String nombre, String apellido, double peso, String posicion, double altura,
 			Date fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
@@ -37,7 +37,6 @@ public class Jugadores implements Serializable{
 		this.lugarpaisNacimiento = lugarpaisNacimiento;
 		this.universidad = universidad;
 		this.equipo = equipo;
-		estadistica = new ArrayList<Estadisticas>();
 	}
 
 	public int getNumero() {
@@ -136,11 +135,11 @@ public class Jugadores implements Serializable{
 		this.universidad = universidad;
 	}
 
-	public ArrayList<Estadisticas> getEstadistica() {
+	public Estadisticas getEstadistica() {
 		return estadistica;
 	}
 
-	public void setEstadistica(ArrayList<Estadisticas> estadistica) {
+	public void setEstadistica(Estadisticas estadistica) {
 		this.estadistica = estadistica;
 	}
 
