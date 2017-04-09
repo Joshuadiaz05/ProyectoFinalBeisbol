@@ -11,6 +11,7 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Font;
@@ -25,10 +26,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 //import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 import java.awt.Label;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 
@@ -39,6 +46,7 @@ public class RegistrarJugador extends JDialog {
 	private JTextField textapellido;
 	private JTextField textlugarnacimiento;
 	private JTextField textUniversidad;
+	private JLabel lbFoto;
 	private JSpinner spinneraltura;
 	private JSpinner spinnerpeso;
 	private JSpinner spinnernumero;
@@ -50,7 +58,7 @@ public class RegistrarJugador extends JDialog {
 	public RegistrarJugador() {
 		setTitle("Registrar Jugador");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imag/baseball.png"));
-		setBounds(100, 100, 540, 442);
+		setBounds(100, 100, 689, 442);
 		setLocationRelativeTo(null);
 		setModal(true);
 		setResizable(false);
@@ -66,7 +74,7 @@ public class RegistrarJugador extends JDialog {
 			
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel.setBounds(10, 11, 504, 348);
+			panel.setBounds(10, 11, 663, 348);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 
@@ -218,6 +226,33 @@ public class RegistrarJugador extends JDialog {
 			JLabel lblCm = new JLabel("Cm");
 			lblCm.setBounds(319, 250, 22, 14);
 			panel.add(lblCm);
+			
+			JButton btnSubirFoto = new JButton("Subir Foto");
+			btnSubirFoto.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BufferedImage image;
+					JFileChooser chooser = new JFileChooser();
+					chooser.showOpenDialog(null);
+					File f = chooser.getSelectedFile();
+		            try {
+						image = ImageIO.read(f);
+						String route = "jugadores/" + textnombre .getText() +".png";
+						ImageIO.write(image, "png",new File(route));
+						ImageIcon imagee = new ImageIcon(route);
+						lbFoto.setIcon(imagee);
+						
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+			btnSubirFoto.setBounds(564, 150, 89, 23);
+			panel.add(btnSubirFoto);
+			
+			lbFoto = new JLabel("");
+			lbFoto.setBounds(513, 23, 140, 114);
+			panel.add(lbFoto);
 		}
 		{
 			JPanel buttonPane = new JPanel();
