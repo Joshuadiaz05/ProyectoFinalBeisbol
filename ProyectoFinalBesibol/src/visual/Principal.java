@@ -115,7 +115,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmRegistrarJugador = new JMenuItem("Registrar Jugador");
 		mntmRegistrarJugador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarJugador regjug = new RegistrarJugador();
+				RegistrarJugador regjug = new RegistrarJugador(null);
 				regjug.setVisible(true);
 			}
 		});
@@ -147,8 +147,8 @@ public class Principal extends JFrame {
 		JMenuItem mntmJugadorLesionado = new JMenuItem("Jugador Lesionado");
 		mntmJugadorLesionado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Lesiones lesion = new  Lesiones();
-						lesion.setVisible(true);
+				Lesiones lesion = new  Lesiones(null);
+				lesion.setVisible(true);
 			}
 		});
 		mnLesiones.add(mntmJugadorLesionado);

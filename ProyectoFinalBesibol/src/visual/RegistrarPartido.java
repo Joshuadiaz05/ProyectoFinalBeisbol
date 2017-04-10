@@ -34,6 +34,8 @@ public class RegistrarPartido extends JDialog {
 	private JTextField textField;
 	private JDateChooser dateChooser;
 	private JSpinner Hora;
+	private String nomlocal;
+	private String nomvisita;
 	
 	public RegistrarPartido() {
 		setResizable(false);
@@ -52,7 +54,7 @@ public class RegistrarPartido extends JDialog {
 		panel.setLayout(null);
 		
 		Hora = new JSpinner();
-		Hora.setModel(new SpinnerListModel(new String[] {"                      8:00 Am", "                      9:00 Am", "10:00 Am", "11:00 Am", "12:00 Pm", "1:00 Pm", "2:00 Pm", "3:00 Pm", "4:00 Pm", "5:00 Pm", "6:00 Pm", "7:00 Pm", "8:00 Pm", "9:00 Pm", "10:00 Pm"}));
+		Hora.setModel(new SpinnerListModel(new String[] {"8:00 Am", "9:00 Am", "10:00 Am", "11:00 Am", "12:00 Pm", "1:00 Pm", "2:00 Pm", "3:00 Pm", "4:00 Pm", "5:00 Pm", "6:00 Pm", "7:00 Pm", "8:00 Pm", "9:00 Pm", "10:00 Pm"}));
 		Hora.setBounds(270, 54, 231, 32);
 		panel.add(Hora);
 		
@@ -60,27 +62,42 @@ public class RegistrarPartido extends JDialog {
 		dateChooser.setBounds(10, 54, 231, 32);
 		panel.add(dateChooser);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(10, 135, 231, 32);
-		panel.add(comboBox);
+		JComboBox cBlocal = new JComboBox();
+		cBlocal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nomlocal = cBlocal.getSelectedItem().toString();
+			}
+		});
+		cBlocal.setBounds(10, 135, 231, 32);
+		panel.add(cBlocal);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(270, 135, 231, 32);
-		panel.add(comboBox_1);
+		for (int index = 0; index < LigaBeisbol.getInstance().getEquipo().size(); index++) {
+			cBlocal.insertItemAt((String) ("" + LigaBeisbol.getInstance().getEquipo().get(index).getNombre()), index);
+		}
+		
+		JComboBox cBvisita = new JComboBox();
+		cBvisita.setBounds(270, 135, 231, 32);
+		panel.add(cBvisita);
+		
+		for (int index = 0; index < LigaBeisbol.getInstance().getEquipo().size(); index++) {
+			if(!LigaBeisbol.getInstance().getEquipo().get(index).getNombre().equalsIgnoreCase(nomlocal)){
+			cBvisita.insertItemAt((String) ("" + LigaBeisbol.getInstance().getEquipo().get(index).getNombre()), index);
+			}
+		}
 		
 		JLabel lblEquipoLocal = new JLabel("Equipo Local");
 		lblEquipoLocal.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		lblEquipoLocal.setBounds(77, 110, 97, 25);
 		panel.add(lblEquipoLocal);
 		
-		JLabel label = new JLabel("Equipo Local");
-		label.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		label.setBounds(334, 110, 103, 25);
-		panel.add(label);
+		JLabel lblEquipoVisita = new JLabel("Equipo Visita");
+		lblEquipoVisita.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lblEquipoVisita.setBounds(334, 110, 103, 25);
+		panel.add(lblEquipoVisita);
 		
 		JLabel lblEstadio = new JLabel("Estadio");
 		lblEstadio.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblEstadio.setBounds(225, 193, 60, 25);
+		lblEstadio.setBounds(225, 198, 60, 25);
 		panel.add(lblEstadio);
 		
 		textField = new JTextField();
@@ -109,8 +126,8 @@ public class RegistrarPartido extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						Date fecha = dateChooser.getDate();
 						String horario = Hora.getName();
-						String local = comboBox.getSelectedItem().toString();
-						String visita = comboBox_1.getSelectedItem().toString();
+						String local = cBlocal.getSelectedItem().toString();
+						String visita = cBvisita.getSelectedItem().toString();
 						String estadio = textField.getText();
 						Partido partido = new Partido(fecha, local, visita, estadio, horario);
 						LigaBeisbol.getInstance().insertarPartido(partido);

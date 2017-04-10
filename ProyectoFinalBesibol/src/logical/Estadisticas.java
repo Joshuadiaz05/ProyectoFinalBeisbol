@@ -16,6 +16,7 @@ public class Estadisticas implements Serializable{
 	private int deball;
 	private int errores;
 	private int carreraAnotadas;
+	private int RBI;
 	
 	public Estadisticas(int jj, int jg, int jp, int hits, int dobles, int triples, int homeruns, int basebola, int turnosjugados, int carreras) {
 		super();
@@ -29,6 +30,21 @@ public class Estadisticas implements Serializable{
 		this.basebola = basebola;
 		this.turnosjugados = turnosjugados;
 		this.carreraAnotadas = carreras;
+	}
+	
+	public Estadisticas(int jj, int hits, int dobles, int triples, int homeruns, int basebola, int turnosjugados, int carreras, int rbi) {
+		super();
+		this.jj = jj;
+		this.jg = jg;
+		this.jp = jp;
+		this.hits = hits;
+		this.dobles = dobles;
+		this.triples = triples;
+		this.homeruns = homeruns;
+		this.basebola = basebola;
+		this.turnosjugados = turnosjugados;
+		this.carreraAnotadas = carreras;
+		this.RBI = rbi;
 	}
 
 	public int getJj() {

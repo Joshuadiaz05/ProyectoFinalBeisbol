@@ -140,6 +140,28 @@ public class EquipoCaracteristicas extends JDialog {
 		btnFormarEquipo.setBounds(652, 26, 167, 32);
 		contentPanel.add(btnFormarEquipo);
 		
+		JButton btnAgregarJugador = new JButton("Agregar Jugador");
+		btnAgregarJugador.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RegistrarJugador regjug = new RegistrarJugador(aux);
+				regjug.setVisible(true);
+			}
+		});
+		btnAgregarJugador.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		btnAgregarJugador.setBounds(475, 26, 167, 32);
+		contentPanel.add(btnAgregarJugador);
+		
+		JButton btnJugadorLesionado = new JButton("Jugador Lesionado");
+		btnJugadorLesionado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Lesiones lesion = new Lesiones(aux);
+				lesion.setVisible(true);
+			}
+		});
+		btnJugadorLesionado.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		btnJugadorLesionado.setBounds(282, 26, 190, 32);
+		contentPanel.add(btnJugadorLesionado);
+		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
