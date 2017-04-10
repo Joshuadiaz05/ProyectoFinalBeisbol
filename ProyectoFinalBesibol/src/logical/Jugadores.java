@@ -12,7 +12,7 @@ public class Jugadores implements Serializable{
 	private String posicion;
 	private double altura;
 	private boolean lesion;
-	private Date fechanacimiento;
+	private String fechanacimiento;
 	private String lugarciudadNacimiento;
 	private String lugarpaisNacimiento;
 	private String universidad;
@@ -21,8 +21,8 @@ public class Jugadores implements Serializable{
 	private Estadisticas estadistica;
 	
 	public Jugadores(int numero, String nombre, String apellido, double peso, String posicion, double altura,
-			Date fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
-			String universidad, String equipo) {
+			String fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
+			String universidad, String equipo, boolean titular) {
 		super();
 		this.numero = numero;
 		this.nombre = nombre;
@@ -31,7 +31,7 @@ public class Jugadores implements Serializable{
 		this.posicion = posicion;
 		this.altura = altura;
 		lesion = false;
-		titular = false;
+		this.titular = titular;
 		this.fechanacimiento = fechanacimiento;
 		this.lugarciudadNacimiento = lugarciudadNacimiento;
 		this.lugarpaisNacimiento = lugarpaisNacimiento;
@@ -95,11 +95,11 @@ public class Jugadores implements Serializable{
 		this.lesion = lesion;
 	}
 
-	public Date getFechanacimiento() {
+	public String getFechanacimiento() {
 		return fechanacimiento;
 	}
 
-	public void setFechanacimiento(Date fechanacimiento) {
+	public void setFechanacimiento(String fechanacimiento) {
 		this.fechanacimiento = fechanacimiento;
 	}
 

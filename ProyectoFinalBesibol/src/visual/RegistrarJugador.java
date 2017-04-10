@@ -38,6 +38,9 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.JSeparator;
+import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
 
 public class RegistrarJugador extends JDialog {
 
@@ -53,12 +56,17 @@ public class RegistrarJugador extends JDialog {
 	private JComboBox cBposicion;
 	private JComboBox cBpais;
 	private JComboBox cBEquipo;
-	private JDateChooser dateChooser;
+	private JComboBox cBagno;
+	private JComboBox cBmes;
+	private JComboBox cBdia;
+	private JCheckBox chckbxNewCheckBox;
+	private JRadioButton rdbtnNewRadioButton;
 	
 	public RegistrarJugador() {
 		setTitle("Registrar Jugador");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imag/baseball.png"));
-		setBounds(100, 100, 689, 442);
+		setBounds(100, 100, 761, 568);
+		//setBounds(100, 100, 761, 453);
 		setLocationRelativeTo(null);
 		setModal(true);
 		setResizable(false);
@@ -74,42 +82,38 @@ public class RegistrarJugador extends JDialog {
 			
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel.setBounds(10, 11, 663, 348);
+			panel.setBounds(10, 11, 736, 369);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 
 			JLabel lblNombre = new JLabel("Nombres");
 			lblNombre.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblNombre.setBounds(10, 11, 71, 18);
+			lblNombre.setBounds(10, 59, 71, 18);
 			panel.add(lblNombre);
 
 			textnombre = new JTextField();
-			textnombre.setBounds(10, 34, 225, 20);
+			textnombre.setBounds(10, 78, 245, 32);
 			panel.add(textnombre);
 			textnombre.setColumns(10);
 
 			JLabel lblApellidos = new JLabel("Apellidos");
 			lblApellidos.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblApellidos.setBounds(270, 11, 71, 18);
+			lblApellidos.setBounds(265, 59, 71, 18);
 			panel.add(lblApellidos);
 
 			textapellido = new JTextField();
 			textapellido.setColumns(10);
-			textapellido.setBounds(270, 34, 225, 20);
+			textapellido.setBounds(265, 78, 245, 32);
 			panel.add(textapellido);
 
 			JLabel lblFechaDeNaciomiento = new JLabel("Fecha de Nacimiento");
 			lblFechaDeNaciomiento.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblFechaDeNaciomiento.setBounds(10, 69, 166, 18);
+			lblFechaDeNaciomiento.setBounds(10, 124, 166, 18);
 			panel.add(lblFechaDeNaciomiento);
-
-			dateChooser = new JDateChooser();
-			dateChooser.setBounds(10, 94, 225, 20);
-			panel.add(dateChooser);
 
 			JLabel lblPas = new JLabel("Pa\u00EDs");
 			lblPas.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblPas.setBounds(270, 69, 71, 18);
+			lblPas.setBounds(265, 124, 71, 18);
 			panel.add(lblPas);
 
 			cBpais = new JComboBox();
@@ -145,42 +149,42 @@ public class RegistrarJugador extends JDialog {
 					"Uganda", "Uruguay", "Uzbekist\u00E1n", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Yibuti",
 					"Zambia", "Zimbabue" }));
 			cBpais.setSelectedIndex(0);
-			cBpais.setBounds(270, 94, 225, 20);
+			cBpais.setBounds(265, 146, 245, 32);
 			panel.add(cBpais);
 
 			JLabel lblCiudad = new JLabel("Lugar de Nacimiento");
 			lblCiudad.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblCiudad.setBounds(10, 126, 166, 18);
+			lblCiudad.setBounds(10, 197, 166, 18);
 			panel.add(lblCiudad);
 
 			textlugarnacimiento = new JTextField();
-			textlugarnacimiento.setBounds(10, 151, 485, 20);
+			textlugarnacimiento.setBounds(10, 216, 500, 32);
 			panel.add(textlugarnacimiento);
 			textlugarnacimiento.setColumns(10);
 
 			JLabel lblPeso = new JLabel("Peso");
 			lblPeso.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblPeso.setBounds(10, 246, 71, 18);
+			lblPeso.setBounds(10, 326, 49, 32);
 			panel.add(lblPeso);
 
 			spinnerpeso = new JSpinner();
-			spinnerpeso.setModel(new SpinnerNumberModel(new Integer(130), new Integer(1), null, new Integer(1)));
-			spinnerpeso.setBounds(66, 247, 71, 20);
+			spinnerpeso.setModel(new SpinnerNumberModel(new Integer(80), new Integer(1), null, new Integer(1)));
+			spinnerpeso.setBounds(52, 326, 71, 32);
 			panel.add(spinnerpeso);
 
 			JLabel lblAltura = new JLabel("Altura");
-			lblAltura.setFont(new Font("Times New Roman", Font.BOLD, 14));
-			lblAltura.setBounds(180, 247, 63, 18);
+			lblAltura.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+			lblAltura.setBounds(180, 326, 63, 32);
 			panel.add(lblAltura);
 
 			spinneraltura = new JSpinner();
 			spinneraltura.setModel(new SpinnerNumberModel(new Integer(170), null, null, new Integer(1)));
-			spinneraltura.setBounds(244, 247, 71, 20);
+			spinneraltura.setBounds(232, 326, 71, 32);
 			panel.add(spinneraltura);
 
 			JLabel lblPosicin = new JLabel("Posici\u00F3n");
 			lblPosicin.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblPosicin.setBounds(10, 188, 119, 18);
+			lblPosicin.setBounds(10, 259, 119, 18);
 			panel.add(lblPosicin);
 
 			cBposicion = new JComboBox();
@@ -188,46 +192,49 @@ public class RegistrarJugador extends JDialog {
 					new String[] { "Pitcher", "Catcher", "Primera base", "Segunda base", "Tercera base", "Short stop",
 							"Left fielder", "Center fielder", "Right fielder", "Bateador designado" }));
 			cBposicion.setSelectedIndex(0);
-			cBposicion.setBounds(10, 212, 232, 20);
+			cBposicion.setBounds(10, 278, 245, 32);
 			panel.add(cBposicion);
 
 			JLabel lblUniversidad = new JLabel("Universidad");
 			lblUniversidad.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblUniversidad.setBounds(270, 188, 144, 18);
+			lblUniversidad.setBounds(265, 259, 144, 18);
 			panel.add(lblUniversidad);
 
 			textUniversidad = new JTextField();
 			textUniversidad.setColumns(10);
-			textUniversidad.setBounds(270, 212, 225, 20);
+			textUniversidad.setBounds(265, 278, 245, 32);
 			panel.add(textUniversidad);
 
 			JLabel lblEquipo = new JLabel("Equipo");
 			lblEquipo.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblEquipo.setBounds(10, 283, 63, 18);
+			lblEquipo.setBounds(525, 259, 63, 18);
 			panel.add(lblEquipo);
 
 			cBEquipo = new JComboBox(equipos.toArray());
-			cBEquipo.setBounds(10, 312, 485, 20);
+			cBEquipo.setBounds(525, 278, 195, 32);
 			panel.add(cBEquipo);
 			
 			JLabel lblNumero = new JLabel("Numero");
 			lblNumero.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblNumero.setBounds(351, 246, 63, 18);
+			lblNumero.setBounds(358, 326, 63, 32);
 			panel.add(lblNumero);
 			
 			spinnernumero = new JSpinner();
-			spinnernumero.setBounds(423, 247, 72, 20);
+			spinnernumero.setBounds(426, 326, 72, 32);
 			panel.add(spinnernumero);
 			
 			JLabel lblLb = new JLabel("Kg");
-			lblLb.setBounds(140, 250, 22, 14);
+			lblLb.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+			lblLb.setBounds(126, 326, 22, 32);
 			panel.add(lblLb);
 			
 			JLabel lblCm = new JLabel("Cm");
-			lblCm.setBounds(319, 250, 22, 14);
+			lblCm.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+			lblCm.setBounds(306, 326, 22, 32);
 			panel.add(lblCm);
 			
 			JButton btnSubirFoto = new JButton("Subir Foto");
+			btnSubirFoto.setFont(new Font("Trebuchet MS", Font.BOLD, 11));
 			btnSubirFoto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					BufferedImage image;
@@ -247,13 +254,172 @@ public class RegistrarJugador extends JDialog {
 					}
 				}
 			});
-			btnSubirFoto.setBounds(564, 150, 89, 23);
+			btnSubirFoto.setBounds(615, 221, 105, 23);
 			panel.add(btnSubirFoto);
 			
 			lbFoto = new JLabel("");
-			lbFoto.setBounds(513, 23, 140, 114);
+			lbFoto.setBounds(518, 59, 202, 150);
 			panel.add(lbFoto);
+			
+			JLabel lblRegistrarJugador = new JLabel("Registrar Jugador");
+			lblRegistrarJugador.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
+			lblRegistrarJugador.setBounds(10, 11, 263, 37);
+			panel.add(lblRegistrarJugador);
+			
+			JSeparator separator = new JSeparator();
+			separator.setBounds(10, 46, 716, 2);
+			panel.add(separator);
+			
+			JLabel lblNewLabel = new JLabel("D\u00EDa");
+			lblNewLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
+			lblNewLabel.setBounds(10, 146, 22, 32);
+			panel.add(lblNewLabel);
+			
+			cBdia = new JComboBox();
+			cBdia.setModel(new DefaultComboBoxModel(new String[] {"31", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+			cBdia.setBounds(32, 151, 43, 23);
+			panel.add(cBdia);
+			
+			cBmes = new JComboBox();
+			cBmes.setModel(new DefaultComboBoxModel(new String[] {"ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SET", "OCT", "NOV", "DIC"}));
+			cBmes.setBounds(112, 151, 56, 23);
+			panel.add(cBmes);
+			
+			JLabel lblMes = new JLabel("Mes");
+			lblMes.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
+			lblMes.setBounds(86, 146, 22, 32);
+			panel.add(lblMes);
+			
+			JLabel lblAo = new JLabel("A\u00F1o");
+			lblAo.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
+			lblAo.setBounds(174, 146, 22, 32);
+			panel.add(lblAo);
+			
+			cBagno = new JComboBox();
+			cBagno.setModel(new DefaultComboBoxModel(new String[] {"1902"}));
+			cBagno.setBounds(199, 151, 56, 23);
+			panel.add(cBagno);
+			
+			JLabel label = new JLabel("#");
+			label.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+			label.setBounds(502, 326, 22, 32);
+			panel.add(label);
+			
+			chckbxNewCheckBox = new JCheckBox("Titular");
+			chckbxNewCheckBox.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+			chckbxNewCheckBox.setBounds(522, 326, 89, 32);
+			panel.add(chckbxNewCheckBox);
+			
+			rdbtnNewRadioButton = new JRadioButton("Estad\u00EDsticas");
+			rdbtnNewRadioButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					if(rdbtnNewRadioButton.isSelected()){
+						setBounds(100, 100, 761, 568);
+					}else{
+						setBounds(100, 100, 761, 568);
+					}
+				}
+			});
+			rdbtnNewRadioButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+			rdbtnNewRadioButton.setBounds(607, 326, 123, 32);
+			panel.add(rdbtnNewRadioButton);
 		}
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 391, 736, 104);
+		contentPanel.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblEstadsticas = new JLabel("Estad\u00EDsticas");
+		lblEstadsticas.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
+		lblEstadsticas.setBounds(10, 11, 134, 20);
+		panel.add(lblEstadsticas);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 29, 128, 2);
+		panel.add(separator);
+		
+		JLabel lblPromedio = new JLabel("AB");
+		lblPromedio.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		lblPromedio.setBounds(94, 55, 27, 14);
+		panel.add(lblPromedio);
+		
+		JSpinner spinab = new JSpinner();
+		spinab.setBounds(114, 52, 47, 20);
+		panel.add(spinab);
+		
+		JLabel lblJj = new JLabel("JJ");
+		lblJj.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		lblJj.setBounds(10, 55, 27, 14);
+		panel.add(lblJj);
+		
+		JSpinner spinjj = new JSpinner();
+		spinjj.setBounds(31, 52, 47, 20);
+		panel.add(spinjj);
+		
+		JLabel lblH = new JLabel("H");
+		lblH.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		lblH.setBounds(174, 55, 15, 14);
+		panel.add(lblH);
+		
+		JSpinner spinh = new JSpinner();
+		spinh.setBounds(186, 52, 47, 20);
+		panel.add(spinh);
+		
+		JLabel lblb = new JLabel("2B");
+		lblb.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		lblb.setBounds(250, 55, 17, 14);
+		panel.add(lblb);
+		
+		JSpinner spin2b = new JSpinner();
+		spin2b.setBounds(272, 52, 47, 20);
+		panel.add(spin2b);
+		
+		JLabel lblb_1 = new JLabel("3B");
+		lblb_1.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		lblb_1.setBounds(332, 55, 17, 14);
+		panel.add(lblb_1);
+		
+		JSpinner spin3b = new JSpinner();
+		spin3b.setBounds(352, 52, 47, 20);
+		panel.add(spin3b);
+		
+		JLabel lblHr = new JLabel("HR");
+		lblHr.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		lblHr.setBounds(410, 55, 17, 14);
+		panel.add(lblHr);
+		
+		JSpinner spinhr = new JSpinner();
+		spinhr.setBounds(430, 52, 47, 20);
+		panel.add(spinhr);
+		
+		JLabel lblBb = new JLabel("BB");
+		lblBb.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		lblBb.setBounds(492, 55, 17, 14);
+		panel.add(lblBb);
+		
+		JSpinner spinbb = new JSpinner();
+		spinbb.setBounds(512, 52, 47, 20);
+		panel.add(spinbb);
+		
+		JSpinner spinc = new JSpinner();
+		spinc.setBounds(586, 52, 47, 20);
+		panel.add(spinc);
+		
+		JLabel lblC = new JLabel("C");
+		lblC.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		lblC.setBounds(576, 55, 15, 14);
+		panel.add(lblC);
+		
+		JLabel lblRbi = new JLabel("RBI");
+		lblRbi.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		lblRbi.setBounds(648, 55, 27, 14);
+		panel.add(lblRbi);
+		
+		JSpinner spinrbi = new JSpinner();
+		spinrbi.setBounds(674, 52, 47, 20);
+		panel.add(spinrbi);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -277,8 +443,15 @@ public class RegistrarJugador extends JDialog {
 							String pais = cBpais.getSelectedItem().toString();
 							String equipotext =  cBEquipo.getSelectedItem().toString();
 							Equipos equipo = LigaBeisbol.getInstance().BuscarPorNombre(equipotext);
-							Date fechanacimiento = dateChooser.getDate();
-							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, fechanacimiento, ciudad, pais, univ, equipotext);
+							boolean titular = false;
+							if(chckbxNewCheckBox.isSelected()){
+								titular = true;
+							}
+							String dia = cBdia.getSelectedItem().toString();
+							String mes = cBmes.getSelectedItem().toString();
+							String agno = cBagno.getSelectedItem().toString();
+							String fechanacimiento = dia+" de "+mes+" de "+agno;
+							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, fechanacimiento, ciudad, pais, univ, equipotext, titular);
 							equipo.agregarjugador(nuevojugador);
 							LigaBeisbol.getInstance().insertarJugador(nuevojugador);
 							JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha registrado sasctifactoriamente!", null,
