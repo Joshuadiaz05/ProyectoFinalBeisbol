@@ -74,6 +74,7 @@ public class RegistrarJugador extends JDialog {
 	private JSpinner spinh;
 	private JSpinner spinjj;
 	private JTextField textEquipo;
+	private String equipotext=null;
 	
 	public RegistrarJugador(Equipos equipo) {
 		setTitle("Registrar Jugador");
@@ -474,8 +475,22 @@ public class RegistrarJugador extends JDialog {
 							double altura = Integer.parseInt(spinneraltura.getValue().toString());
 							String posicion = cBposicion.getSelectedItem().toString();
 							String pais = cBpais.getSelectedItem().toString();
-							String equipotext =  cBEquipo.getSelectedItem().toString();
-							Equipos equipo = LigaBeisbol.getInstance().BuscarPorNombre(equipotext);
+						/*	try {
+								String equipotext =  cBEquipo.getSelectedItem().toString();
+								Equipos equipo = LigaBeisbol.getInstance().BuscarPorNombre(equipotext);
+							} catch (NullPointerException e2) {
+								System.out.println("Error al leer equipo");
+								String equipotext = textEquipo.getText();
+								Equipos equipo = LigaBeisbol.getInstance().BuscarPorNombre(equipotext);
+							}*/
+							if(equipo==null){
+								equipotext =  cBEquipo.getSelectedItem().toString();
+								Equipos equipo = LigaBeisbol.getInstance().BuscarPorNombre(equipotext);
+							}else{
+								equipotext = textEquipo.getText();
+								Equipos equipo = LigaBeisbol.getInstance().BuscarPorNombre(equipotext);
+							}
+							
 							boolean titular = false;
 							if(chckbxNewCheckBox.isSelected()){
 								titular = true;
@@ -485,7 +500,9 @@ public class RegistrarJugador extends JDialog {
 							String agno = cBagno.getSelectedItem().toString();
 							LocalDate date = LocalDate.of(Integer.valueOf(agno), mes+1, dia+1);
 							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, date, ciudad, pais, univ, equipotext, titular);
-							/*if(rdbtnNewRadioButton.isSelected()){
+							equipo.agregarjugador(nuevojugador);
+							LigaBeisbol.getInstance().insertarJugador(nuevojugador);
+							if(rdbtnNewRadioButton.isSelected()){
 								int jj = Integer.parseInt(spinjj.getValue().toString());
 								int bb = Integer.parseInt(spinbb.getValue().toString());
 								int trb = Integer.parseInt(spin3b.getValue().toString());
@@ -496,10 +513,8 @@ public class RegistrarJugador extends JDialog {
 								int ab = Integer.parseInt(spinab.getValue().toString());
 								int rbi = Integer.parseInt(spinrbi.getValue().toString());
 								Estadisticas estadisticas = new Estadisticas(jj, h, dob, trb, hr, bb, ab, c, rbi);
-								nuevojugador.setEstadistica(estadisticas);
-							}*/
-							equipo.agregarjugador(nuevojugador);
-							LigaBeisbol.getInstance().insertarJugador(nuevojugador);
+								nuevojugador.setEstadistica(estadisticas);	
+							}
 							JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha registrado sasctifactoriamente!", null,
 									JOptionPane.INFORMATION_MESSAGE, null);
 							clean();

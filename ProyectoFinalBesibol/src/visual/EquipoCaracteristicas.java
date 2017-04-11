@@ -124,6 +124,9 @@ public class EquipoCaracteristicas extends JDialog {
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Calendario", null, panel_3, null);
 		
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("Jugador", null, panel, null);
+		
 		JButton btnProximosJuegos = new JButton("Proximos juegos");
 		btnProximosJuegos.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		btnProximosJuegos.setBounds(829, 26, 167, 32);

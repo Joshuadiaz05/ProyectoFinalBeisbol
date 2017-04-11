@@ -20,6 +20,7 @@ public class Jugadores implements Serializable{
 	private String equipo;
 	private boolean titular;
 	private Estadisticas estadistica;
+	private Lesiones lesiones;
 	
 	public Jugadores(int numero, String nombre, String apellido, double peso, String posicion, double altura,
 			LocalDate fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
@@ -150,6 +151,14 @@ public class Jugadores implements Serializable{
 
 	public void setTitular(boolean titular) {
 		this.titular = titular;
+	}
+
+	public Lesiones getLesiones() {
+		return lesiones;
+	}
+
+	public void setLesiones(Lesiones lesiones) {
+		this.lesiones = lesiones;
 	}
 	
 }

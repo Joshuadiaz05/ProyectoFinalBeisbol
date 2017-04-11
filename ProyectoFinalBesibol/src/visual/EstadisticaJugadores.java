@@ -12,22 +12,7 @@ public class EstadisticaJugadores extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			EstadisticaJugadores dialog = new EstadisticaJugadores();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public EstadisticaJugadores() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());

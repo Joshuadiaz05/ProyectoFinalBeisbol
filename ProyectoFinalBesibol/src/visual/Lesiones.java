@@ -73,8 +73,7 @@ public class Lesiones extends JDialog {
 				nomJugadores.add("<Seleccione Jugador>");
 		        for(int index = 0; index < equipo.getJugador().size(); index++){
 		        	if(equipo.getJugador().get(index).isLesion()==false){
-		        		nomJugadores.add("" + equipo.getJugador().get(index).getNombre() + " "
-								+ equipo.getJugador().get(index).getApellido());
+		        		nomJugadores.add(equipo.getJugador().get(index).getNombre());
 					}
 		       }
 
@@ -159,9 +158,8 @@ public class Lesiones extends JDialog {
 						String comentario = editorPane.getText();
 						logical.Lesiones lesion = new logical.Lesiones(nomequipo, nombrejugador, fechalesion,
 								tipoLesion, comentario);
-						equipo.buscarJugador(nombrejugador, true, false);
-						//LigaBeisbol.getInstance().buscarjugador(nombrejugador).setLesion(true);
-						//LigaBeisbol.getInstance().buscarjugador(nombrejugador).setTitular(false);
+						equipo.buscarJugador(nombrejugador, true, false, lesion);
+						EquipoCaracteristicas.cargarJugadoresLesionadoPorEquipo();
 						dispose();						
 					} 
 				});

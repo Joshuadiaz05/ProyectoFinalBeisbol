@@ -137,12 +137,13 @@ public class Equipos implements Serializable{
 		jp++;
 	}
 	
-	public void buscarJugador(String nom, boolean less, boolean titular){
+	public void buscarJugador(String nom, boolean less, boolean titular, Lesiones lesion){
 		int i=0; boolean find = false;
 		while(i<jugador.size() && find == false){
 			if(jugador.get(i).getNombre().equalsIgnoreCase(nom)){
 				jugador.get(i).setLesion(less);
 				jugador.get(i).setTitular(titular);
+				jugador.get(i).setLesiones(lesion);
 				find = true;
 			}
 			i++;
