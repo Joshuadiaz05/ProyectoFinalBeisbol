@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import com.toedter.calendar.JDateChooser;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -263,7 +264,6 @@ public class RegistrarJugador extends JDialog {
 		            try {
 						image = ImageIO.read(f);
 						String route = "jugadores/" + textnombre .getText() +".png";
-						ImageIO.write(image, "png",new File(route));
 						ImageIcon imagee = new ImageIcon(route);
 						lbFoto.setIcon(imagee);
 						
@@ -314,7 +314,11 @@ public class RegistrarJugador extends JDialog {
 			lblAo.setBounds(174, 146, 22, 32);
 			panel.add(lblAo);
 			
-			cBagno = new JComboBox();
+			ArrayList<String> years_tmp = new ArrayList<String>();
+	        for(int years = 1900 ; years<=Calendar.getInstance().get(Calendar.YEAR);years++){
+	        	years_tmp.add(years+"");
+	       }			
+			cBagno = new JComboBox(years_tmp.toArray());
 			cBagno.setModel(new DefaultComboBoxModel(new String[] {"1902"}));
 			cBagno.setBounds(199, 151, 56, 23);
 			panel.add(cBagno);
@@ -476,7 +480,7 @@ public class RegistrarJugador extends JDialog {
 							String agno = cBagno.getSelectedItem().toString();
 							String fechanacimiento = dia+" de "+mes+" de "+agno;
 							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, fechanacimiento, ciudad, pais, univ, equipotext, titular);
-							if(rdbtnNewRadioButton.isSelected()){
+							/*if(rdbtnNewRadioButton.isSelected()){
 								int jj = Integer.parseInt(spinjj.getValue().toString());
 								int bb = Integer.parseInt(spinbb.getValue().toString());
 								int trb = Integer.parseInt(spin3b.getValue().toString());
@@ -488,7 +492,7 @@ public class RegistrarJugador extends JDialog {
 								int rbi = Integer.parseInt(spinrbi.getValue().toString());
 								Estadisticas estadisticas = new Estadisticas(jj, h, dob, trb, hr, bb, ab, c, rbi);
 								nuevojugador.setEstadistica(estadisticas);
-							}
+							}*/
 							equipo.agregarjugador(nuevojugador);
 							LigaBeisbol.getInstance().insertarJugador(nuevojugador);
 							JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha registrado sasctifactoriamente!", null,

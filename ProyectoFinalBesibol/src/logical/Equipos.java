@@ -136,4 +136,16 @@ public class Equipos implements Serializable{
 		jj++;
 		jp++;
 	}
+	
+	public void buscarJugador(String nom, boolean less, boolean titular){
+		int i=0; boolean find = false;
+		while(i<jugador.size() && find == false){
+			if(jugador.get(i).getNombre().equalsIgnoreCase(nom)){
+				jugador.get(i).setLesion(less);
+				jugador.get(i).setTitular(titular);
+				find = true;
+			}
+			i++;
+		}
+	}
 }

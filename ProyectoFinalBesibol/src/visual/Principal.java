@@ -161,6 +161,10 @@ public class Principal extends JFrame {
 		menuBar.add(mnSimulacin);
 
 		JMenuItem mntmIniciarPartido = new JMenuItem("Iniciar Partido");
+		mntmIniciarPartido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		mnSimulacin.add(mntmIniciarPartido);
 
 		JPanel panel = new JPanel();

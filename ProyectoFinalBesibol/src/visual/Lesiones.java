@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -67,9 +68,17 @@ public class Lesiones extends JDialog {
 				panel.add(lblJugador);
 			}
 			{
+				
+				ArrayList<String> nomJugadores = new ArrayList<String>();
+				nomJugadores.add("<Seleccione Jugador>");
+		        for(int index = 0; index < equipo.getJugador().size(); index++){
+		        	if(equipo.getJugador().get(index).isLesion()==false){
+		        		nomJugadores.add("" + equipo.getJugador().get(index).getNombre() + " "
+								+ equipo.getJugador().get(index).getApellido());
+					}
+		       }
 
-				cBjugador = new JComboBox();
-				cBjugador.setModel(new DefaultComboBoxModel(new String[] { "<Seleccione Jugador>" }));
+				cBjugador = new JComboBox(nomJugadores.toArray());
 				cBjugador.setSelectedIndex(0);
 				cBjugador.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -81,13 +90,6 @@ public class Lesiones extends JDialog {
 				});
 				cBjugador.setBounds(201, 75, 164, 32);
 				panel.add(cBjugador);
-
-				for (int index = 0; index < equipo.getJugador().size(); index++) {
-					if(equipo.getJugador().get(index).isLesion()==false){
-						cBjugador.insertItemAt((String) ("" + equipo.getJugador().get(index).getNombre() + " "
-								+ equipo.getJugador().get(index).getApellido()), index);
-					}
-				}
 			}
 			{
 				JLabel lblFecha = new JLabel("Fecha");
@@ -157,8 +159,9 @@ public class Lesiones extends JDialog {
 						String comentario = editorPane.getText();
 						logical.Lesiones lesion = new logical.Lesiones(nomequipo, nombrejugador, fechalesion,
 								tipoLesion, comentario);
-						LigaBeisbol.getInstance().buscarjugador(nombrejugador).setLesion(true);
-						LigaBeisbol.getInstance().buscarjugador(nombrejugador).setTitular(false);
+						equipo.buscarJugador(nombrejugador, true, false);
+						//LigaBeisbol.getInstance().buscarjugador(nombrejugador).setLesion(true);
+						//LigaBeisbol.getInstance().buscarjugador(nombrejugador).setTitular(false);
 						dispose();						
 					} 
 				});

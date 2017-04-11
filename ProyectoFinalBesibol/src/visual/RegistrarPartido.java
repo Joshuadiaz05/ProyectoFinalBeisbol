@@ -14,6 +14,7 @@ import java.awt.Choice;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.SpinnerListModel;
 import java.awt.event.ActionListener;
@@ -36,6 +37,7 @@ public class RegistrarPartido extends JDialog {
 	private JSpinner Hora;
 	private String nomlocal;
 	private String nomvisita;
+	private JComboBox cBvisita;
 	
 	public RegistrarPartido() {
 		setResizable(false);
@@ -62,28 +64,35 @@ public class RegistrarPartido extends JDialog {
 		dateChooser.setBounds(10, 54, 231, 32);
 		panel.add(dateChooser);
 		
-		JComboBox cBlocal = new JComboBox();
+		ArrayList<String> equipLocal = new ArrayList<String>();
+		equipLocal.add("<Seleccione Equipo>");
+		for (int index = 0; index < LigaBeisbol.getInstance().getEquipo().size(); index++) {			
+			equipLocal.add("" + LigaBeisbol.getInstance().getEquipo().get(index).getNombre());
+		}
+		
+		JComboBox cBlocal = new JComboBox(equipLocal.toArray());
 		cBlocal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nomlocal = cBlocal.getSelectedItem().toString();
+				System.out.println(""+nomlocal);
+				textField.setText(""+LigaBeisbol.getInstance().BuscarPorNombre(nomlocal).getEstadio());
+				cBvisita.setEnabled(true);
 			}
 		});
 		cBlocal.setBounds(10, 135, 231, 32);
 		panel.add(cBlocal);
-		
+			
+		ArrayList<String> equipVisita = new ArrayList<String>();
+		equipVisita.add("<Seleccione Equipo>");
 		for (int index = 0; index < LigaBeisbol.getInstance().getEquipo().size(); index++) {
-			cBlocal.insertItemAt((String) ("" + LigaBeisbol.getInstance().getEquipo().get(index).getNombre()), index);
+			equipVisita.add("" + LigaBeisbol.getInstance().getEquipo().get(index).getNombre());
+
 		}
 		
-		JComboBox cBvisita = new JComboBox();
+		cBvisita = new JComboBox(equipVisita.toArray());
+		cBvisita.setEnabled(false);
 		cBvisita.setBounds(270, 135, 231, 32);
 		panel.add(cBvisita);
-		
-		for (int index = 0; index < LigaBeisbol.getInstance().getEquipo().size(); index++) {
-			if(!LigaBeisbol.getInstance().getEquipo().get(index).getNombre().equalsIgnoreCase(nomlocal)){
-			cBvisita.insertItemAt((String) ("" + LigaBeisbol.getInstance().getEquipo().get(index).getNombre()), index);
-			}
-		}
 		
 		JLabel lblEquipoLocal = new JLabel("Equipo Local");
 		lblEquipoLocal.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
