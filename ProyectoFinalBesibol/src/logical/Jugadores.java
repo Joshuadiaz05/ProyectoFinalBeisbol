@@ -1,6 +1,7 @@
 package logical;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ public class Jugadores implements Serializable{
 	private String posicion;
 	private double altura;
 	private boolean lesion;
-	private String fechanacimiento;
+	private LocalDate fechanacimiento;
 	private String lugarciudadNacimiento;
 	private String lugarpaisNacimiento;
 	private String universidad;
@@ -21,7 +22,7 @@ public class Jugadores implements Serializable{
 	private Estadisticas estadistica;
 	
 	public Jugadores(int numero, String nombre, String apellido, double peso, String posicion, double altura,
-			String fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
+			LocalDate fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
 			String universidad, String equipo, boolean titular) {
 		super();
 		this.numero = numero;
@@ -95,11 +96,11 @@ public class Jugadores implements Serializable{
 		this.lesion = lesion;
 	}
 
-	public String getFechanacimiento() {
+	public LocalDate getFechanacimiento() {
 		return fechanacimiento;
 	}
 
-	public void setFechanacimiento(String fechanacimiento) {
+	public void setFechanacimiento(LocalDate fechanacimiento) {
 		this.fechanacimiento = fechanacimiento;
 	}
 

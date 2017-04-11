@@ -38,6 +38,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JSeparator;
@@ -264,6 +265,7 @@ public class RegistrarJugador extends JDialog {
 		            try {
 						image = ImageIO.read(f);
 						String route = "jugadores/" + textnombre .getText() +".png";
+						ImageIO.write(image, "png",new File(route));
 						ImageIcon imagee = new ImageIcon(route);
 						lbFoto.setIcon(imagee);
 						
@@ -295,12 +297,14 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblNewLabel);
 			
 			cBdia = new JComboBox();
-			cBdia.setModel(new DefaultComboBoxModel(new String[] {"31", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+			cBdia.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+			cBdia.setSelectedIndex(0);
 			cBdia.setBounds(32, 151, 43, 23);
 			panel.add(cBdia);
 			
 			cBmes = new JComboBox();
-			cBmes.setModel(new DefaultComboBoxModel(new String[] {"ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SET", "OCT", "NOV", "DIC"}));
+			cBmes.setModel(new DefaultComboBoxModel(new String[] {"Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Agos", "Sept", "Oct", "Nov", "Dic"}));
+			cBmes.setSelectedIndex(0);
 			cBmes.setBounds(112, 151, 56, 23);
 			panel.add(cBmes);
 			
@@ -314,12 +318,13 @@ public class RegistrarJugador extends JDialog {
 			lblAo.setBounds(174, 146, 22, 32);
 			panel.add(lblAo);
 			
-			ArrayList<String> years_tmp = new ArrayList<String>();
-	        for(int years = 1900 ; years<=Calendar.getInstance().get(Calendar.YEAR);years++){
-	        	years_tmp.add(years+"");
-	       }			
-			cBagno = new JComboBox(years_tmp.toArray());
-			cBagno.setModel(new DefaultComboBoxModel(new String[] {"1902"}));
+			ArrayList<Integer> agno = new ArrayList<Integer>();
+			for(int i = 1900; i <= Calendar.getInstance().get(Calendar.YEAR); i++){
+				agno.add(i);
+			}
+			cBagno = new JComboBox(agno.toArray());
+			long date = Math.abs(LocalDate.now().getYear() - 1900);
+			cBagno.setSelectedIndex((int) date);
 			cBagno.setBounds(199, 151, 56, 23);
 			panel.add(cBagno);
 			
@@ -475,11 +480,11 @@ public class RegistrarJugador extends JDialog {
 							if(chckbxNewCheckBox.isSelected()){
 								titular = true;
 							}
-							String dia = cBdia.getSelectedItem().toString();
-							String mes = cBmes.getSelectedItem().toString();
+							int dia = cBdia.getSelectedIndex();
+							int mes = cBmes.getSelectedIndex();
 							String agno = cBagno.getSelectedItem().toString();
-							String fechanacimiento = dia+" de "+mes+" de "+agno;
-							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, fechanacimiento, ciudad, pais, univ, equipotext, titular);
+							LocalDate date = LocalDate.of(Integer.valueOf(agno), mes+1, dia+1);
+							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, date, ciudad, pais, univ, equipotext, titular);
 							/*if(rdbtnNewRadioButton.isSelected()){
 								int jj = Integer.parseInt(spinjj.getValue().toString());
 								int bb = Integer.parseInt(spinbb.getValue().toString());

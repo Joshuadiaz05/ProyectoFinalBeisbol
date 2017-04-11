@@ -94,10 +94,10 @@ public class Principal extends JFrame {
 		JMenuItem mntmPosicionesEnEl = new JMenuItem("Posiciones en el Campo");
 		mntmPosicionesEnEl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 			}
 		});
-		
+
 		JMenuItem menuItem = new JMenuItem("Tabla de Posiciones");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -120,7 +120,16 @@ public class Principal extends JFrame {
 			}
 		});
 		mnJugadores.add(mntmRegistrarJugador);
-		
+
+		JMenuItem mntmMostrarJugadores = new JMenuItem("Mostrar Jugadores");
+		mntmMostrarJugadores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VerJugadores ver = new VerJugadores();
+				ver.setVisible(true);
+			}
+		});
+		mnJugadores.add(mntmMostrarJugadores);
+
 		JMenuItem menuItem_1 = new JMenuItem("Ver Estadisticas");
 		mnJugadores.add(menuItem_1);
 
@@ -147,8 +156,6 @@ public class Principal extends JFrame {
 		JMenuItem mntmJugadorLesionado = new JMenuItem("Jugador Lesionado");
 		mntmJugadorLesionado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Lesiones lesion = new  Lesiones(null);
-				lesion.setVisible(true);
 			}
 		});
 		mnLesiones.add(mntmJugadorLesionado);
@@ -176,7 +183,6 @@ public class Principal extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				LigaBeisbol.getInstance().guardarArchivo(LigaBeisbol.getInstance());
-				;
 				e.getWindow().dispose();
 			}
 		});
