@@ -28,16 +28,17 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.DefaultComboBoxModel;
 
 public class RegistrarPartido extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JDateChooser dateChooser;
-	private JSpinner Hora;
 	private String nomlocal;
 	private String nomvisita;
 	private JComboBox cBvisita;
+	private JComboBox cBoxHora;
 	
 	public RegistrarPartido() {
 		setResizable(false);
@@ -54,11 +55,6 @@ public class RegistrarPartido extends JDialog {
 		panel.setBounds(10, 11, 511, 279);
 		contentPanel.add(panel);
 		panel.setLayout(null);
-		
-		Hora = new JSpinner();
-		Hora.setModel(new SpinnerListModel(new String[] {"8:00 Am", "9:00 Am", "10:00 Am", "11:00 Am", "12:00 Pm", "1:00 Pm", "2:00 Pm", "3:00 Pm", "4:00 Pm", "5:00 Pm", "6:00 Pm", "7:00 Pm", "8:00 Pm", "9:00 Pm", "10:00 Pm"}));
-		Hora.setBounds(270, 54, 231, 32);
-		panel.add(Hora);
 		
 		dateChooser = new JDateChooser();
 		dateChooser.setBounds(10, 54, 231, 32);
@@ -124,6 +120,12 @@ public class RegistrarPartido extends JDialog {
 		lblHorario.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		lblHorario.setBounds(352, 30, 66, 25);
 		panel.add(lblHorario);
+		
+		cBoxHora = new JComboBox();
+		cBoxHora.setModel(new DefaultComboBoxModel(new String[] {"8:00 Am", "9:00 Am", "10:00 Am", "11:00 Am", "12:00 Pm", "1:00 Pm", "2:00 Pm", "3:00 Pm", "4:00 Pm", "5:00 Pm", "6:00 Pm", "7:00 Pm", "8:00 Pm", "9:00 Pm", "10:00 Pm"}));
+		cBoxHora.setSelectedIndex(0);
+		cBoxHora.setBounds(270, 54, 231, 32);
+		panel.add(cBoxHora);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -134,12 +136,13 @@ public class RegistrarPartido extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						Date fecha = dateChooser.getDate();
-						String horario = Hora.getName();
+						String horario = cBoxHora.getSelectedItem().toString();
 						String local = cBlocal.getSelectedItem().toString();
 						String visita = cBvisita.getSelectedItem().toString();
 						String estadio = textField.getText();
 						Partido partido = new Partido(fecha, local, visita, estadio, horario);
 						LigaBeisbol.getInstance().insertarPartido(partido);
+						dispose();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -148,6 +151,11 @@ public class RegistrarPartido extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						dispose();
+					}
+				});
 				cancelButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
