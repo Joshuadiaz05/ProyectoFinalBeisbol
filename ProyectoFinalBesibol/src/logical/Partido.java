@@ -1,8 +1,9 @@
 package logical;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Partido {
+public class Partido implements Serializable{
 
 	private Date fecha;
 	private String equipoCasa;

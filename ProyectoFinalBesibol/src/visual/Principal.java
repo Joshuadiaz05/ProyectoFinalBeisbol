@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import org.jvnet.substance.SubstanceLookAndFeel;
 
 import logical.LigaBeisbol;
+import logical.Partido;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -31,15 +32,19 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
 
 public class Principal extends JFrame {
 
 	private Dimension dim;
 	private static LigaBeisbol liga;
+	private static DefaultTableModel tablemodel;
+	static Object fila[];
+	private static JTable table;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -147,6 +152,12 @@ public class Principal extends JFrame {
 		mnPartidos.add(mntmCrearEvento);
 
 		JMenuItem mntmVerAgenda = new JMenuItem("Ver Agenda");
+		mntmVerAgenda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ListadoEventos partidos = new ListadoEventos();
+				partidos.setVisible(true);
+			}
+		});
 		mnPartidos.add(mntmVerAgenda);
 
 		JMenu mnLesiones = new JMenu("Lesiones");
@@ -170,15 +181,49 @@ public class Principal extends JFrame {
 		JMenuItem mntmIniciarPartido = new JMenuItem("Iniciar Partido");
 		mntmIniciarPartido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Simulacion simular = new Simulacion();
+				simular.setVisible(true);
 			}
 		});
 		mnSimulacin.add(mntmIniciarPartido);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel.setBounds(10, 32, 437, 316);
+		panel.setBounds(10, 32, 605, 429);
 		getContentPane().add(panel);
-
+		panel.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 64, 580, 317);
+		panel.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		String[] columnsHeaders = {"Equipo Local", " Equipo Visita", " Estadio", " Fecha", " Hora"};
+		tablemodel = new DefaultTableModel();
+		tablemodel.setColumnIdentifiers(columnsHeaders);
+		table.setModel(tablemodel);
+		
+		JLabel lblPartidosDeHoy = new JLabel("Partidos De Hoy");
+		lblPartidosDeHoy.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
+		lblPartidosDeHoy.setBounds(10, 21, 213, 37);
+		panel.add(lblPartidosDeHoy);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(11, 55, 197, 2);
+		panel.add(separator);
+		
+		JButton btnNewButton = new JButton("Jugar Partido");
+		btnNewButton.setEnabled(false);
+		btnNewButton.setBounds(449, 390, 141, 23);
+		panel.add(btnNewButton);
+		
+		JLabel label = new JLabel("");
+		label.setBounds(217, 16, 56, 41);
+		panel.add(label);
+		
+		cargar();
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -186,5 +231,18 @@ public class Principal extends JFrame {
 				e.getWindow().dispose();
 			}
 		});
+	}
+	
+	public void cargar(){
+		tablemodel.setRowCount(0);
+		fila = new Object[tablemodel.getColumnCount()];
+		for (Partido aux : LigaBeisbol.getInstance().getPartido()) {
+			fila[0] = aux.getEquipoCasa();
+			fila[1] = aux.getEquipoVisita();
+			fila[2] = aux.getEstadio();
+			fila[3] = aux.getFecha();
+			fila[4] = aux.getHora();
+			tablemodel.addRow(fila);
+		}
 	}
 }
