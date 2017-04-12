@@ -3,13 +3,8 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-
-import com.toedter.calendar.JDateChooser;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -17,22 +12,17 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
-
 import logical.Equipos;
 import logical.Estadisticas;
 import logical.Jugadores;
 import logical.LigaBeisbol;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-//import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-
-import java.awt.Label;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -74,9 +64,10 @@ public class RegistrarJugador extends JDialog {
 	private JSpinner spinh;
 	private JSpinner spinjj;
 	private JTextField textEquipo;
-	private String equipotext=null;
+	private String equipotext = "";
+	private Equipos miEquipos;
 	
-	public RegistrarJugador(Equipos equipo) {
+	public RegistrarJugador(boolean si) {
 		setTitle("Registrar Jugador");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imag/baseball.png"));
 		//setBounds(100, 100, 761, 568);
@@ -88,12 +79,7 @@ public class RegistrarJugador extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		{
-			ArrayList<String> equipos = new ArrayList<String>();
-			for (int i = 0; i < LigaBeisbol.getInstance().getEquipo().size(); i++) {
-				equipos.add(LigaBeisbol.getInstance().getEquipo().get(i).getNombre());
-			}
-			
+		{		
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel.setBounds(10, 11, 736, 369);
@@ -223,19 +209,26 @@ public class RegistrarJugador extends JDialog {
 			lblEquipo.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			lblEquipo.setBounds(525, 259, 63, 18);
 			panel.add(lblEquipo);
-
-			if(equipo==null){
+			
+			if(si==false){
+				miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo);
+			}
+			
+			ArrayList<String> equipos = new ArrayList<String>();
+			for (Equipos e : LigaBeisbol.getInstance().getEquipo()) {
+				equipos.add(e.getNombre());
+			}
+			if(si==true){
 			cBEquipo = new JComboBox(equipos.toArray());
 			cBEquipo.setBounds(525, 278, 195, 32);
 			panel.add(cBEquipo);
 			}else{
-				textEquipo = new JTextField(""+equipo.getNombre());
+				textEquipo = new JTextField(miEquipos.getNombre());
 				textEquipo.setEditable(false);
 				textEquipo.setBounds(520, 278, 206, 32);
 				panel.add(textEquipo);
 				textEquipo.setColumns(10);
 			}
-			
 			JLabel lblNumero = new JLabel("Numero");
 			lblNumero.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			lblNumero.setBounds(358, 326, 63, 32);
@@ -263,11 +256,13 @@ public class RegistrarJugador extends JDialog {
 					JFileChooser chooser = new JFileChooser();
 					chooser.showOpenDialog(null);
 					File f = chooser.getSelectedFile();
-		            try {
+					String route2 = f.getAbsolutePath();
+					try {
 						image = ImageIO.read(f);
 						String route = "jugadores/" + textnombre .getText() +".png";
 						ImageIO.write(image, "png",new File(route));
-						ImageIcon imagee = new ImageIcon(route);
+						ImageIcon imagee = new ImageIcon(route2);
+						lbFoto.setIcon(null);
 						lbFoto.setIcon(imagee);
 						
 					} catch (IOException e1) {
@@ -466,6 +461,12 @@ public class RegistrarJugador extends JDialog {
 							JOptionPane.showMessageDialog(null, "Por favor! Complete todos los Campos", null,
 									JOptionPane.WARNING_MESSAGE, null);
 						}else{
+							if(si==true){
+								miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(cBEquipo.getSelectedItem().toString());
+							} else {
+								miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo);
+							}
+							
 							String nom = textnombre.getText();
 							String apell = textapellido.getText();
 							String ciudad = textlugarnacimiento.getText();
@@ -475,32 +476,18 @@ public class RegistrarJugador extends JDialog {
 							double altura = Integer.parseInt(spinneraltura.getValue().toString());
 							String posicion = cBposicion.getSelectedItem().toString();
 							String pais = cBpais.getSelectedItem().toString();
-						/*	try {
-								String equipotext =  cBEquipo.getSelectedItem().toString();
-								Equipos equipo = LigaBeisbol.getInstance().BuscarPorNombre(equipotext);
-							} catch (NullPointerException e2) {
-								System.out.println("Error al leer equipo");
-								String equipotext = textEquipo.getText();
-								Equipos equipo = LigaBeisbol.getInstance().BuscarPorNombre(equipotext);
-							}*/
-							if(equipo==null){
-								equipotext =  cBEquipo.getSelectedItem().toString();
-								Equipos equipo = LigaBeisbol.getInstance().BuscarPorNombre(equipotext);
-							}else{
-								equipotext = textEquipo.getText();
-								Equipos equipo = LigaBeisbol.getInstance().BuscarPorNombre(equipotext);
-							}
-							
 							boolean titular = false;
 							if(chckbxNewCheckBox.isSelected()){
 								titular = true;
 							}
+							
+							
 							int dia = cBdia.getSelectedIndex();
 							int mes = cBmes.getSelectedIndex();
 							String agno = cBagno.getSelectedItem().toString();
 							LocalDate date = LocalDate.of(Integer.valueOf(agno), mes+1, dia+1);
 							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, date, ciudad, pais, univ, equipotext, titular);
-							equipo.agregarjugador(nuevojugador);
+							miEquipos.agregarjugador(nuevojugador);
 							LigaBeisbol.getInstance().insertarJugador(nuevojugador);
 							if(rdbtnNewRadioButton.isSelected()){
 								int jj = Integer.parseInt(spinjj.getValue().toString());
@@ -517,7 +504,14 @@ public class RegistrarJugador extends JDialog {
 							}
 							JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha registrado sasctifactoriamente!", null,
 									JOptionPane.INFORMATION_MESSAGE, null);
-							clean();
+							if(si==true){
+								clean(true);
+								EquipoCaracteristicas.cargarJugadoresLesionadoPorEquipo();
+								EquipoCaracteristicas.cargarJugadoresPorEquipo();
+							} else {
+								clean(false);
+							}
+							
 						}
 						
 					}
@@ -541,7 +535,7 @@ public class RegistrarJugador extends JDialog {
 		}
 	}
 	
-	public void clean(){
+	public void clean(boolean update){
 		textnombre.setText("");
 		textapellido.setText("");
 		textlugarnacimiento.setText("");
@@ -551,6 +545,8 @@ public class RegistrarJugador extends JDialog {
 		spinneraltura.setValue(120);
 		cBposicion.setSelectedItem(0);
 		cBpais.setSelectedItem(0);
-		cBEquipo.setSelectedItem(0);
+		if(update==true){
+			cBEquipo.setSelectedItem(0);
+		}
 	}
 }

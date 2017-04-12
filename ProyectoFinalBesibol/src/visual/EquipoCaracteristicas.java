@@ -3,6 +3,7 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -16,6 +17,11 @@ import logical.LigaBeisbol;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JScrollPane;
@@ -27,6 +33,9 @@ import java.awt.Color;
 import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -39,7 +48,23 @@ public class EquipoCaracteristicas extends JDialog {
 	private static JTable table_1;
 	static Object[] fila2;
 	private static DefaultTableModel tablemodel2;
-
+	private static String jugador;
+	private static JLabel lbFoto;
+	private static JTabbedPane tabbedPane;
+	private static JLabel lbNombreJugador;
+	private static JSeparator separator_1;
+	private static JLabel lbEligeUnJugador;
+	private static JLabel lbNumero;
+	private static JLabel lbPos;
+	private static JLabel lbZurdoODiestro;
+	private static JLabel lblFechaDeNacimiento;
+	private static JLabel lblFecha;
+	private static JLabel lblLugarDeNacimiento;
+	private static JLabel lbLugar;
+	private static JLabel lblUniversidad;
+	private static JLabel lbUni;
+	private static JSeparator separator_2;
+	
 	/**
 	 * Create the dialog.
 	 */
@@ -48,7 +73,7 @@ public class EquipoCaracteristicas extends JDialog {
 		setTitle("Equipo - " + aux.getNombre());
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 1012, 640);
+		setBounds(100, 100, 1187, 640);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,7 +89,7 @@ public class EquipoCaracteristicas extends JDialog {
 		contentPanel.add(separator);
 		
 		JPanel panel_jugadores = new JPanel();
-		panel_jugadores.setBounds(531, 79, 465, 233);
+		panel_jugadores.setBounds(706, 79, 465, 233);
 		contentPanel.add(panel_jugadores);
 		panel_jugadores.setLayout(null);
 		
@@ -76,7 +101,11 @@ public class EquipoCaracteristicas extends JDialog {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			
+				int index = table.getSelectedRow();
+				jugador = (String)table.getModel().getValueAt(index, 0);
+				tabbedPane.setSelectedIndex(3);
+				cargarJugadoresLesionadoPorEquipo();
+				cargarJugador(jugador);
 			}
 		});
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -88,7 +117,7 @@ public class EquipoCaracteristicas extends JDialog {
 		
 		JPanel panel_jugadores_lesionados = new JPanel();
 		panel_jugadores_lesionados.setLayout(null);
-		panel_jugadores_lesionados.setBounds(531, 321, 465, 246);
+		panel_jugadores_lesionados.setBounds(706, 321, 465, 246);
 		contentPanel.add(panel_jugadores_lesionados);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -96,6 +125,16 @@ public class EquipoCaracteristicas extends JDialog {
 		panel_jugadores_lesionados.add(scrollPane_1);
 		
 		table_1 = new JTable();
+		table_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = table_1.getSelectedRow();
+				jugador = (String)table_1.getModel().getValueAt(index, 0);
+				tabbedPane.setSelectedIndex(3);
+				cargarJugadoresPorEquipo();
+				cargarJugador(jugador);
+			}
+		});
 		scrollPane_1.setViewportView(table_1);
 		String[] columnsheaders2 = {"Jugadores lesionados"};
 		tablemodel2 = new DefaultTableModel();
@@ -103,14 +142,14 @@ public class EquipoCaracteristicas extends JDialog {
 		table_1.setModel(tablemodel2);
 		
 		JPanel tab = new JPanel();
-		tab.setBounds(22, 79, 499, 488);
+		tab.setBounds(22, 79, 674, 488);
 		contentPanel.add(tab);
 		tab.setLayout(null);
 		
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		tabbedPane.setBounds(0, 0, 499, 488);
+		tabbedPane.setBounds(0, 0, 664, 488);
 		tab.add(tabbedPane);
 		JPanel panel_1=new JPanel();
 		
@@ -126,6 +165,112 @@ public class EquipoCaracteristicas extends JDialog {
 		
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Jugador", null, panel, null);
+		tabbedPane.setSelectedIndex(0);
+		panel.setLayout(null);
+		
+		JPanel panel_4 = new JPanel(){
+	        @Override
+	        protected void paintComponent(Graphics grphcs) {
+	            super.paintComponent(grphcs);
+	            Graphics2D g2d = (Graphics2D) grphcs;
+	            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+	                    RenderingHints.VALUE_ANTIALIAS_ON);
+	            GradientPaint gp = new GradientPaint(0, 0,
+	                    getBackground().brighter().brighter(), 0, getHeight(),
+	                    getBackground().darker().darker());
+	            g2d.setPaint(gp);
+	            g2d.fillRect(0, 0, getWidth(), getHeight()); 
+
+	        }
+
+	    };
+		panel_4.setBounds(10, 11, 639, 185);
+		panel.add(panel_4);
+		panel_4.setLayout(null);
+		
+		lbFoto = new JLabel("");
+		lbFoto.setBounds(0, 35, 202, 150);
+		panel_4.add(lbFoto);
+		
+		lbNombreJugador = new JLabel(" ");
+		lbNombreJugador.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
+		lbNombreJugador.setBounds(212, 11, 202, 31);
+		panel_4.add(lbNombreJugador);
+		
+		separator_1 = new JSeparator();
+		separator_1.setVisible(false);
+		separator_1.setBounds(212, 45, 252, 2);
+		panel_4.add(separator_1);
+		
+		lbNumero = new JLabel("#13");
+		lbNumero.setVisible(false);
+		lbNumero.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lbNumero.setBounds(212, 53, 46, 14);
+		panel_4.add(lbNumero);
+		
+		lbPos = new JLabel("3B");
+		lbPos.setVisible(false);
+		lbPos.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lbPos.setBounds(248, 53, 46, 14);
+		panel_4.add(lbPos);
+		
+		separator_2 = new JSeparator();
+		separator_2.setVisible(false);
+		separator_2.setOrientation(SwingConstants.VERTICAL);
+		separator_2.setBounds(275, 53, 8, 14);
+		panel_4.add(separator_2);
+		
+		lbZurdoODiestro = new JLabel("Batea: D, Lanza: D");
+		lbZurdoODiestro.setVisible(false);
+		lbZurdoODiestro.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lbZurdoODiestro.setBounds(287, 53, 151, 14);
+		panel_4.add(lbZurdoODiestro);
+		
+		lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento: ");
+		lblFechaDeNacimiento.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lblFechaDeNacimiento.setVisible(false);
+		lblFechaDeNacimiento.setBounds(212, 75, 179, 14);
+		panel_4.add(lblFechaDeNacimiento);
+		
+		lblFecha = new JLabel("6 de julio de 1992");
+		lblFecha.setVisible(false);
+		lblFecha.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lblFecha.setBounds(385, 75, 244, 14);
+		panel_4.add(lblFecha);
+		
+		lblLugarDeNacimiento = new JLabel("Lugar de Nacimiento: ");
+		lblLugarDeNacimiento.setVisible(false);
+		lblLugarDeNacimiento.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lblLugarDeNacimiento.setBounds(212, 97, 169, 19);
+		panel_4.add(lblLugarDeNacimiento);
+		
+		lbLugar = new JLabel("Miami, Estados Unidos");
+		lbLugar.setVisible(false);
+		lbLugar.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lbLugar.setBounds(385, 97, 244, 19);
+		panel_4.add(lbLugar);
+		
+		lblUniversidad = new JLabel("Universidad: ");
+		lblUniversidad.setVisible(false);
+		lblUniversidad.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lblUniversidad.setBounds(212, 122, 99, 19);
+		panel_4.add(lblUniversidad);
+		
+		lbUni = new JLabel("Ninguna");
+		lbUni.setVisible(false);
+		lbUni.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lbUni.setBounds(311, 122, 318, 19);
+		panel_4.add(lbUni);
+		
+		lbEligeUnJugador = new JLabel(" Elige un jugador");
+		lbEligeUnJugador.setBounds(148, 47, 307, 91);
+		panel_4.add(lbEligeUnJugador);
+		lbEligeUnJugador.setHorizontalAlignment(SwingConstants.CENTER);
+		lbEligeUnJugador.setFont(new Font("Trebuchet MS", Font.BOLD, 36));
+		lbEligeUnJugador.setEnabled(false);
+		
+		
+
 		
 		JButton btnProximosJuegos = new JButton("Proximos juegos");
 		btnProximosJuegos.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
@@ -146,7 +291,7 @@ public class EquipoCaracteristicas extends JDialog {
 		JButton btnAgregarJugador = new JButton("Agregar Jugador");
 		btnAgregarJugador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				RegistrarJugador regjug = new RegistrarJugador(aux);
+				RegistrarJugador regjug = new RegistrarJugador(false);
 				regjug.setVisible(true);
 			}
 		});
@@ -209,5 +354,43 @@ public class EquipoCaracteristicas extends JDialog {
 				tablemodel2.addRow(fila2);
 			}
 		}
+	}
+	public static void cargarJugador(String mijugador){
+		lbEligeUnJugador.setVisible(false);
+		lbNumero.setVisible(true);
+		lbPos.setVisible(true);
+		lbZurdoODiestro.setVisible(true);
+		lblFechaDeNacimiento.setVisible(true);
+		lblFecha.setVisible(true);
+		lblLugarDeNacimiento.setVisible(true);
+		lblFechaDeNacimiento.setVisible(true);
+		lbLugar.setVisible(true);
+		lblUniversidad.setVisible(true);
+		lbUni.setVisible(true);
+		separator_1.setVisible(true);
+		for (Jugadores aux : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
+			if(aux.getNombre().equalsIgnoreCase(mijugador)){
+				lbNombreJugador.setText(aux.getNombre() + " " + aux.getApellido());
+				String route = "jugadores/" + aux.getNombre()+".png";
+				ImageIcon imagee = new ImageIcon(route);
+				lbFoto.setIcon(imagee);
+				lbNumero.setText("#" + aux.getNumero());
+				if(aux.getPosicion().equalsIgnoreCase("Primera base")){
+					lbPos.setText("1B");
+				}else if(aux.getPosicion().equalsIgnoreCase("Segunda base")){
+					lbPos.setText("2B");
+				}else if(aux.getPosicion().equalsIgnoreCase("Tercera base")){
+					lbPos.setText("3B");
+				}
+				//lbZurdoODiestro.setText("");
+				lbLugar.setText(aux.getLugarciudadNacimiento());
+				LocalDate localDate=LocalDate.of(aux.getFechanacimiento().getYear(),aux.getFechanacimiento().getMonthValue(),aux.getFechanacimiento().getDayOfMonth());
+				Locale spanishLocale=new Locale("es", "ES");
+			    String dateInSpanish=localDate.format(DateTimeFormatter.ofPattern("dd MMMM, yyyy",spanishLocale));
+			    lblFecha.setText(dateInSpanish+ " (Edad: " +Math.abs(aux.getFechanacimiento().getYear()-LocalDate.now().getYear())+ ")");
+			    lbUni.setText(aux.getUniversidad());
+			}
+		}
+		
 	}
 }

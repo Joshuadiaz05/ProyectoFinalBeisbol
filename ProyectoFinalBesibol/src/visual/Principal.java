@@ -115,7 +115,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmRegistrarJugador = new JMenuItem("Registrar Jugador");
 		mntmRegistrarJugador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarJugador regjug = new RegistrarJugador(null);
+				RegistrarJugador regjug = new RegistrarJugador(true);
 				regjug.setVisible(true);
 			}
 		});

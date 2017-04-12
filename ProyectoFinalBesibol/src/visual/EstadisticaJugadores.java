@@ -14,7 +14,7 @@ public class EstadisticaJugadores extends JDialog {
 
 
 	public EstadisticaJugadores() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 903, 493);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
