@@ -259,7 +259,7 @@ public class EquipoCaracteristicas extends JDialog {
 		lbUni = new JLabel("Ninguna");
 		lbUni.setVisible(false);
 		lbUni.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lbUni.setBounds(311, 122, 318, 19);
+		lbUni.setBounds(311, 122, 253, 19);
 		panel_4.add(lbUni);
 		
 		lbEligeUnJugador = new JLabel(" Elige un jugador");
