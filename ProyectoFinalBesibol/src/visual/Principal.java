@@ -24,6 +24,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
@@ -33,10 +37,13 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -119,8 +126,13 @@ public class Principal extends JFrame {
 		JMenuItem mntmRegistrarJugador = new JMenuItem("Registrar Jugador");
 		mntmRegistrarJugador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarJugador regjug = new RegistrarJugador(true, false, null);
-				regjug.setVisible(true);
+				if(LigaBeisbol.getInstance().getEquipo().size()==0){
+					JOptionPane.showMessageDialog(null, "No hay equipos disponibles", "Error", JOptionPane.WARNING_MESSAGE);
+				} else {
+					RegistrarJugador regjug = new RegistrarJugador(true, false, null);
+					regjug.setVisible(true);
+				}
+
 			}
 		});
 		mnJugadores.add(mntmRegistrarJugador);
@@ -248,16 +260,29 @@ public class Principal extends JFrame {
 	
 	public void cargar(){
 		tablemodel.setRowCount(0);
+		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+		tcr.setHorizontalAlignment(SwingConstants.CENTER);
+		table.getColumnModel().getColumn(0).setCellRenderer(tcr);
+		table.getColumnModel().getColumn(1).setCellRenderer(tcr);
+		table.getColumnModel().getColumn(2).setCellRenderer(tcr);
+		table.getColumnModel().getColumn(3).setCellRenderer(tcr);
+		table.getColumnModel().getColumn(4).setCellRenderer(tcr);
 		fila = new Object[tablemodel.getColumnCount()];
 		for (Partido aux : LigaBeisbol.getInstance().getPartido()) {
-			//if(LocalDate.now().equals(aux.getFecha())){
+			Date input = new Date(aux.getFecha().getYear(), aux.getFecha().getMonth(), aux.getFecha().getDate());
+			LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			if(LocalDate.now().equals(date)){
 				fila[0] = aux.getEquipoCasa();
 				fila[1] = aux.getEquipoVisita();
 				fila[2] = aux.getEstadio();
-				fila[3] = aux.getFecha();
+				Date fecha = new Date(aux.getFecha().getYear(), aux.getFecha().getMonth(), aux.getFecha().getDate());
+				LocalDate localfecha = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				Locale spanishLocale = new Locale("es", "ES");
+				String fechaString = localfecha.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", spanishLocale));
+				fila[3] = fechaString;
 				fila[4] = aux.getHora();
 				tablemodel.addRow(fila);
-			//}
+			}
 		}
 	}
 }

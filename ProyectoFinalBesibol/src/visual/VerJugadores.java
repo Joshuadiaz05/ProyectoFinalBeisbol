@@ -14,6 +14,7 @@ import javax.swing.JSeparator;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
 import java.awt.SystemColor;
@@ -24,6 +25,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import logical.Equipos;
+import logical.Jugadores;
 import logical.LigaBeisbol;
 
 import javax.swing.JScrollPane;
@@ -33,11 +35,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class VerJugadores extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField tdf_search;
+	private Java2sAutoTextField tdf_search;
 	private static JTable table;
 	private static JTable table_1;
 	private static JTable table_2;
@@ -67,7 +70,7 @@ public class VerJugadores extends JDialog {
 	public VerJugadores() {
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 650, 863);
+		setBounds(100, 100, 903, 863);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
@@ -82,13 +85,13 @@ public class VerJugadores extends JDialog {
 		}
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 54, 622, 2);
+		separator.setBounds(10, 54, 877, 2);
 		contentPanel.add(separator);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel.setBackground(SystemColor.inactiveCaptionBorder);
-		panel.setBounds(10, 66, 622, 82);
+		panel.setBounds(10, 66, 877, 82);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
@@ -128,60 +131,71 @@ public class VerJugadores extends JDialog {
 		cbx_opt.setBounds(108, 24, 159, 32);
 		panel.add(cbx_opt);
 		
-		tdf_search = new JTextField();
-		tdf_search.setBounds(278, 24, 281, 32);
+		ArrayList<String> jugadores_apellidos = new ArrayList<String>();
+		jugadores_apellidos.add("");
+		for (Jugadores aux : LigaBeisbol.getInstance().getJugador()) {
+			jugadores_apellidos.add(aux.getApellido());
+		}
+		//StringSearchable searchable = new StringSearchable(jugadores_apellidos);
+		//AutocompleteJComboBox combo = new AutocompleteJComboBox(searchable);
+		tdf_search = new Java2sAutoTextField(jugadores_apellidos);
+		tdf_search.setBounds(278, 24, 536, 32);
 		panel.add(tdf_search);
 		tdf_search.setColumns(10);
 		
 		JButton btnGo = new JButton("Ir");
+		btnGo.setActionCommand("OK");
 		btnGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(cbx_opt.getSelectedIndex()==0){
 					apellido = tdf_search.getText();
 					apel = true;
-					Jugador j = new Jugador(false);
+					ListadoJugadores j = new ListadoJugadores(false);
 					j.setVisible(true);
 				}
 				if(cbx_opt.getSelectedIndex()==1){
 					posicion = cbx_posicion.getSelectedItem().toString();
 					pos = true;
-					Jugador j = new Jugador(false);
+					ListadoJugadores j = new ListadoJugadores(false);
 					j.setVisible(true);
 				}
 				if(cbx_opt.getSelectedIndex()==2){
 					pais = cbx_pais.getSelectedItem().toString();
 					country = true;
-					Jugador j = new Jugador(false);
+					ListadoJugadores j = new ListadoJugadores(false);
 					j.setVisible(true);
 				}
 			}
 		});
 		btnGo.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		btnGo.setBounds(569, 24, 43, 32);
+		btnGo.setBounds(824, 24, 43, 32);
 		panel.add(btnGo);
+		getRootPane().setDefaultButton(btnGo);
 		
 		cbx_posicion = new JComboBox();
+		cbx_posicion.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		cbx_posicion.setVisible(false);
 		cbx_posicion.setModel(new DefaultComboBoxModel(new String[] {"Pitcher", "Catcher", "Primera base", "Segunda base", "Tercera base", "Short stop", "Left fielder", "Center fielder", "Right fielder", "Bateador designado"}));
-		cbx_posicion.setBounds(278, 24, 281, 32);
+		cbx_posicion.setBounds(278, 24, 536, 32);
 		panel.add(cbx_posicion);
 		
 		cbx_pais = new JComboBox();
+		cbx_pais.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		cbx_pais.setVisible(false);
-		cbx_pais.setModel(new DefaultComboBoxModel(new String[] {"Afganist\u00E1n", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiy\u00E1n", "Bahamas", "Banglad\u00E9s", "Barbados", "Bar\u00E9in", "B\u00E9lgica", "Belice", "Ben\u00EDn", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina", "Botsuana", "Brasil", "Brun\u00E9i", "Bulgaria", "Burkina Faso", "Burundi", "But\u00E1n", "Cabo Verde", "Camboya", "Camer\u00FAn", "Canad\u00E1", "Catar", "Chad", "Chile", "China", "Chipre", "Ciudad del Vaticano", "Colombia", "Comoras", "Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos \u00C1rabes Unidos", "Eritrea", "Eslovaquia", "Eslovenia", "Espa\u00F1a", "Estados Unidos", "Estonia", "Etiop\u00EDa", "Filipinas", "Finlandia", "Fiyi", "Francia", "Gab\u00F3n", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guyana", "Guinea", "Guinea ecuatorial", "Guinea-Bis\u00E1u", "Hait\u00ED", "Honduras", "Hungr\u00EDa", "India", "Indonesia", "Irak", "Ir\u00E1n", "Irlanda", "Islandia", "Islas Marshall", "Islas Salom\u00F3n", "Israel", "Italia", "Jamaica", "Jap\u00F3n", "Jordania", "Kazajist\u00E1n", "Kenia", "Kirguist\u00E1n", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia", "L\u00EDbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Mal\u00ED", "Malta", "Marruecos", "Mauricio", "Mauritania", "M\u00E9xico", "Micronesia", "Moldavia", "M\u00F3naco", "Mongolia", "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "N\u00EDger", "Nigeria", "Noruega", "Nueva Zelanda", "Om\u00E1n", "Pa\u00EDses Bajos", "Pakist\u00E1n", "Palaos", "Panam\u00E1", "Pap\u00FAa Nueva Guinea", "Paraguay", "Per\u00FA", "Polonia", "Portugal", "Reino Unido", "Rep\u00FAblica Centroafricana", "Rep\u00FAblica Checa", "Rep\u00FAblica de Macedonia", "Rep\u00FAblica del Congo", "Rep\u00FAblica Democr\u00E1tica del Congo", "Rep\u00FAblica Dominicana", "Rep\u00FAblica Sudafricana", "Ruanda", "Ruman\u00EDa", "Rusia", "Samoa", "San Crist\u00F3bal y Nieves", "San Marino", "San Vicente y las Granadinas", "Santa Luc\u00EDa", "Santo Tom\u00E9 y Pr\u00EDncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sud\u00E1n", "Sud\u00E1n del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Tanzania", "Tayikist\u00E1n", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "T\u00FAnez", "Turkmenist\u00E1n", "Turqu\u00EDa", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekist\u00E1n", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Yibuti", "Zambia", "Zimbabue"}));
-		cbx_pais.setBounds(278, 24, 281, 32);
+		cbx_pais.setModel(new DefaultComboBoxModel(new String[] {"Afganist\u00E1n ", "Akrotiri ", "Albania ", "Alemania ", "Andorra ", "Angola ", "Anguila ", "Ant\u00E1rtida ", "Antigua y Barbuda ", "Antillas Neerlandesas ", "Arabia Saud\u00ED ", "Arctic Ocean ", "Argelia ", "Argentina ", "Armenia ", "Aruba ", "Ashmore andCartier Islands ", "Atlantic Ocean ", "Australia ", "Austria ", "Azerbaiy\u00E1n ", "Bahamas ", "Bahr\u00E1in ", "Bangladesh ", "Barbados ", "B\u00E9lgica ", "Belice ", "Ben\u00EDn ", "Bermudas ", "Bielorrusia ", "Birmania Myanmar ", "Bolivia ", "Bosnia y Hercegovina ", "Botsuana ", "Brasil ", "Brun\u00E9i ", "Bulgaria ", "Burkina Faso ", "Burundi ", "But\u00E1n ", "Cabo Verde ", "Camboya ", "Camer\u00FAn ", "Canad\u00E1 ", "Chad ", "Chile ", "China ", "Chipre ", "Clipperton Island ", "Colombia ", "Comoras ", "Congo ", "Coral Sea Islands ", "Corea del Norte ", "Corea del Sur ", "Costa de Marfil ", "Costa Rica ", "Croacia ", "Cuba ", "Dhekelia ", "Dinamarca ", "Dominica ", "Ecuador ", "Egipto ", "El Salvador ", "El Vaticano ", "Emiratos \u00C1rabes Unidos ", "Eritrea ", "Eslovaquia ", "Eslovenia ", "Espa\u00F1a ", "Estados Unidos ", "Estonia ", "Etiop\u00EDa ", "Filipinas ", "Finlandia ", "Fiyi ", "Francia ", "Gab\u00F3n ", "Gambia ", "Gaza Strip ", "Georgia ", "Ghana ", "Gibraltar ", "Granada ", "Grecia ", "Groenlandia ", "Guam ", "Guatemala ", "Guernsey ", "Guinea ", "Guinea Ecuatorial ", "Guinea-Bissau ", "Guyana ", "Hait\u00ED ", "Honduras ", "Hong Kong ", "Hungr\u00EDa ", "India ", "Indian Ocean ", "Indonesia ", "Ir\u00E1n ", "Iraq ", "Irlanda ", "Isla Bouvet ", "Isla Christmas ", "Isla Norfolk ", "Islandia ", "Islas Caim\u00E1n ", "Islas Cocos ", "Islas Cook ", "Islas Feroe ", "Islas Georgia del Sur y Sandwich del Sur ", "Islas Heard y McDonald ", "Islas Malvinas ", "Islas Marianas del Norte ", "IslasMarshall ", "Islas Pitcairn ", "Islas Salom\u00F3n ", "Islas Turcas y Caicos ", "Islas V\u00EDrgenes Americanas ", "Islas V\u00EDrgenes Brit\u00E1nicas ", "Israel ", "Italia ", "Jamaica ", "Jan Mayen ", "Jap\u00F3n ", "Jersey ", "Jordania ", "Kazajist\u00E1n ", "Kenia ", "Kirguizist\u00E1n ", "Kiribati ", "Kuwait ", "Laos ", "Lesoto ", "Letonia ", "L\u00EDbano ", "Liberia ", "Libia ", "Liechtenstein ", "Lituania ", "Luxemburgo ", "Macao ", "Macedonia ", "Madagascar ", "Malasia ", "Malaui ", "Maldivas ", "Mal\u00ED ", "Malta ", "Man, Isle of ", "Marruecos ", "Mauricio ", "Mauritania ", "Mayotte ", "M\u00E9xico ", "Micronesia ", "Moldavia ", "M\u00F3naco ", "Mongolia ", "Montserrat ", "Mozambique ", "Namibia ", "Nauru ", "Navassa Island ", "Nepal ", "Nicaragua ", "N\u00EDger ", "Nigeria ", "Niue ", "Noruega ", "Nueva Caledonia ", "Nueva Zelanda ", "Om\u00E1n ", "Pacific Ocean ", "Pa\u00EDses Bajos ", "Pakist\u00E1n ", "Palaos ", "Panam\u00E1 ", "Pap\u00FAa-Nueva Guinea ", "Paracel Islands ", "Paraguay ", "Per\u00FA ", "Polinesia Francesa ", "Polonia ", "Portugal ", "Puerto Rico ", "Qatar ", "Reino Unido ", "Rep\u00FAblica Centroafricana ", "Rep\u00FAblica Checa ", "Rep\u00FAblica Democr\u00E1tica del Congo ", "Rep\u00FAblica Dominicana ", "Ruanda ", "Rumania ", "Rusia ", "S\u00E1hara Occidental ", "Samoa ", "Samoa Americana ", "San Crist\u00F3bal y Nieves ", "San Marino ", "San Pedro y Miquel\u00F3n ", "San Vicente y las Granadinas ", "Santa Helena ", "Santa Luc\u00EDa ", "Santo Tom\u00E9 y Pr\u00EDncipe ", "Senegal ", "Seychelles ", "Sierra Leona ", "Singapur ", "Siria ", "Somalia ", "Southern Ocean ", "Spratly Islands ", "Sri Lanka ", "Suazilandia ", "Sud\u00E1frica ", "Sud\u00E1n ", "Suecia ", "Suiza ", "Surinam ", "Svalbard y Jan Mayen ", "Tailandia ", "Taiw\u00E1n ", "Tanzania ", "Tayikist\u00E1n ", "TerritorioBrit\u00E1nicodel Oc\u00E9ano Indico ", "Territorios Australes Franceses ", "Timor Oriental ", "Togo ", "Tokelau ", "Tonga ", "Trinidad y Tobago ", "T\u00FAnez ", "Turkmenist\u00E1n ", "Turqu\u00EDa ", "Tuvalu ", "Ucrania ", "Uganda ", "Uni\u00F3n Europea ", "Uruguay ", "Uzbekist\u00E1n ", "Vanuatu ", "Venezuela ", "Vietnam ", "Wake Island ", "Wallis y Futuna ", "West Bank ", "World ", "Yemen ", "Yibuti ", "Zambia ", "Zimbabue "}));
+		cbx_pais.setBounds(278, 24, 536, 32);
 		panel.add(cbx_pais);
 		
 		JPanel region_norte = new JPanel();
 		region_norte.setBorder(null);
 		region_norte.setBackground(SystemColor.inactiveCaptionBorder);
-		region_norte.setBounds(10, 166, 298, 298);
+		region_norte.setBounds(10, 166, 432, 298);
 		contentPanel.add(region_norte);
 		region_norte.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().setBackground(Color.WHITE);
-		scrollPane.setBounds(0, 0, 298, 298);
+		scrollPane.setBounds(0, 0, 432, 298);
 		region_norte.add(scrollPane);
 		
 		table = new JTable();
@@ -191,7 +205,7 @@ public class VerJugadores extends JDialog {
 				int index = table.getSelectedRow();
 				nombreEquipo = (String) table.getModel().getValueAt(index, 0);
 				inde = LigaBeisbol.getInstance().BuscarPorNombre(nombreEquipo);
-				Jugador j = new Jugador(true);
+				ListadoJugadores j = new ListadoJugadores(true);
 				j.setVisible(true);
 			}
 		});
@@ -206,12 +220,12 @@ public class VerJugadores extends JDialog {
 		JPanel region_sur = new JPanel();
 		region_sur.setBorder(null);
 		region_sur.setBackground(SystemColor.inactiveCaptionBorder);
-		region_sur.setBounds(334, 166, 298, 298);
+		region_sur.setBounds(452, 166, 432, 298);
 		contentPanel.add(region_sur);
 		region_sur.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 0, 298, 298);
+		scrollPane_1.setBounds(0, 0, 432, 298);
 		region_sur.add(scrollPane_1);
 		
 		table_1 = new JTable();
@@ -221,7 +235,7 @@ public class VerJugadores extends JDialog {
 				int index = table_1.getSelectedRow();
 				nombreEquipo = (String) table_1.getModel().getValueAt(index, 0);
 				inde = LigaBeisbol.getInstance().BuscarPorNombre(nombreEquipo);
-				Jugador j = new Jugador(true);
+				ListadoJugadores j = new ListadoJugadores(true);
 				j.setVisible(true);
 			}
 		});
@@ -236,12 +250,12 @@ public class VerJugadores extends JDialog {
 		JPanel region_oeste = new JPanel();
 		region_oeste.setBorder(null);
 		region_oeste.setBackground(SystemColor.inactiveCaptionBorder);
-		region_oeste.setBounds(10, 482, 298, 298);
+		region_oeste.setBounds(10, 482, 432, 298);
 		contentPanel.add(region_oeste);
 		region_oeste.setLayout(null);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(0, 0, 298, 298);
+		scrollPane_2.setBounds(0, 0, 432, 298);
 		region_oeste.add(scrollPane_2);
 		
 		table_2 = new JTable();
@@ -251,7 +265,7 @@ public class VerJugadores extends JDialog {
 				int index = table_2.getSelectedRow();
 				nombreEquipo = (String) table_2.getModel().getValueAt(index, 0);
 				inde = LigaBeisbol.getInstance().BuscarPorNombre(nombreEquipo);
-				Jugador j = new Jugador(true);
+				ListadoJugadores j = new ListadoJugadores(true);
 				j.setVisible(true);
 			}
 		});
@@ -265,12 +279,12 @@ public class VerJugadores extends JDialog {
 		
 		JPanel region_este = new JPanel();
 		region_este.setBackground(SystemColor.inactiveCaptionBorder);
-		region_este.setBounds(334, 482, 298, 298);
+		region_este.setBounds(452, 482, 432, 298);
 		contentPanel.add(region_este);
 		region_este.setLayout(null);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(0, 0, 298, 298);
+		scrollPane_3.setBounds(0, 0, 432, 298);
 		region_este.add(scrollPane_3);
 		
 		table_3 = new JTable();
@@ -280,7 +294,7 @@ public class VerJugadores extends JDialog {
 				int index = table_3.getSelectedRow();
 				nombreEquipo = (String) table_3.getModel().getValueAt(index, 0);
 				inde = LigaBeisbol.getInstance().BuscarPorNombre(nombreEquipo);
-				Jugador j = new Jugador(true);
+				ListadoJugadores j = new ListadoJugadores(true);
 				j.setVisible(true);
 			}
 		});
@@ -299,9 +313,13 @@ public class VerJugadores extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				//getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
@@ -369,5 +387,4 @@ public class VerJugadores extends JDialog {
 			}
 		}
 	}
-	
 }

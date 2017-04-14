@@ -29,7 +29,10 @@ public class ListadoEquipo extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListadoEquipo() {
+		setResizable(false);
+		setModal(true);
 		setBounds(100, 100, 687, 455);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);

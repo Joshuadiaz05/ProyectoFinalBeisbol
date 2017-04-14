@@ -86,8 +86,8 @@ public class Estadisticas implements Serializable{
 	public void setDobles(int dobles) {
 		this.dobles = dobles;
 	}
-
-	public int getTripes() {
+	
+	public int getTriples() {
 		return triples;
 	}
 
@@ -125,6 +125,30 @@ public class Estadisticas implements Serializable{
 
 	public void setTurnosjugados(int turnosjugados) {
 		this.turnosjugados = turnosjugados;
+	}
+
+	public int getErrores() {
+		return errores;
+	}
+
+	public void setErrores(int errores) {
+		this.errores = errores;
+	}
+
+	public int getCarreraAnotadas() {
+		return carreraAnotadas;
+	}
+
+	public void setCarreraAnotadas(int carreraAnotadas) {
+		this.carreraAnotadas = carreraAnotadas;
+	}
+
+	public int getRBI() {
+		return RBI;
+	}
+
+	public void setRBI(int rBI) {
+		RBI = rBI;
 	}
 
 	public float obtenerPromedioBateo(){

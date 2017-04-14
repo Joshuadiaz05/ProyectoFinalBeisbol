@@ -1,16 +1,20 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.border.EtchedBorder;
 import logical.Equipos;
 import logical.LigaBeisbol;
@@ -19,10 +23,16 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
+
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
 public class RegistrarEquipo extends JDialog {
 
@@ -32,6 +42,7 @@ public class RegistrarEquipo extends JDialog {
 	private JTextField tdfEstadio;
 	private JComboBox cbxRegion;
 	private JComboBox cbxAgno;
+	private JLabel lbFoto;
 
 	/**
 	 * Create the dialog.
@@ -39,7 +50,7 @@ public class RegistrarEquipo extends JDialog {
 	public RegistrarEquipo() {
 		setModal(true);
 		setResizable(false);
-		setBounds(100, 100, 588, 277);
+		setBounds(100, 100, 530, 354);
 		getContentPane().setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -52,7 +63,7 @@ public class RegistrarEquipo extends JDialog {
 		contentPanel.add(lblNewLabel);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 59, 525, 2);
+		separator.setBounds(10, 59, 503, 2);
 		contentPanel.add(separator);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre:");
@@ -62,7 +73,7 @@ public class RegistrarEquipo extends JDialog {
 		
 		JLabel lblAoDeCreacin = new JLabel("A\u00F1o de creaci\u00F3n:");
 		lblAoDeCreacin.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblAoDeCreacin.setBounds(290, 72, 131, 19);
+		lblAoDeCreacin.setBounds(10, 207, 131, 19);
 		contentPanel.add(lblAoDeCreacin);
 		
 		JLabel lblManager = new JLabel("Manager:");
@@ -72,12 +83,12 @@ public class RegistrarEquipo extends JDialog {
 		
 		JLabel lblEstadio = new JLabel("Estadio:");
 		lblEstadio.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblEstadio.setBounds(348, 118, 73, 19);
+		lblEstadio.setBounds(10, 249, 73, 19);
 		contentPanel.add(lblEstadio);
 		
 		tdfNombre = new JTextField();
 		tdfNombre.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
-		tdfNombre.setBounds(93, 65, 187, 32);
+		tdfNombre.setBounds(149, 65, 187, 32);
 		contentPanel.add(tdfNombre);
 		tdfNombre.setColumns(10);
 		
@@ -90,17 +101,17 @@ public class RegistrarEquipo extends JDialog {
 		cbxAgno = new JComboBox(years_tmp.toArray());
 		cbxAgno.setSelectedIndex(0);
 		cbxAgno.setFont(new Font("Tw Cen MT", Font.BOLD, 16));
-		cbxAgno.setBounds(431, 67, 131, 32);
+		cbxAgno.setBounds(149, 201, 141, 32);
 		contentPanel.add(cbxAgno);
 		
 		tdfManager = new JTextField();
 		tdfManager.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
 		tdfManager.setColumns(10);
-		tdfManager.setBounds(93, 111, 187, 32);
+		tdfManager.setBounds(149, 111, 187, 32);
 		contentPanel.add(tdfManager);
 		
 		tdfEstadio = new JTextField();
-		tdfEstadio.setBounds(431, 111, 131, 32);
+		tdfEstadio.setBounds(149, 244, 141, 32);
 		contentPanel.add(tdfEstadio);
 		tdfEstadio.setColumns(10);
 		
@@ -113,8 +124,62 @@ public class RegistrarEquipo extends JDialog {
 		cbxRegion.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		cbxRegion.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Norte", "Este", "Oeste", "Sur"}));
 		cbxRegion.setSelectedIndex(0);
-		cbxRegion.setBounds(93, 158, 187, 32);
+		cbxRegion.setBounds(149, 158, 187, 32);
 		contentPanel.add(cbxRegion);
+		
+		JPanel panel = new JPanel() {
+		    protected void paintComponent(Graphics g)
+		    {
+		        g.setColor( getBackground() );
+		        g.fillRect(0, 0, getWidth(), getHeight());
+		        super.paintComponent(g);
+		    }
+		};
+		panel.setOpaque(false);
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setBackground(new Color(0, 0, 0, 10));
+		panel.setBounds(393, 65, 120, 83);
+		contentPanel.add(panel);
+		
+		lbFoto = new JLabel("");
+		panel.add(lbFoto);
+		
+		JButton btnNewButton = new JButton("Subir Foto");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tdfNombre.getText().equalsIgnoreCase("")){
+					JOptionPane.showMessageDialog(null, "Tienes que poner el nombre antes de guardar una foto." , "Error:", JOptionPane.ERROR_MESSAGE);
+				}else{
+					BufferedImage image;
+					JFileChooser chooser = new JFileChooser();
+					chooser.showOpenDialog(null);
+					File f = chooser.getSelectedFile();
+					String route2 = "";
+					try {
+						route2 = f.getAbsolutePath();
+					} catch (NullPointerException e2) {
+						
+					}
+					try {
+						image = ImageIO.read(f);
+						String route = "equipos/" + tdfNombre .getText() +".png";
+						ImageIO.write(image, "png",new File(route));
+						ImageIcon imagee = new ImageIcon(route2);
+						lbFoto.setIcon(null);
+						lbFoto.setIcon(imagee);
+						
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}catch (IllegalArgumentException e2) {
+						JOptionPane.showMessageDialog(null, "Debes escoger una foto." , "Error:", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		});
+		btnNewButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		btnNewButton.setBounds(394, 158, 119, 32);
+		contentPanel.add(btnNewButton);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -163,5 +228,6 @@ public class RegistrarEquipo extends JDialog {
 		cbxAgno.setSelectedIndex(0);
 		tdfEstadio.setText("");
 		cbxRegion.setSelectedIndex(0);
+		lbFoto.setIcon(null);
 	}
 }

@@ -10,6 +10,8 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
 import logical.Equipos;
@@ -31,6 +33,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
@@ -67,7 +70,7 @@ public class RegistrarJugador extends JDialog {
 	private String equipotext = "";
 	private Equipos miEquipos;
 	
-	public RegistrarJugador(boolean fromprincipal, boolean modificacion, Jugadores jugador) {
+	public RegistrarJugador(boolean fromprincipal, boolean modificacion, String jugador) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imag/baseball.png"));
 		if(modificacion==true){
 			setTitle("Modificar Jugador");
@@ -255,30 +258,52 @@ public class RegistrarJugador extends JDialog {
 			btnSubirFoto.setFont(new Font("Trebuchet MS", Font.BOLD, 11));
 			btnSubirFoto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					BufferedImage image;
-					JFileChooser chooser = new JFileChooser();
-					chooser.showOpenDialog(null);
-					File f = chooser.getSelectedFile();
-					String route2 = f.getAbsolutePath();
-					try {
-						image = ImageIO.read(f);
-						String route = "jugadores/" + textnombre .getText() +".png";
-						ImageIO.write(image, "png",new File(route));
-						ImageIcon imagee = new ImageIcon(route2);
-						lbFoto.setIcon(null);
-						lbFoto.setIcon(imagee);
-						
-					} catch (IOException e1) {
-						e1.printStackTrace();
+					if(textnombre.getText().equalsIgnoreCase("")){
+						JOptionPane.showMessageDialog(null, "Tienes que poner el nombre antes de guardar una foto." , "Error:", JOptionPane.ERROR_MESSAGE);
+					}else{
+						BufferedImage image;
+						JFileChooser chooser = new JFileChooser();
+						chooser.showOpenDialog(null);
+						File f = chooser.getSelectedFile();
+						String route2 = "";
+						try {
+							route2 = f.getAbsolutePath();
+						} catch (NullPointerException e2) {
+							
+						}
+						try {
+							image = ImageIO.read(f);
+							String route = "jugadores/" + textnombre .getText() +".png";
+							ImageIO.write(image, "png",new File(route));
+							ImageIcon imagee = new ImageIcon(route2);
+							lbFoto.setIcon(null);
+							lbFoto.setIcon(imagee);
+							
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}catch (IllegalArgumentException e2) {
+							JOptionPane.showMessageDialog(null, "Debes escoger una foto." , "Error:", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				}
 			});
 			btnSubirFoto.setBounds(615, 221, 105, 23);
 			panel.add(btnSubirFoto);
 			
+			JPanel panel_1 = new JPanel();
+			panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+			panel_1.setBounds(518, 59, 205, 155);
+			panel.add(panel_1);
+			panel_1.setLayout(null);
+			
 			lbFoto = new JLabel("");
-			lbFoto.setBounds(518, 59, 202, 150);
-			panel.add(lbFoto);
+			ImageIcon image = new ImageIcon("img/player_blank.png");
+			lbFoto.setIcon(image);
+			lbFoto.setHorizontalAlignment(SwingConstants.CENTER);
+			
+			lbFoto.setBounds(0, 2, 202, 150);
+			panel_1.add(lbFoto);
 			
 			JLabel lblRegistrarJugador = new JLabel("Registrar Jugador");
 			if(modificacion==true){
@@ -346,8 +371,10 @@ public class RegistrarJugador extends JDialog {
 				public void actionPerformed(ActionEvent arg0) {
 					if(rdbtnNewRadioButton.isSelected()){
 						setBounds(100, 100, 761, 568);
+						setLocationRelativeTo(null);
 					}else{
-						setBounds(100, 100, 761, 568);
+						setBounds(100, 100, 761, 453);
+						setLocationRelativeTo(null);
 					}
 				}
 			});
@@ -470,7 +497,7 @@ public class RegistrarJugador extends JDialog {
 				JButton okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(textnombre.getText().equalsIgnoreCase("") || textapellido.getText().equalsIgnoreCase("") || textlugarnacimiento.getText().equalsIgnoreCase("") || textUniversidad.getText().equalsIgnoreCase("")){
+						if(textnombre.getText().equalsIgnoreCase("") || textapellido.getText().equalsIgnoreCase("") || cBpais.getSelectedIndex()==0 ||textlugarnacimiento.getText().equalsIgnoreCase("") || textUniversidad.getText().equalsIgnoreCase("")){
 							JOptionPane.showMessageDialog(null, "Por favor! Complete todos los Campos", null,
 									JOptionPane.WARNING_MESSAGE, null);
 						}else{
@@ -498,7 +525,7 @@ public class RegistrarJugador extends JDialog {
 							int mes = cBmes.getSelectedIndex();
 							String agno = cBagno.getSelectedItem().toString();
 							LocalDate date = LocalDate.of(Integer.valueOf(agno), mes+1, dia+1);
-							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, date, ciudad, pais, univ, equipotext, titular);
+							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, date, ciudad, pais, univ, miEquipos.getNombre(), titular);
 							miEquipos.agregarjugador(nuevojugador);
 							LigaBeisbol.getInstance().insertarJugador(nuevojugador);
 							if(rdbtnNewRadioButton.isSelected()){
@@ -518,10 +545,10 @@ public class RegistrarJugador extends JDialog {
 									JOptionPane.INFORMATION_MESSAGE, null);
 							if(fromprincipal==true){
 								clean(true);
-								EquipoCaracteristicas.cargarJugadoresLesionadoPorEquipo();
-								EquipoCaracteristicas.cargarJugadoresPorEquipo();
 							} else {
 								clean(false);
+								EquipoCaracteristicas.cargarJugadoresLesionadoPorEquipo();
+								EquipoCaracteristicas.cargarJugadoresPorEquipo();
 							}
 							
 						}
@@ -557,20 +584,25 @@ public class RegistrarJugador extends JDialog {
 		spinneraltura.setValue(170);
 		cBposicion.setSelectedIndex(0);
 		cBpais.setSelectedIndex(0);
+		lbFoto.setIcon(null);
 		if(update==true){
 			cBEquipo.setSelectedItem(0);
 		}
 	}
 	
-	public void modificar(Jugadores jugador){
-		textnombre.setText(""+jugador.getNombre());
-		textapellido.setText(""+jugador.getApellido());
-		textlugarnacimiento.setText(""+jugador.getLugarciudadNacimiento());
-		textUniversidad.setText(""+jugador.getUniversidad());
-		spinnernumero.setValue(""+jugador.getNumero());
-		spinnerpeso.setValue(jugador.getPeso());
-		spinneraltura.setValue(jugador.getAltura());
-		cBposicion.setSelectedItem(jugador.getPosicion());
-		cBpais.setSelectedItem(0);
+	public void modificar(String mijugador){
+		for (Jugadores aux : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
+			if (aux.getNombre().equalsIgnoreCase(mijugador)) {
+				textnombre.setText(aux.getNombre());
+				textapellido.setText(aux.getApellido());
+				textlugarnacimiento.setText(aux.getLugarciudadNacimiento());
+				textUniversidad.setText(aux.getUniversidad());
+				spinnernumero.setValue(aux.getNumero());
+				spinnerpeso.setValue(aux.getPeso());
+				spinneraltura.setValue(aux.getAltura());
+				cBposicion.setSelectedItem(aux.getPosicion());
+				cBpais.setSelectedItem(0);
+			}
+		}
 	}
 }

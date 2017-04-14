@@ -9,8 +9,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
+
 import javax.swing.JSeparator;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import logical.Equipos;
@@ -19,6 +26,7 @@ import logical.Partido;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 
 public class ListadoEventos extends JDialog {
 
@@ -30,7 +38,10 @@ public class ListadoEventos extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListadoEventos() {
+		setModal(true);
+		setResizable(false);
 		setBounds(100, 100, 687, 455);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -95,12 +106,23 @@ public class ListadoEventos extends JDialog {
 	
 	public void cargar(){
 		tablemodel.setRowCount(0);
+		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+		tcr.setHorizontalAlignment(SwingConstants.CENTER);
+		table.getColumnModel().getColumn(0).setCellRenderer(tcr);
+		table.getColumnModel().getColumn(1).setCellRenderer(tcr);
+		table.getColumnModel().getColumn(2).setCellRenderer(tcr);
+		table.getColumnModel().getColumn(3).setCellRenderer(tcr);
+		table.getColumnModel().getColumn(4).setCellRenderer(tcr);
 		fila = new Object[tablemodel.getColumnCount()];
 		for (Partido aux : LigaBeisbol.getInstance().getPartido()) {
 			fila[0] = aux.getEquipoCasa();
 			fila[1] = aux.getEquipoVisita();
 			fila[2] = aux.getEstadio();
-			fila[3] = aux.getFecha();
+			Date fecha = new Date(aux.getFecha().getYear(), aux.getFecha().getMonth(), aux.getFecha().getDate());
+			LocalDate localfecha = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			Locale spanishLocale = new Locale("es", "ES");
+			String fechaString = localfecha.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", spanishLocale));
+			fila[3] = fechaString;
 			fila[4] = aux.getHora();
 			tablemodel.addRow(fila);
 		}

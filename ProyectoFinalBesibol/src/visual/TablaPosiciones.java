@@ -51,7 +51,7 @@ public class TablaPosiciones extends JDialog {
 		setTitle("Tabla de posiciones");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 742, 652);
+		setBounds(100, 100, 929, 652);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -64,16 +64,16 @@ public class TablaPosiciones extends JDialog {
 		contentPanel.add(lblNewLabel);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 56, 716, 2);
+		separator.setBounds(10, 56, 904, 2);
 		contentPanel.add(separator);
 		
 		JPanel norte = new JPanel();
-		norte.setBounds(10, 94, 346, 217);
+		norte.setBounds(10, 94, 447, 217);
 		contentPanel.add(norte);
 		norte.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 346, 217);
+		scrollPane.setBounds(0, 0, 447, 217);
 		norte.add(scrollPane);
 		
 		table = new JTable();
@@ -97,16 +97,16 @@ public class TablaPosiciones extends JDialog {
 		
 		JLabel lblDivisinEste = new JLabel("Divisi\u00F3n Norte");
 		lblDivisinEste.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblDivisinEste.setBounds(120, 69, 125, 19);
+		lblDivisinEste.setBounds(171, 69, 125, 19);
 		contentPanel.add(lblDivisinEste);
 		
 		JPanel sur = new JPanel();
-		sur.setBounds(379, 94, 346, 217);
+		sur.setBounds(467, 94, 447, 217);
 		contentPanel.add(sur);
 		sur.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 0, 346, 217);
+		scrollPane_1.setBounds(0, 0, 447, 217);
 		sur.add(scrollPane_1);
 		
 		table_1 = new JTable();
@@ -129,16 +129,16 @@ public class TablaPosiciones extends JDialog {
 		
 		JLabel lblDivisinSur = new JLabel("Divisi\u00F3n Sur");
 		lblDivisinSur.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblDivisinSur.setBounds(505, 69, 93, 19);
+		lblDivisinSur.setBounds(644, 69, 93, 19);
 		contentPanel.add(lblDivisinSur);
 		
 		JPanel oeste = new JPanel();
 		oeste.setLayout(null);
-		oeste.setBounds(10, 351, 346, 217);
+		oeste.setBounds(10, 351, 447, 217);
 		contentPanel.add(oeste);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(0, 0, 346, 217);
+		scrollPane_2.setBounds(0, 0, 447, 217);
 		oeste.add(scrollPane_2);
 		
 		table_2 = new JTable();
@@ -161,11 +161,11 @@ public class TablaPosiciones extends JDialog {
 			
 		JPanel este = new JPanel();
 		este.setLayout(null);
-		este.setBounds(379, 351, 346, 217);
+		este.setBounds(467, 351, 447, 217);
 		contentPanel.add(este);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(0, 0, 346, 217);
+		scrollPane_3.setBounds(0, 0, 447, 217);
 		este.add(scrollPane_3);
 		
 		table_3 = new JTable();
@@ -188,12 +188,12 @@ public class TablaPosiciones extends JDialog {
 		
 		JLabel lblDivisinOeste = new JLabel("Divisi\u00F3n Oeste");
 		lblDivisinOeste.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblDivisinOeste.setBounds(120, 322, 125, 19);
+		lblDivisinOeste.setBounds(171, 322, 125, 19);
 		contentPanel.add(lblDivisinOeste);
 		
 		JLabel lblDivisinEste_1 = new JLabel("Divisi\u00F3n Este");
 		lblDivisinEste_1.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblDivisinEste_1.setBounds(505, 326, 125, 19);
+		lblDivisinEste_1.setBounds(628, 326, 125, 19);
 		contentPanel.add(lblDivisinEste_1);
 		{
 			JPanel buttonPane = new JPanel();
