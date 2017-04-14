@@ -23,6 +23,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
@@ -36,6 +37,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Principal extends JFrame {
 
@@ -44,7 +47,11 @@ public class Principal extends JFrame {
 	private static DefaultTableModel tablemodel;
 	static Object fila[];
 	private static JTable table;
-
+	private JButton btnNewButton;
+	private String local=null;
+	private String visita=null;
+	private JLabel lblNewLabel_1;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -96,13 +103,6 @@ public class Principal extends JFrame {
 		});
 		mnEquipos.add(mntmVerListado);
 
-		JMenuItem mntmPosicionesEnEl = new JMenuItem("Posiciones en el Campo");
-		mntmPosicionesEnEl.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-			}
-		});
-
 		JMenuItem menuItem = new JMenuItem("Tabla de Posiciones");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -111,7 +111,6 @@ public class Principal extends JFrame {
 			}
 		});
 		mnEquipos.add(menuItem);
-		mnEquipos.add(mntmPosicionesEnEl);
 
 		JMenu mnJugadores = new JMenu("Jugadores");
 		mnJugadores.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -120,7 +119,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmRegistrarJugador = new JMenuItem("Registrar Jugador");
 		mntmRegistrarJugador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarJugador regjug = new RegistrarJugador(true);
+				RegistrarJugador regjug = new RegistrarJugador(true, false, null);
 				regjug.setVisible(true);
 			}
 		});
@@ -160,33 +159,6 @@ public class Principal extends JFrame {
 		});
 		mnPartidos.add(mntmVerAgenda);
 
-		JMenu mnLesiones = new JMenu("Lesiones");
-		mnLesiones.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		menuBar.add(mnLesiones);
-
-		JMenuItem mntmJugadorLesionado = new JMenuItem("Jugador Lesionado");
-		mntmJugadorLesionado.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		mnLesiones.add(mntmJugadorLesionado);
-
-		JMenuItem mntmSustituirJugadoresLesionados = new JMenuItem("Sustituir Jugadores Lesionados");
-		mnLesiones.add(mntmSustituirJugadoresLesionados);
-
-		JMenu mnSimulacin = new JMenu("Simulaci\u00F3n");
-		mnSimulacin.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		menuBar.add(mnSimulacin);
-
-		JMenuItem mntmIniciarPartido = new JMenuItem("Iniciar Partido");
-		mntmIniciarPartido.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Simulacion simular = new Simulacion();
-				simular.setVisible(true);
-			}
-		});
-		mnSimulacin.add(mntmIniciarPartido);
-
 		JPanel panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel.setBounds(10, 32, 605, 429);
@@ -198,6 +170,16 @@ public class Principal extends JFrame {
 		panel.add(scrollPane);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int ind = table.getSelectedRow();
+				local = (String) table.getModel().getValueAt(ind, 0);
+				visita = (String) table.getModel().getValueAt(ind, 1);
+				btnNewButton.setEnabled(true);
+						
+			}
+		});
 		scrollPane.setViewportView(table);
 		
 		String[] columnsHeaders = {"Equipo Local", " Equipo Visita", " Estadio", " Fecha", " Hora"};
@@ -214,14 +196,45 @@ public class Principal extends JFrame {
 		separator.setBounds(11, 55, 197, 2);
 		panel.add(separator);
 		
-		JButton btnNewButton = new JButton("Jugar Partido");
+		lblNewLabel_1 = new JLabel("Ir a Todos los Eventos");
+		lblNewLabel_1.setVisible(false);
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 14));
+		lblNewLabel_1.setBounds(200, 2, 144, 14);
+		panel.add(lblNewLabel_1);
+		
+		btnNewButton = new JButton("Jugar Partido");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Simulacion simular = new Simulacion(local, visita);
+				simular.setVisible(true);
+			}
+		});
 		btnNewButton.setEnabled(false);
 		btnNewButton.setBounds(449, 390, 141, 23);
 		panel.add(btnNewButton);
+			
+		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ListadoEventos lista = new ListadoEventos();
+				lista.setVisible(true);
+			}
+		});
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				lblNewLabel_1.setVisible(true);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblNewLabel_1.setVisible(false);
+			}
+		});
+		button.setIcon(new ImageIcon("img/iconcalendar.png"));
+		button.setBounds(217, 18, 50, 40);
+		panel.add(button);
 		
-		JLabel label = new JLabel("");
-		label.setBounds(217, 16, 56, 41);
-		panel.add(label);
+		
 		
 		cargar();
 		addWindowListener(new WindowAdapter() {
@@ -237,12 +250,14 @@ public class Principal extends JFrame {
 		tablemodel.setRowCount(0);
 		fila = new Object[tablemodel.getColumnCount()];
 		for (Partido aux : LigaBeisbol.getInstance().getPartido()) {
-			fila[0] = aux.getEquipoCasa();
-			fila[1] = aux.getEquipoVisita();
-			fila[2] = aux.getEstadio();
-			fila[3] = aux.getFecha();
-			fila[4] = aux.getHora();
-			tablemodel.addRow(fila);
+			//if(LocalDate.now().equals(aux.getFecha())){
+				fila[0] = aux.getEquipoCasa();
+				fila[1] = aux.getEquipoVisita();
+				fila[2] = aux.getEstadio();
+				fila[3] = aux.getFecha();
+				fila[4] = aux.getHora();
+				tablemodel.addRow(fila);
+			//}
 		}
 	}
 }

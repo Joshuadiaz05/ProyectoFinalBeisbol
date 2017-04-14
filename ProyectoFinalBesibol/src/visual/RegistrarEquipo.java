@@ -30,6 +30,8 @@ public class RegistrarEquipo extends JDialog {
 	private JTextField tdfNombre;
 	private JTextField tdfManager;
 	private JTextField tdfEstadio;
+	private JComboBox cbxRegion;
+	private JComboBox cbxAgno;
 
 	/**
 	 * Create the dialog.
@@ -85,7 +87,7 @@ public class RegistrarEquipo extends JDialog {
         for(int years = 1900 ; years<=Calendar.getInstance().get(Calendar.YEAR);years++){
         	years_tmp.add(years+"");
        }
-		JComboBox cbxAgno = new JComboBox(years_tmp.toArray());
+		cbxAgno = new JComboBox(years_tmp.toArray());
 		cbxAgno.setSelectedIndex(0);
 		cbxAgno.setFont(new Font("Tw Cen MT", Font.BOLD, 16));
 		cbxAgno.setBounds(431, 67, 131, 32);
@@ -107,7 +109,7 @@ public class RegistrarEquipo extends JDialog {
 		lblRegion.setBounds(10, 165, 73, 19);
 		contentPanel.add(lblRegion);
 		
-		JComboBox cbxRegion = new JComboBox();
+		cbxRegion = new JComboBox();
 		cbxRegion.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		cbxRegion.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Norte", "Este", "Oeste", "Sur"}));
 		cbxRegion.setSelectedIndex(0);
@@ -134,7 +136,7 @@ public class RegistrarEquipo extends JDialog {
 							Equipos miEquipo = new Equipos(nombre, agno, manager, region, nombreEstadio);
 							LigaBeisbol.getInstance().insertarEquipo(miEquipo);
 							JOptionPane.showMessageDialog(null, "El equipo " + nombre + " se registró correctamente", "Registrado", JOptionPane.INFORMATION_MESSAGE);
-							dispose();
+							clean();
 						}
 					}
 				});
@@ -144,9 +146,22 @@ public class RegistrarEquipo extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	
+	public void clean(){
+		tdfNombre.setText("");
+		tdfManager.setText("");
+		cbxAgno.setSelectedIndex(0);
+		tdfEstadio.setText("");
+		cbxRegion.setSelectedIndex(0);
 	}
 }

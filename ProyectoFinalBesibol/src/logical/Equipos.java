@@ -149,4 +149,32 @@ public class Equipos implements Serializable{
 			i++;
 		}
 	}
+
+	public Jugadores buscarJugadorbyposicion(String posicion) {
+		Jugadores aux = null;
+		boolean find = false;
+		int i=0;
+		while(i<jugador.size() && find==false){
+			if(jugador.get(i).getPosicion().equalsIgnoreCase(posicion)){
+				aux=jugador.get(i);
+				find=true;
+			}
+		   i++;
+		}
+		return aux;
+	}
+
+	public Jugadores buscarJugadorbynombre(String jugador2) {
+		Jugadores aux = null;
+		boolean find = false;
+		int i=0;
+		while(i<jugador.size() && find==false){
+			if(jugador.get(i).getNombre().equalsIgnoreCase(jugador2)){
+				aux=jugador.get(i);
+				find=true;
+			}
+		   i++;
+		}
+		return aux;
+	}
 }

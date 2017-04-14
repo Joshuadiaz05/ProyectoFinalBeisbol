@@ -67,9 +67,14 @@ public class RegistrarJugador extends JDialog {
 	private String equipotext = "";
 	private Equipos miEquipos;
 	
-	public RegistrarJugador(boolean si) {
-		setTitle("Registrar Jugador");
+	public RegistrarJugador(boolean fromprincipal, boolean modificacion, Jugadores jugador) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imag/baseball.png"));
+		if(modificacion==true){
+			setTitle("Modificar Jugador");
+			modificar(jugador);
+		}else{
+			setTitle("Registrar Jugador");
+		}
 		//setBounds(100, 100, 761, 568);
 		setBounds(100, 100, 761, 453);
 		setLocationRelativeTo(null);
@@ -188,9 +193,7 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblPosicin);
 
 			cBposicion = new JComboBox();
-			cBposicion.setModel(new DefaultComboBoxModel(
-					new String[] { "Pitcher", "Catcher", "Primera base", "Segunda base", "Tercera base", "Short stop",
-							"Left fielder", "Center fielder", "Right fielder", "Bateador designado" }));
+			cBposicion.setModel(new DefaultComboBoxModel(new String[] {"Pitcher", "Catcher", "Primera base", "Segunda base", "Tercera base", "Short stop", "Left fielder", "Center fielder", "Right fielder"}));
 			cBposicion.setSelectedIndex(0);
 			cBposicion.setBounds(10, 278, 245, 32);
 			panel.add(cBposicion);
@@ -210,7 +213,7 @@ public class RegistrarJugador extends JDialog {
 			lblEquipo.setBounds(525, 259, 63, 18);
 			panel.add(lblEquipo);
 			
-			if(si==false){
+			if(fromprincipal==false){
 				miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo);
 			}
 			
@@ -218,7 +221,7 @@ public class RegistrarJugador extends JDialog {
 			for (Equipos e : LigaBeisbol.getInstance().getEquipo()) {
 				equipos.add(e.getNombre());
 			}
-			if(si==true){
+			if(fromprincipal==true){
 			cBEquipo = new JComboBox(equipos.toArray());
 			cBEquipo.setBounds(525, 278, 195, 32);
 			panel.add(cBEquipo);
@@ -266,7 +269,6 @@ public class RegistrarJugador extends JDialog {
 						lbFoto.setIcon(imagee);
 						
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -279,6 +281,11 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lbFoto);
 			
 			JLabel lblRegistrarJugador = new JLabel("Registrar Jugador");
+			if(modificacion==true){
+				lblRegistrarJugador.setText("Modificar Jugador");
+			}else{
+				lblRegistrarJugador.setText("Registrar Jugador");
+			}
 			lblRegistrarJugador.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
 			lblRegistrarJugador.setBounds(10, 11, 220, 37);
 			panel.add(lblRegistrarJugador);
@@ -352,6 +359,12 @@ public class RegistrarJugador extends JDialog {
 			labelicon.setIcon(new ImageIcon("img/iconoregist.png"));
 			labelicon.setBounds(240, 11, 43, 34);
 			panel.add(labelicon);
+			
+			JLabel lblNewLabel_1 = new JLabel("Ir a Todos los Eventos");
+			lblNewLabel_1.setVisible(false);
+			lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 14));
+			lblNewLabel_1.setBounds(290, 0, 144, 14);
+			panel.add(lblNewLabel_1);
 		}
 		
 		JPanel panel = new JPanel();
@@ -461,7 +474,7 @@ public class RegistrarJugador extends JDialog {
 							JOptionPane.showMessageDialog(null, "Por favor! Complete todos los Campos", null,
 									JOptionPane.WARNING_MESSAGE, null);
 						}else{
-							if(si==true){
+							if(fromprincipal==true){
 								miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(cBEquipo.getSelectedItem().toString());
 							} else {
 								miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo);
@@ -480,7 +493,6 @@ public class RegistrarJugador extends JDialog {
 							if(chckbxNewCheckBox.isSelected()){
 								titular = true;
 							}
-							
 							
 							int dia = cBdia.getSelectedIndex();
 							int mes = cBmes.getSelectedIndex();
@@ -504,7 +516,7 @@ public class RegistrarJugador extends JDialog {
 							}
 							JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha registrado sasctifactoriamente!", null,
 									JOptionPane.INFORMATION_MESSAGE, null);
-							if(si==true){
+							if(fromprincipal==true){
 								clean(true);
 								EquipoCaracteristicas.cargarJugadoresLesionadoPorEquipo();
 								EquipoCaracteristicas.cargarJugadoresPorEquipo();
@@ -540,13 +552,25 @@ public class RegistrarJugador extends JDialog {
 		textapellido.setText("");
 		textlugarnacimiento.setText("");
 		textUniversidad.setText("");
-		spinnernumero.setValue(1);
-		spinnerpeso.setValue(1);
-		spinneraltura.setValue(120);
-		cBposicion.setSelectedItem(0);
-		cBpais.setSelectedItem(0);
+		spinnernumero.setValue(0);
+		spinnerpeso.setValue(70);
+		spinneraltura.setValue(170);
+		cBposicion.setSelectedIndex(0);
+		cBpais.setSelectedIndex(0);
 		if(update==true){
 			cBEquipo.setSelectedItem(0);
 		}
+	}
+	
+	public void modificar(Jugadores jugador){
+		textnombre.setText(""+jugador.getNombre());
+		textapellido.setText(""+jugador.getApellido());
+		textlugarnacimiento.setText(""+jugador.getLugarciudadNacimiento());
+		textUniversidad.setText(""+jugador.getUniversidad());
+		spinnernumero.setValue(""+jugador.getNumero());
+		spinnerpeso.setValue(jugador.getPeso());
+		spinneraltura.setValue(jugador.getAltura());
+		cBposicion.setSelectedItem(jugador.getPosicion());
+		cBpais.setSelectedItem(0);
 	}
 }
