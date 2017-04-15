@@ -23,9 +23,13 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.awt.event.ActionEvent;
@@ -60,26 +64,8 @@ public class Principal extends JFrame {
 	private JLabel lblNewLabel_1;
 	private int ind;
 	private Partido miPartido = null;
+	private ArrayList<Integer> posicion = new ArrayList<>();
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					// BusinessBlackSteelSkin
-					SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.BusinessBlackSteelSkin");
-					Principal frame = new Principal(liga);
-					frame.pack();
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-					frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public Principal(final LigaBeisbol liga) {
 		setTitle("Liga de Beisbol");
 		getContentPane().setLayout(null);
@@ -175,12 +161,12 @@ public class Principal extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel.setBounds(10, 32, 605, 429);
+		panel.setBounds(10, 32, 766, 429);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 64, 580, 317);
+		scrollPane.setBounds(10, 64, 746, 317);
 		panel.add(scrollPane);
 		
 		table = new JTable();
@@ -190,9 +176,17 @@ public class Principal extends JFrame {
 				ind = table.getSelectedRow();
 				local = (String) table.getModel().getValueAt(ind, 0);
 				visita = (String) table.getModel().getValueAt(ind, 1);
-				String hora = (String) table.getModel().getValueAt(ind, 4);
-				miPartido = LigaBeisbol.getInstance().buscarPartido(local, visita, hora);
-				System.out.println("casa "+miPartido.getEquipoCasa());
+				String fecha = (String) table.getModel().getValueAt(ind, 3);
+				Locale spanishLocale = new Locale("es", "ES");
+				DateFormat format = new SimpleDateFormat("dd MMMM yyyy", spanishLocale);
+				Date date = null;
+				try {
+					date = format.parse(fecha);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				miPartido = LigaBeisbol.getInstance().buscarPartido(local, visita, date);
+				System.out.println("casa " + miPartido.getEquipoCasa());
 				btnNewButton.setEnabled(true);
 						
 			}
@@ -227,7 +221,7 @@ public class Principal extends JFrame {
 			}
 		});
 		btnNewButton.setEnabled(false);
-		btnNewButton.setBounds(449, 390, 141, 23);
+		btnNewButton.setBounds(615, 392, 141, 23);
 		panel.add(btnNewButton);
 			
 		JButton button = new JButton("");
@@ -290,7 +284,7 @@ public class Principal extends JFrame {
 				if(aux.getCarrerasCasa()==0 && aux.getCarrerasVisita()==0){
 					fila[5] = "-";
 				}else{
-					fila[5] = "Local '"+aux.getEquipoCasa()+"' - Visitantes '"+aux.getEquipoVisita()+"'";
+					fila[5] = ""+aux.getCarrerasCasa()+" - "+aux.getCarrerasVisita();
 				}
 				tablemodel.addRow(fila);
 			}

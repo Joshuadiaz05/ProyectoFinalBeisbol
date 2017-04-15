@@ -105,20 +105,35 @@ public class LigaBeisbol implements Serializable {
 		equipo.remove(miEquipo);
 	}
 
-	public Partido buscarPartido(String local, String visita, String hora) {
+	public Partido buscarPartido(String local, String visita, Date fecha) {
 		Partido miPartido = null;
 		boolean find = false;
 		int i = 0;
 		while (i < partido.size() && !find) {
 			if (partido.get(i).getEquipoCasa().equalsIgnoreCase(local)
-					&& partido.get(i).getEquipoCasa().equalsIgnoreCase(visita)
-					&& partido.get(i).getHora().equalsIgnoreCase(hora)) {
+					&& partido.get(i).getEquipoVisita().equalsIgnoreCase(visita)
+					&& partido.get(i).getFecha().equals(fecha)) {
 				miPartido = partido.get(i);
 				find = true;
 			}
 			i++;
 		}
 		return miPartido;
+	}
+	
+	public boolean buscarPartidoBoolean(String local, String visita, Date fecha) {
+		Partido miPartido = null;
+		boolean find = false;
+		int i = 0;
+		while (i < partido.size() && !find) {
+			if (partido.get(i).getEquipoCasa().equalsIgnoreCase(local)
+					&& partido.get(i).getEquipoVisita().equalsIgnoreCase(visita)
+					&& partido.get(i).getFecha().equals(fecha)) {
+				find = true;
+			}
+			i++;
+		}
+		return find;
 	}
 
 	// ARCHIVOS

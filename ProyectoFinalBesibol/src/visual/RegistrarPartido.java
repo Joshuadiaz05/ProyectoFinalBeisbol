@@ -27,6 +27,8 @@ import logical.Partido;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
@@ -71,7 +73,6 @@ public class RegistrarPartido extends JDialog {
 		cBlocal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nomlocal = cBlocal.getSelectedItem().toString();
-				System.out.println(""+nomlocal);
 				textField.setText(""+LigaBeisbol.getInstance().BuscarPorNombre(nomlocal).getEstadio());
 				cBvisita.setEnabled(true);
 			}
@@ -136,14 +137,20 @@ public class RegistrarPartido extends JDialog {
 				okButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						
 						Date fecha = dateChooser.getDate();
 						String horario = cBoxHora.getSelectedItem().toString();
 						String local = cBlocal.getSelectedItem().toString();
 						String visita = cBvisita.getSelectedItem().toString();
 						String estadio = textField.getText();
-						Partido partido = new Partido(fecha, local, visita, estadio, horario);
-						LigaBeisbol.getInstance().insertarPartido(partido);
-						dispose();
+						if(LigaBeisbol.getInstance().buscarPartidoBoolean(local, visita, fecha)==true){
+							JOptionPane.showMessageDialog(null, "Ya existe un evento programado", "Error", JOptionPane.WARNING_MESSAGE);
+						}else{
+							Partido partido = new Partido(fecha, local, visita, estadio, horario);
+							LigaBeisbol.getInstance().insertarPartido(partido);
+							dispose();
+						}
+						
 					}
 				});
 				okButton.setActionCommand("OK");

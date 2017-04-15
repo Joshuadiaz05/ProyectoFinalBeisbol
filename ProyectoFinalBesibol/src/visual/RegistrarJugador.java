@@ -56,7 +56,6 @@ public class RegistrarJugador extends JDialog {
 	private JComboBox cBmes;
 	private JComboBox cBdia;
 	private JCheckBox chckbxNewCheckBox;
-	private JRadioButton rdbtnNewRadioButton;
 	private JSpinner spinrbi;
 	private JSpinner spinhr;
 	private JSpinner spinab;
@@ -363,24 +362,8 @@ public class RegistrarJugador extends JDialog {
 			
 			chckbxNewCheckBox = new JCheckBox("Titular");
 			chckbxNewCheckBox.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			chckbxNewCheckBox.setBounds(522, 326, 89, 32);
+			chckbxNewCheckBox.setBounds(575, 326, 89, 32);
 			panel.add(chckbxNewCheckBox);
-			
-			rdbtnNewRadioButton = new JRadioButton("Estad\u00EDsticas");
-			rdbtnNewRadioButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					if(rdbtnNewRadioButton.isSelected()){
-						setBounds(100, 100, 761, 568);
-						setLocationRelativeTo(null);
-					}else{
-						setBounds(100, 100, 761, 453);
-						setLocationRelativeTo(null);
-					}
-				}
-			});
-			rdbtnNewRadioButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			rdbtnNewRadioButton.setBounds(607, 326, 123, 32);
-			panel.add(rdbtnNewRadioButton);
 			
 			JLabel labelicon = new JLabel("");
 			labelicon.setIcon(new ImageIcon("img/iconoregist.png"));
@@ -528,19 +511,16 @@ public class RegistrarJugador extends JDialog {
 							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, date, ciudad, pais, univ, miEquipos.getNombre(), titular);
 							miEquipos.agregarjugador(nuevojugador);
 							LigaBeisbol.getInstance().insertarJugador(nuevojugador);
-							if(rdbtnNewRadioButton.isSelected()){
-								int jj = Integer.parseInt(spinjj.getValue().toString());
-								int bb = Integer.parseInt(spinbb.getValue().toString());
-								int trb = Integer.parseInt(spin3b.getValue().toString());
-								int dob  = Integer.parseInt(spin2b.getValue().toString());
-								int h = Integer.parseInt(spinh.getValue().toString());
-								int hr = Integer.parseInt(spinhr.getValue().toString());
-								int c = Integer.parseInt(spinc.getValue().toString());
-								int ab = Integer.parseInt(spinab.getValue().toString());
-								int rbi = Integer.parseInt(spinrbi.getValue().toString());
-								Estadisticas estadisticas = new Estadisticas(jj, h, dob, trb, hr, bb, ab, c, rbi);
-								nuevojugador.setEstadistica(estadisticas);	
-							}
+							int jj = Integer.parseInt(spinjj.getValue().toString());
+							int bb = Integer.parseInt(spinbb.getValue().toString());
+							int trb = Integer.parseInt(spin3b.getValue().toString());
+							int dob  = Integer.parseInt(spin2b.getValue().toString());
+							int h = Integer.parseInt(spinh.getValue().toString());
+							int hr = Integer.parseInt(spinhr.getValue().toString());
+							int c = Integer.parseInt(spinc.getValue().toString());
+							int ab = Integer.parseInt(spinab.getValue().toString());								int rbi = Integer.parseInt(spinrbi.getValue().toString());
+							Estadisticas estadisticas = new Estadisticas(jj, h, dob, trb, hr, bb, ab, c, rbi);
+							nuevojugador.setEstadistica(estadisticas);	
 							JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha registrado sasctifactoriamente!", null,
 									JOptionPane.INFORMATION_MESSAGE, null);
 							if(fromprincipal==true){
