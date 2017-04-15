@@ -46,6 +46,7 @@ import javax.swing.SwingConstants;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JProgressBar;
 
 public class Principal extends JFrame {
 
@@ -59,25 +60,6 @@ public class Principal extends JFrame {
 	private String visita=null;
 	private JLabel lblNewLabel_1;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					// BusinessBlackSteelSkin
-					SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.BusinessBlackSteelSkin");
-					Principal frame = new Principal(liga);
-					frame.pack();
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-					frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public Principal(final LigaBeisbol liga) {
 		setTitle("Liga de Beisbol");
 		getContentPane().setLayout(null);
