@@ -78,8 +78,8 @@ public class RegistrarJugador extends JDialog {
 		}else{
 			setTitle("Registrar Jugador");
 		}
-		//setBounds(100, 100, 761, 568);
-		setBounds(100, 100, 761, 453);
+		setBounds(100, 100, 761, 568);
+		//setBounds(100, 100, 761, 453);
 		setLocationRelativeTo(null);
 		setModal(true);
 		setResizable(false);

@@ -11,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -25,6 +27,7 @@ import javax.swing.border.TitledBorder;
 import logical.Equipos;
 import logical.Jugadores;
 import logical.LigaBeisbol;
+import logical.Partido;
 
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
@@ -62,8 +65,12 @@ public class Simulacion extends JDialog {
 	private JLabel labelPosiciones;
 	private int carrerasTotal = 0;
 	private int CarrerasTotalV = 0;
-
-	public Simulacion(String local, String visita) {
+	private int totallocalhit = 0;
+	private int totalvisitahit = 0;
+	private JLabel label_tb_H, lblJugadoresVisitantes, Jv1, Jv2, Jv3, Jv4, Jv5, Jv6, Jv7, Jv8, Jv9, fechaV;
+	private JLabel fechaL, JL1, JL2, JL3, JL4, JL5, JL6, JL7, JL8, JL9, lblJugadores, label_tb_HLocal;
+	
+	public Simulacion(String local, String visita, Partido partido) {
 		setTitle(" Simulacion");
 		setBounds(100, 100, 858, 826);
 		Equipos equipolocal = LigaBeisbol.getInstance().BuscarPorNombre(local);
@@ -248,6 +255,7 @@ public class Simulacion extends JDialog {
 		panel_3.add(lblVisitantes);
 
 		CVis1 = new JSpinner();
+		CVis1.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		CVis1.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
@@ -262,6 +270,7 @@ public class Simulacion extends JDialog {
 		panel_3.add(CVis1);
 
 		CVis2 = new JSpinner();
+		CVis2.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		CVis2.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
@@ -276,6 +285,7 @@ public class Simulacion extends JDialog {
 		panel_3.add(CVis2);
 
 		CVis3 = new JSpinner();
+		CVis3.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		CVis3.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
@@ -304,6 +314,7 @@ public class Simulacion extends JDialog {
 		panel_3.add(CVis4);
 
 		CVis5 = new JSpinner();
+		CVis5.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		CVis5.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
@@ -318,6 +329,7 @@ public class Simulacion extends JDialog {
 		panel_3.add(CVis5);
 
 		CVis6 = new JSpinner();
+		CVis6.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		CVis6.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
@@ -332,6 +344,7 @@ public class Simulacion extends JDialog {
 		panel_3.add(CVis6);
 
 		CVis7 = new JSpinner();
+		CVis7.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		CVis7.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
@@ -346,6 +359,7 @@ public class Simulacion extends JDialog {
 		panel_3.add(CVis7);
 
 		CVis8 = new JSpinner();
+		CVis8.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		CVis8.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
@@ -360,6 +374,7 @@ public class Simulacion extends JDialog {
 		panel_3.add(CVis8);
 
 		CVis9 = new JSpinner();
+		CVis9.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		CVis9.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
@@ -438,96 +453,96 @@ public class Simulacion extends JDialog {
 		panel_7.setLayout(null);
 
 		Jugadores pitcher = equipolocal.buscarJugadorbyposicion("Pitcher");
-		JLabel lblJugador_5 = new JLabel();
+		JL9 = new JLabel();
 		if (pitcher == null) {
-			lblJugador_5.setText("Pitcher");
+			JL9.setText("Pitcher");
 		} else {
-			lblJugador_5.setText("" + pitcher.getNombre() + " " + pitcher.getApellido());
+			JL9.setText("" + pitcher.getNombre() + " " + pitcher.getApellido());
 		}
-		lblJugador_5.setBounds(6, 358, 119, 20);
-		panel_7.add(lblJugador_5);
+		JL9.setBounds(6, 358, 119, 20);
+		panel_7.add(JL9);
 
 		Jugadores centerfield = equipolocal.buscarJugadorbyposicion("Center fielder");
-		JLabel lblJugador_2 = new JLabel();
+		JL8 = new JLabel();
 		if (centerfield == null) {
-			lblJugador_2.setText("Center Fielder");
+			JL8.setText("Center Fielder");
 		} else {
-			lblJugador_2.setText("" + centerfield.getNombre() + " " + centerfield.getApellido());
+			JL8.setText("" + centerfield.getNombre() + " " + centerfield.getApellido());
 		}
-		lblJugador_2.setBounds(6, 315, 119, 20);
-		panel_7.add(lblJugador_2);
+		JL8.setBounds(6, 315, 119, 20);
+		panel_7.add(JL8);
 
 		Jugadores leftfield = equipolocal.buscarJugadorbyposicion("Left fielder");
-		JLabel lblJugador = new JLabel();
+		JL7 = new JLabel();
 		if (leftfield == null) {
-			lblJugador.setText("Left Fielder");
+			JL7.setText("Left Fielder");
 		} else {
-			lblJugador.setText("" + leftfield.getNombre() + " " + leftfield.getApellido());
+			JL7.setText("" + leftfield.getNombre() + " " + leftfield.getApellido());
 		}
-		lblJugador.setBounds(6, 274, 119, 20);
-		panel_7.add(lblJugador);
+		JL7.setBounds(6, 274, 119, 20);
+		panel_7.add(JL7);
 
 		Jugadores rigthfield = equipolocal.buscarJugadorbyposicion("Rigth fielder");
-		JLabel label_11 = new JLabel();
+		JL6 = new JLabel();
 		if (rigthfield == null) {
-			label_11.setText("Rigth Fielder");
+			JL6.setText("Rigth Fielder");
 		} else {
-			label_11.setText("" + rigthfield.getNombre() + " " + rigthfield.getApellido());
+			JL6.setText("" + rigthfield.getNombre() + " " + rigthfield.getApellido());
 		}
-		label_11.setBounds(6, 234, 119, 20);
-		panel_7.add(label_11);
+		JL6.setBounds(6, 234, 119, 20);
+		panel_7.add(JL6);
 
 		Jugadores shortstop = equipolocal.buscarJugadorbyposicion("Short stop");
-		JLabel label_12 = new JLabel();
+		JL5 = new JLabel();
 		if (shortstop == null) {
-			label_12.setText("Short Stop");
+			JL5.setText("Short Stop");
 		} else {
-			label_12.setText("" + shortstop.getNombre() + " " + shortstop.getApellido());
+			JL5.setText("" + shortstop.getNombre() + " " + shortstop.getApellido());
 		}
-		label_12.setBounds(6, 193, 101, 20);
-		panel_7.add(label_12);
+		JL5.setBounds(6, 193, 101, 20);
+		panel_7.add(JL5);
 
 		Jugadores TerceraBase = equipolocal.buscarJugadorbyposicion("Tercera base");
-		JLabel label_13 = new JLabel();
+		JL4 = new JLabel();
 		if (TerceraBase == null) {
-			label_13.setText("Tercera Base");
+			JL4.setText("Tercera Base");
 		} else {
-			label_13.setText("" + TerceraBase.getNombre() + " " + TerceraBase.getApellido());
+			JL4.setText("" + TerceraBase.getNombre() + " " + TerceraBase.getApellido());
 		}
-		label_13.setBounds(6, 154, 119, 20);
-		panel_7.add(label_13);
+		JL4.setBounds(6, 154, 119, 20);
+		panel_7.add(JL4);
 
 		Jugadores segundabase = equipolocal.buscarJugadorbyposicion("Segunda base");
-		JLabel label_14 = new JLabel();
+		JL3 = new JLabel();
 		if (segundabase == null) {
-			label_14.setText("Segunda Base");
+			JL3.setText("Segunda Base");
 		} else {
-			label_14.setText("" + segundabase.getNombre() + " " + segundabase.getApellido());
+			JL3.setText("" + segundabase.getNombre() + " " + segundabase.getApellido());
 		}
-		label_14.setBounds(6, 111, 119, 20);
-		panel_7.add(label_14);
+		JL3.setBounds(6, 111, 119, 20);
+		panel_7.add(JL3);
 
 		Jugadores primerabase = equipolocal.buscarJugadorbyposicion("Primera base");
-		JLabel label_15 = new JLabel();
+		JL2 = new JLabel();
 		if (primerabase == null) {
-			label_15.setText("Primera Base");
+			JL2.setText("Primera Base");
 		} else {
-			label_15.setText("" + primerabase.getNombre() + " " + primerabase.getApellido());
+			JL2.setText("" + primerabase.getNombre() + " " + primerabase.getApellido());
 		}
-		label_15.setBounds(6, 72, 119, 20);
-		panel_7.add(label_15);
+		JL2.setBounds(6, 72, 119, 20);
+		panel_7.add(JL2);
 
 		Jugadores catcher = equipolocal.buscarJugadorbyposicion("Catcher");
-		JLabel labeljugador1 = new JLabel();
+		JL1 = new JLabel();
 		if (catcher == null) {
-			labeljugador1.setText("Catcher");
+			JL1.setText("Catcher");
 		} else {
-			labeljugador1.setText("" + catcher.getNombre() + " " + catcher.getApellido());
+			JL1.setText("" + catcher.getNombre() + " " + catcher.getApellido());
 		}
-		labeljugador1.setBounds(6, 32, 119, 20);
-		panel_7.add(labeljugador1);
+		JL1.setBounds(6, 32, 119, 20);
+		panel_7.add(JL1);
 
-		JLabel lblJugadores = new JLabel("Jugadores Locales");
+		lblJugadores = new JLabel("Jugadores Locales");
 		lblJugadores.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblJugadores.setBounds(3, 6, 122, 20);
 		panel_7.add(lblJugadores);
@@ -542,92 +557,211 @@ public class Simulacion extends JDialog {
 		panel_5.add(panel_8);
 		panel_8.setLayout(null);
 
-		JLabel lblTbHHr = new JLabel("    TB               H    ");
-		lblTbHHr.setBounds(10, 6, 106, 20);
-		panel_8.add(lblTbHHr);
-		lblTbHHr.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label_tb_HLocal = new JLabel("    TB               H    ");
+		label_tb_HLocal.setBounds(10, 6, 106, 20);
+		panel_8.add(label_tb_HLocal);
+		label_tb_HLocal.setFont(new Font("Tahoma", Font.BOLD, 11));
 
-		JSpinner TBLocJ1 = new JSpinner();
+		TBLocJ1 = new JSpinner();
+		TBLocJ1.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBLocJ1.setBounds(10, 26, 36, 32);
 		panel_8.add(TBLocJ1);
 
 		HLocJ1 = new JSpinner();
+		HLocJ1.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		HLocJ1.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totalvisitahit = Integer.valueOf(HLocJ1.getValue().toString()) + Integer.valueOf(HLocJ2.getValue().toString())
+				+ Integer.valueOf(HLocJ3.getValue().toString()) + Integer.valueOf(HLocJ4.getValue().toString())
+				+ Integer.valueOf(HLocJ5.getValue().toString()) + Integer.valueOf(HLocJ6.getValue().toString())
+				+ Integer.valueOf(HLocJ7.getValue().toString()) + Integer.valueOf(HLocJ8.getValue().toString())
+				+ Integer.valueOf(HLocJ9.getValue().toString());
+				textlochit.setText("" + totalvisitahit);
+			}
+		});
 		HLocJ1.setBounds(69, 26, 36, 32);
 		panel_8.add(HLocJ1);
 
 		HLocJ9 = new JSpinner();
+		HLocJ9.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		HLocJ9.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totallocalhit = Integer.valueOf(HLocJ1.getValue().toString()) + Integer.valueOf(HLocJ2.getValue().toString())
+				+ Integer.valueOf(HLocJ3.getValue().toString()) + Integer.valueOf(HLocJ4.getValue().toString())
+				+ Integer.valueOf(HLocJ5.getValue().toString()) + Integer.valueOf(HLocJ6.getValue().toString())
+				+ Integer.valueOf(HLocJ7.getValue().toString()) + Integer.valueOf(HLocJ8.getValue().toString())
+				+ Integer.valueOf(HLocJ9.getValue().toString());
+				textlochit.setText("" + totallocalhit);
+			}
+		});
 		HLocJ9.setBounds(69, 352, 36, 32);
 		panel_8.add(HLocJ9);
 
 		HLocJ2 = new JSpinner();
+		HLocJ2.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		HLocJ2.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totallocalhit = Integer.valueOf(HLocJ1.getValue().toString()) + Integer.valueOf(HLocJ2.getValue().toString())
+				+ Integer.valueOf(HLocJ3.getValue().toString()) + Integer.valueOf(HLocJ4.getValue().toString())
+				+ Integer.valueOf(HLocJ5.getValue().toString()) + Integer.valueOf(HLocJ6.getValue().toString())
+				+ Integer.valueOf(HLocJ7.getValue().toString()) + Integer.valueOf(HLocJ8.getValue().toString())
+				+ Integer.valueOf(HLocJ9.getValue().toString());
+				textlochit.setText("" + totallocalhit);
+			}
+		});
 		HLocJ2.setBounds(69, 66, 36, 32);
 		panel_8.add(HLocJ2);
 
 		HLocJ3 = new JSpinner();
+		HLocJ3.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		HLocJ3.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totallocalhit = Integer.valueOf(HLocJ1.getValue().toString()) + Integer.valueOf(HLocJ2.getValue().toString())
+				+ Integer.valueOf(HLocJ3.getValue().toString()) + Integer.valueOf(HLocJ4.getValue().toString())
+				+ Integer.valueOf(HLocJ5.getValue().toString()) + Integer.valueOf(HLocJ6.getValue().toString())
+				+ Integer.valueOf(HLocJ7.getValue().toString()) + Integer.valueOf(HLocJ8.getValue().toString())
+				+ Integer.valueOf(HLocJ9.getValue().toString());
+				textlochit.setText("" + totallocalhit);
+			}
+		});
 		HLocJ3.setBounds(69, 106, 36, 32);
 		panel_8.add(HLocJ3);
 
 		HLocJ4 = new JSpinner();
+		HLocJ4.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		HLocJ4.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totallocalhit = Integer.valueOf(HLocJ1.getValue().toString()) + Integer.valueOf(HLocJ2.getValue().toString())
+				+ Integer.valueOf(HLocJ3.getValue().toString()) + Integer.valueOf(HLocJ4.getValue().toString())
+				+ Integer.valueOf(HLocJ5.getValue().toString()) + Integer.valueOf(HLocJ6.getValue().toString())
+				+ Integer.valueOf(HLocJ7.getValue().toString()) + Integer.valueOf(HLocJ8.getValue().toString())
+				+ Integer.valueOf(HLocJ9.getValue().toString());
+				textlochit.setText("" + totallocalhit);
+			}
+		});
 		HLocJ4.setBounds(69, 145, 36, 32);
 		panel_8.add(HLocJ4);
 
 		HLocJ5 = new JSpinner();
+		HLocJ5.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		HLocJ5.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totallocalhit = Integer.valueOf(HLocJ1.getValue().toString()) + Integer.valueOf(HLocJ2.getValue().toString())
+				+ Integer.valueOf(HLocJ3.getValue().toString()) + Integer.valueOf(HLocJ4.getValue().toString())
+				+ Integer.valueOf(HLocJ5.getValue().toString()) + Integer.valueOf(HLocJ6.getValue().toString())
+				+ Integer.valueOf(HLocJ7.getValue().toString()) + Integer.valueOf(HLocJ8.getValue().toString())
+				+ Integer.valueOf(HLocJ9.getValue().toString());
+				textlochit.setText("" + totallocalhit);
+			}
+		});
 		HLocJ5.setBounds(69, 185, 36, 32);
 		panel_8.add(HLocJ5);
 
 		HLocJ6 = new JSpinner();
+		HLocJ6.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		HLocJ6.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totallocalhit = Integer.valueOf(HLocJ1.getValue().toString()) + Integer.valueOf(HLocJ2.getValue().toString())
+				+ Integer.valueOf(HLocJ3.getValue().toString()) + Integer.valueOf(HLocJ4.getValue().toString())
+				+ Integer.valueOf(HLocJ5.getValue().toString()) + Integer.valueOf(HLocJ6.getValue().toString())
+				+ Integer.valueOf(HLocJ7.getValue().toString()) + Integer.valueOf(HLocJ8.getValue().toString())
+				+ Integer.valueOf(HLocJ9.getValue().toString());
+				textlochit.setText("" + totallocalhit);
+			}
+		});
 		HLocJ6.setBounds(69, 226, 36, 32);
 		panel_8.add(HLocJ6);
 
 		HLocJ7 = new JSpinner();
+		HLocJ7.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		HLocJ7.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totallocalhit = Integer.valueOf(HLocJ1.getValue().toString()) + Integer.valueOf(HLocJ2.getValue().toString())
+				+ Integer.valueOf(HLocJ3.getValue().toString()) + Integer.valueOf(HLocJ4.getValue().toString())
+				+ Integer.valueOf(HLocJ5.getValue().toString()) + Integer.valueOf(HLocJ6.getValue().toString())
+				+ Integer.valueOf(HLocJ7.getValue().toString()) + Integer.valueOf(HLocJ8.getValue().toString())
+				+ Integer.valueOf(HLocJ9.getValue().toString());
+				textlochit.setText("" + totallocalhit);
+			}
+		});
 		HLocJ7.setBounds(69, 268, 36, 32);
 		panel_8.add(HLocJ7);
 
 		HLocJ8 = new JSpinner();
+		HLocJ8.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		HLocJ8.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totallocalhit = Integer.valueOf(HLocJ1.getValue().toString()) + Integer.valueOf(HLocJ2.getValue().toString())
+				+ Integer.valueOf(HLocJ3.getValue().toString()) + Integer.valueOf(HLocJ4.getValue().toString())
+				+ Integer.valueOf(HLocJ5.getValue().toString()) + Integer.valueOf(HLocJ6.getValue().toString())
+				+ Integer.valueOf(HLocJ7.getValue().toString()) + Integer.valueOf(HLocJ8.getValue().toString())
+				+ Integer.valueOf(HLocJ9.getValue().toString());
+				textlochit.setText("" + totallocalhit);
+			}
+		});
 		HLocJ8.setBounds(69, 310, 36, 32);
 		panel_8.add(HLocJ8);
 
 		TBLocJ9 = new JSpinner();
+		TBLocJ9.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBLocJ9.setBounds(10, 352, 36, 32);
 		panel_8.add(TBLocJ9);
 
 		TBLocJ4 = new JSpinner();
+		TBLocJ4.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBLocJ4.setBounds(10, 145, 36, 32);
 		panel_8.add(TBLocJ4);
 
 		TBLocJ6 = new JSpinner();
+		TBLocJ6.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBLocJ6.setBounds(10, 226, 36, 32);
 		panel_8.add(TBLocJ6);
 
 		TBLocJ5 = new JSpinner();
+		TBLocJ5.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBLocJ5.setBounds(10, 185, 36, 32);
 		panel_8.add(TBLocJ5);
 
 		TBLocJ3 = new JSpinner();
+		TBLocJ3.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBLocJ3.setBounds(10, 106, 36, 32);
 		panel_8.add(TBLocJ3);
 
 		TBLocJ2 = new JSpinner();
+		TBLocJ2.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBLocJ2.setBounds(10, 66, 36, 32);
 		panel_8.add(TBLocJ2);
 
 		TBLocJ8 = new JSpinner();
+		TBLocJ8.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBLocJ8.setBounds(10, 310, 36, 32);
 		panel_8.add(TBLocJ8);
 
 		TBLocJ7 = new JSpinner();
+		TBLocJ7.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBLocJ7.setBounds(10, 268, 36, 32);
 		panel_8.add(TBLocJ7);
 
 		btnEquipoLocal = new JButton("" + equipolocal.getNombre());
+		btnEquipoLocal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deshabilitarVisita();
+				habilitarLocal();
+			}
+		});
 		btnEquipoLocal.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnEquipoLocal.setBounds(66, 6, 171, 30);
+		btnEquipoLocal.setBounds(55, 6, 171, 30);
 		panel_5.add(btnEquipoLocal);
+		
+		fechaL = new JLabel("");
+		fechaL.setIcon(new ImageIcon("img/flechita.png"));
+		fechaL.setBounds(10, 9, 43, 23);
+		panel_5.add(fechaL);
 
 		JPanel panel_6 = new JPanel();
 		panel_6.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel_6.setLayout(null);
-		panel_6.setBounds(517, 11, 269, 433);
+		panel_6.setBounds(543, 11, 269, 433);
 		panel.add(panel_6);
 
 		JPanel panel_9 = new JPanel();
@@ -637,96 +771,106 @@ public class Simulacion extends JDialog {
 		panel_6.add(panel_9);
 
 		Jugadores pitcherv = equipovisita.buscarJugadorbyposicion("Pitcher");
-		JLabel label_4 = new JLabel();
+		Jv9 = new JLabel();
+		Jv9.setEnabled(false);
 		if (pitcherv == null) {
-			label_4.setText("Pitcher");
+			Jv9.setText("Pitcher");
 		} else {
-			label_4.setText("" + pitcherv.getNombre() + " " + pitcherv.getApellido());
+			Jv9.setText("" + pitcherv.getNombre() + " " + pitcherv.getApellido());
 		}
-		label_4.setBounds(6, 358, 119, 20);
-		panel_9.add(label_4);
+		Jv9.setBounds(6, 358, 119, 20);
+		panel_9.add(Jv9);
 
 		Jugadores centerfieldv = equipovisita.buscarJugadorbyposicion("Center fielder");
-		JLabel label_5 = new JLabel();
+		Jv8 = new JLabel();
+		Jv8.setEnabled(false);
 		if (centerfieldv == null) {
-			label_5.setText("Center Fielder");
+			Jv8.setText("Center Fielder");
 		} else {
-			label_5.setText("" + centerfieldv.getNombre() + " " + centerfieldv.getApellido());
+			Jv8.setText("" + centerfieldv.getNombre() + " " + centerfieldv.getApellido());
 		}
-		label_5.setBounds(6, 315, 119, 20);
-		panel_9.add(label_5);
+		Jv8.setBounds(6, 315, 119, 20);
+		panel_9.add(Jv8);
 
 		Jugadores leftfieldv = equipovisita.buscarJugadorbyposicion("Left fielder");
-		JLabel label_6 = new JLabel();
+		Jv7 = new JLabel();
+		Jv7.setEnabled(false);
 		if (leftfieldv == null) {
-			label_6.setText("Left Fielder");
+			Jv7.setText("Left Fielder");
 		} else {
-			label_6.setText("" + leftfieldv.getNombre() + " " + leftfieldv.getApellido());
+			Jv7.setText("" + leftfieldv.getNombre() + " " + leftfieldv.getApellido());
 		}
-		label_6.setBounds(6, 274, 119, 20);
-		panel_9.add(label_6);
+		Jv7.setBounds(6, 274, 119, 20);
+		panel_9.add(Jv7);
 
 		Jugadores rigthfieldv = equipovisita.buscarJugadorbyposicion("Rigth fielder");
-		JLabel label_7 = new JLabel();
+		Jv6 = new JLabel();
+		Jv6.setEnabled(false);
 		if (rigthfieldv == null) {
-			label_7.setText("Rigth Fielder");
+			Jv6.setText("Rigth Fielder");
 		} else {
-			label_7.setText("" + rigthfieldv.getNombre() + " " + rigthfieldv.getApellido());
+			Jv6.setText("" + rigthfieldv.getNombre() + " " + rigthfieldv.getApellido());
 		}
-		label_7.setBounds(6, 234, 119, 20);
-		panel_9.add(label_7);
+		Jv6.setBounds(6, 234, 119, 20);
+		panel_9.add(Jv6);
 
 		Jugadores shortstopv = equipovisita.buscarJugadorbyposicion("Short stop");
-		JLabel label_8 = new JLabel();
+		Jv5 = new JLabel();
+		Jv5.setEnabled(false);
 		if (shortstopv == null) {
-			label_8.setText("Short Stop");
+			Jv5.setText("Short Stop");
 		} else {
-			label_8.setText("" + shortstopv.getNombre() + " " + shortstopv.getApellido());
+			Jv5.setText("" + shortstopv.getNombre() + " " + shortstopv.getApellido());
 		}
-		label_8.setBounds(6, 193, 119, 20);
-		panel_9.add(label_8);
+		Jv5.setBounds(6, 193, 119, 20);
+		panel_9.add(Jv5);
 
 		Jugadores tercerabasev = equipovisita.buscarJugadorbyposicion("Tercera base");
-		JLabel label_9 = new JLabel();
+		Jv4 = new JLabel();
+		Jv4.setEnabled(false);
 		if (tercerabasev == null) {
-			label_9.setText("Tercera Base");
+			Jv4.setText("Tercera Base");
 		} else {
-			label_9.setText("" + tercerabasev.getNombre() + " " + tercerabasev.getApellido());
+			Jv4.setText("" + tercerabasev.getNombre() + " " + tercerabasev.getApellido());
 		}
-		label_9.setBounds(6, 154, 119, 20);
-		panel_9.add(label_9);
+		Jv4.setBounds(6, 154, 119, 20);
+		panel_9.add(Jv4);
 
 		Jugadores segundabasev = equipovisita.buscarJugadorbyposicion("Segunda base");
-		JLabel label_10 = new JLabel();
+		Jv3 = new JLabel();
+		Jv3.setEnabled(false);
 		if (segundabasev == null) {
-			label_10.setText("Segunda Base");
+			Jv3.setText("Segunda Base");
 		} else {
-			label_10.setText("" + segundabasev.getNombre() + " " + segundabasev.getApellido());
+			Jv3.setText("" + segundabasev.getNombre() + " " + segundabasev.getApellido());
 		}
-		label_10.setBounds(6, 111, 119, 20);
-		panel_9.add(label_10);
+		Jv3.setBounds(6, 111, 119, 20);
+		panel_9.add(Jv3);
 
 		Jugadores primerabasev = equipovisita.buscarJugadorbyposicion("Primera base");
-		JLabel label_17 = new JLabel();
+		Jv2 = new JLabel();
+		Jv2.setEnabled(false);
 		if (primerabasev == null) {
-			label_17.setText("Primera Base");
+			Jv2.setText("Primera Base");
 		} else {
-			label_17.setText("" + primerabasev.getNombre() + " " + primerabasev.getApellido());
+			Jv2.setText("" + primerabasev.getNombre() + " " + primerabasev.getApellido());
 		}
-		label_17.setBounds(6, 72, 119, 20);
-		panel_9.add(label_17);
+		Jv2.setBounds(6, 72, 119, 20);
+		panel_9.add(Jv2);
 
 		Jugadores catcherv = equipovisita.buscarJugadorbyposicion("Catcher");
-		JLabel label_18 = new JLabel();
+		Jv1 = new JLabel();
+		Jv1.setEnabled(false);
 		if (catcherv == null) {
-			label_18.setText("Catcher");
+			Jv1.setText("Catcher");
 		} else {
-			label_18.setText("" + catcherv.getNombre() + " " + catcherv.getApellido());
+			Jv1.setText("" + catcherv.getNombre() + " " + catcherv.getApellido());
 		}
-		label_18.setBounds(6, 32, 119, 20);
-		panel_9.add(label_18);
+		Jv1.setBounds(6, 32, 119, 20);
+		panel_9.add(Jv1);
 
-		JLabel lblJugadoresVisitantes = new JLabel("Jugadores Visita");
+		lblJugadoresVisitantes = new JLabel("Jugadores Visita");
+		lblJugadoresVisitantes.setEnabled(false);
 		lblJugadoresVisitantes.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblJugadoresVisitantes.setBounds(3, 6, 106, 20);
 		panel_9.add(lblJugadoresVisitantes);
@@ -741,87 +885,226 @@ public class Simulacion extends JDialog {
 		panel_10.setBounds(133, 40, 126, 388);
 		panel_6.add(panel_10);
 
-		JLabel label_20 = new JLabel("    TB               H    ");
-		label_20.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label_20.setBounds(10, 6, 106, 20);
-		panel_10.add(label_20);
+		label_tb_H = new JLabel("    TB               H    ");
+		label_tb_H.setEnabled(false);
+		label_tb_H.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label_tb_H.setBounds(10, 6, 106, 20);
+		panel_10.add(label_tb_H);
 
 		TBv1 = new JSpinner();
+		TBv1.setEnabled(false);
+		TBv1.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBv1.setBounds(10, 26, 36, 32);
 		panel_10.add(TBv1);
 
 		TBh1 = new JSpinner();
+		TBh1.setEnabled(false);
+		TBh1.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		TBh1.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totalvisitahit = Integer.valueOf(TBh1.getValue().toString()) + Integer.valueOf(TBh2.getValue().toString())
+				+ Integer.valueOf(TBh3.getValue().toString()) + Integer.valueOf(TBh4.getValue().toString())
+				+ Integer.valueOf(TBh5.getValue().toString()) + Integer.valueOf(TBh6.getValue().toString())
+				+ Integer.valueOf(TBh7.getValue().toString()) + Integer.valueOf(TBh8.getValue().toString())
+				+ Integer.valueOf(TBh9.getValue().toString());
+				textvishit.setText("" + totalvisitahit);
+			}
+		});
 		TBh1.setBounds(69, 26, 36, 32);
 		panel_10.add(TBh1);
 
 		TBh9 = new JSpinner();
+		TBh9.setEnabled(false);
+		TBh9.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		TBh9.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totalvisitahit = Integer.valueOf(TBh1.getValue().toString()) + Integer.valueOf(TBh2.getValue().toString())
+				+ Integer.valueOf(TBh3.getValue().toString()) + Integer.valueOf(TBh4.getValue().toString())
+				+ Integer.valueOf(TBh5.getValue().toString()) + Integer.valueOf(TBh6.getValue().toString())
+				+ Integer.valueOf(TBh7.getValue().toString()) + Integer.valueOf(TBh8.getValue().toString())
+				+ Integer.valueOf(TBh9.getValue().toString());
+				textvishit.setText("" + totalvisitahit);
+			}
+		});
 		TBh9.setBounds(69, 352, 36, 32);
 		panel_10.add(TBh9);
 
 		TBh2 = new JSpinner();
+		TBh2.setEnabled(false);
+		TBh2.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		TBh2.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totalvisitahit = Integer.valueOf(TBh1.getValue().toString()) + Integer.valueOf(TBh2.getValue().toString())
+				+ Integer.valueOf(TBh3.getValue().toString()) + Integer.valueOf(TBh4.getValue().toString())
+				+ Integer.valueOf(TBh5.getValue().toString()) + Integer.valueOf(TBh6.getValue().toString())
+				+ Integer.valueOf(TBh7.getValue().toString()) + Integer.valueOf(TBh8.getValue().toString())
+				+ Integer.valueOf(TBh9.getValue().toString());
+				textvishit.setText("" + totalvisitahit);
+			}
+		});
 		TBh2.setBounds(69, 66, 36, 32);
 		panel_10.add(TBh2);
 
 		TBh3 = new JSpinner();
+		TBh3.setEnabled(false);
+		TBh3.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		TBh3.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totalvisitahit = Integer.valueOf(TBh1.getValue().toString()) + Integer.valueOf(TBh2.getValue().toString())
+				+ Integer.valueOf(TBh3.getValue().toString()) + Integer.valueOf(TBh4.getValue().toString())
+				+ Integer.valueOf(TBh5.getValue().toString()) + Integer.valueOf(TBh6.getValue().toString())
+				+ Integer.valueOf(TBh7.getValue().toString()) + Integer.valueOf(TBh8.getValue().toString())
+				+ Integer.valueOf(TBh9.getValue().toString());
+				textvishit.setText("" + totalvisitahit);
+			}
+		});
 		TBh3.setBounds(69, 106, 36, 32);
 		panel_10.add(TBh3);
 
 		TBh4 = new JSpinner();
+		TBh4.setEnabled(false);
+		TBh4.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		TBh4.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totalvisitahit = Integer.valueOf(TBh1.getValue().toString()) + Integer.valueOf(TBh2.getValue().toString())
+				+ Integer.valueOf(TBh3.getValue().toString()) + Integer.valueOf(TBh4.getValue().toString())
+				+ Integer.valueOf(TBh5.getValue().toString()) + Integer.valueOf(TBh6.getValue().toString())
+				+ Integer.valueOf(TBh7.getValue().toString()) + Integer.valueOf(TBh8.getValue().toString())
+				+ Integer.valueOf(TBh9.getValue().toString());
+				textvishit.setText("" + totalvisitahit);
+			}
+		});
 		TBh4.setBounds(69, 145, 36, 32);
 		panel_10.add(TBh4);
 
 		TBh5 = new JSpinner();
+		TBh5.setEnabled(false);
+		TBh5.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		TBh5.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totalvisitahit = Integer.valueOf(TBh1.getValue().toString()) + Integer.valueOf(TBh2.getValue().toString())
+				+ Integer.valueOf(TBh3.getValue().toString()) + Integer.valueOf(TBh4.getValue().toString())
+				+ Integer.valueOf(TBh5.getValue().toString()) + Integer.valueOf(TBh6.getValue().toString())
+				+ Integer.valueOf(TBh7.getValue().toString()) + Integer.valueOf(TBh8.getValue().toString())
+				+ Integer.valueOf(TBh9.getValue().toString());
+				textvishit.setText("" + totalvisitahit);
+			}
+		});
 		TBh5.setBounds(69, 185, 36, 32);
 		panel_10.add(TBh5);
 
 		TBh6 = new JSpinner();
+		TBh6.setEnabled(false);
+		TBh6.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		TBh6.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totalvisitahit = Integer.valueOf(TBh1.getValue().toString()) + Integer.valueOf(TBh2.getValue().toString())
+				+ Integer.valueOf(TBh3.getValue().toString()) + Integer.valueOf(TBh4.getValue().toString())
+				+ Integer.valueOf(TBh5.getValue().toString()) + Integer.valueOf(TBh6.getValue().toString())
+				+ Integer.valueOf(TBh7.getValue().toString()) + Integer.valueOf(TBh8.getValue().toString())
+				+ Integer.valueOf(TBh9.getValue().toString());
+				textvishit.setText("" + totalvisitahit);
+			}
+		});
 		TBh6.setBounds(69, 226, 36, 32);
 		panel_10.add(TBh6);
 
 		TBh7 = new JSpinner();
+		TBh7.setEnabled(false);
+		TBh7.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		TBh7.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totalvisitahit = Integer.valueOf(TBh1.getValue().toString()) + Integer.valueOf(TBh2.getValue().toString())
+				+ Integer.valueOf(TBh3.getValue().toString()) + Integer.valueOf(TBh4.getValue().toString())
+				+ Integer.valueOf(TBh5.getValue().toString()) + Integer.valueOf(TBh6.getValue().toString())
+				+ Integer.valueOf(TBh7.getValue().toString()) + Integer.valueOf(TBh8.getValue().toString())
+				+ Integer.valueOf(TBh9.getValue().toString());
+				textvishit.setText("" + totalvisitahit);
+			}
+		});
 		TBh7.setBounds(69, 268, 36, 32);
 		panel_10.add(TBh7);
 
 		TBh8 = new JSpinner();
+		TBh8.setEnabled(false);
+		TBh8.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		TBh8.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				totalvisitahit = Integer.valueOf(TBh1.getValue().toString()) + Integer.valueOf(TBh2.getValue().toString())
+				+ Integer.valueOf(TBh3.getValue().toString()) + Integer.valueOf(TBh4.getValue().toString())
+				+ Integer.valueOf(TBh5.getValue().toString()) + Integer.valueOf(TBh6.getValue().toString())
+				+ Integer.valueOf(TBh7.getValue().toString()) + Integer.valueOf(TBh8.getValue().toString())
+				+ Integer.valueOf(TBh9.getValue().toString());
+				textvishit.setText("" + totalvisitahit);
+			}
+		});
 		TBh8.setBounds(69, 310, 36, 32);
 		panel_10.add(TBh8);
 
 		TBv9 = new JSpinner();
+		TBv9.setEnabled(false);
+		TBv9.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBv9.setBounds(10, 352, 36, 32);
 		panel_10.add(TBv9);
 
 		TBv4 = new JSpinner();
+		TBv4.setEnabled(false);
+		TBv4.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBv4.setBounds(10, 145, 36, 32);
 		panel_10.add(TBv4);
 
 		TBv6 = new JSpinner();
+		TBv6.setEnabled(false);
+		TBv6.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBv6.setBounds(10, 226, 36, 32);
 		panel_10.add(TBv6);
 
 		TBv5 = new JSpinner();
+		TBv5.setEnabled(false);
+		TBv5.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBv5.setBounds(10, 185, 36, 32);
 		panel_10.add(TBv5);
 
 		TBv3 = new JSpinner();
+		TBv3.setEnabled(false);
+		TBv3.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBv3.setBounds(10, 106, 36, 32);
 		panel_10.add(TBv3);
 
 		TBv2 = new JSpinner();
+		TBv2.setEnabled(false);
+		TBv2.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBv2.setBounds(10, 66, 36, 32);
 		panel_10.add(TBv2);
 
 		TBv8 = new JSpinner();
+		TBv8.setEnabled(false);
+		TBv8.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBv8.setBounds(10, 310, 36, 32);
 		panel_10.add(TBv8);
 
 		TBv7 = new JSpinner();
+		TBv7.setEnabled(false);
+		TBv7.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		TBv7.setBounds(10, 268, 36, 32);
 		panel_10.add(TBv7);
 
 		JButton btnEquipoVisitante = new JButton("" + equipovisita.getNombre());
+		btnEquipoVisitante.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				habilitarVisita();
+				deshabilitarLocal();
+			}
+		});
 		btnEquipoVisitante.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnEquipoVisitante.setBounds(40, 6, 182, 30);
+		btnEquipoVisitante.setBounds(55, 6, 182, 30);
 		panel_6.add(btnEquipoVisitante);
+		
+		fechaV = new JLabel("");
+		fechaV.setVisible(false);
+		fechaV.setIcon(new ImageIcon("img/flechita.png"));
+		fechaV.setBounds(10, 9, 43, 23);
+		panel_6.add(fechaV);
 
 		JLabel label_1 = new JLabel("C");
 		label_1.setBounds(672, 484, 17, 20);
@@ -839,9 +1122,9 @@ public class Simulacion extends JDialog {
 		lblE.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
 
 		labelPosiciones = new JLabel("");
-		labelPosiciones.setBounds(289, 152, 218, 180);
+		labelPosiciones.setBounds(282, 50, 257, 305);
 		panel.add(labelPosiciones);
-		labelPosiciones.setIcon(new ImageIcon("img/campoposicion.png"));
+		labelPosiciones.setIcon(new ImageIcon("img/CentroSimulador.png"));
 
 		panel_11 = new JPanel();
 		panel_11.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -867,6 +1150,14 @@ public class Simulacion extends JDialog {
 		panel_11.add(btnCancelar);
 
 		btnFinalizarPartido = new JButton("");
+		btnFinalizarPartido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				partido.setCarrerasCasa(carrerasTotal);
+				partido.setCarrerasVisita(CarrerasTotalV);
+				JOptionPane.showMessageDialog(null, "Casa "+partido.getEquipoCasa()+" "+carrerasTotal+" - Visitantes "+partido.getEquipoVisita()+" "+CarrerasTotalV);
+				dispose();
+			}
+		});
 		btnFinalizarPartido.setIcon(new ImageIcon("img/finish.png"));
 		btnFinalizarPartido.addMouseListener(new MouseAdapter() {
 			@Override
@@ -917,5 +1208,46 @@ public class Simulacion extends JDialog {
 		lblSalir.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 14));
 		lblSalir.setBounds(770, 719, 46, 14);
 		contentPanel.add(lblSalir);
+	}
+	
+	public void habilitarVisita(){
+		Jv1.setEnabled(true); Jv2.setEnabled(true); Jv3.setEnabled(true); Jv4.setEnabled(true); Jv5.setEnabled(true); 
+		Jv6.setEnabled(true);	Jv7.setEnabled(true); Jv8.setEnabled(true); Jv9.setEnabled(true); label_tb_H.setEnabled(true);
+		lblJugadoresVisitantes.setEnabled(true);
+		fechaV.setVisible(true);
+		TBv1.setEnabled(true); TBv2.setEnabled(true); TBv3.setEnabled(true); TBv4.setEnabled(true); TBv5.setEnabled(true);
+		TBv6.setEnabled(true); TBv7.setEnabled(true); TBv8.setEnabled(true); TBv9.setEnabled(true);		
+		TBh1.setEnabled(true); TBh2.setEnabled(true); TBh3.setEnabled(true); TBh4.setEnabled(true);
+		TBh5.setEnabled(true); TBh6.setEnabled(true); TBh7.setEnabled(true); TBh8.setEnabled(true); TBh9.setEnabled(true);
+	}
+	
+	public void deshabilitarVisita(){
+		Jv1.setEnabled(false); Jv2.setEnabled(false); Jv3.setEnabled(false); Jv4.setEnabled(false); Jv5.setEnabled(false); 
+		Jv6.setEnabled(false);	Jv7.setEnabled(false); Jv8.setEnabled(false); Jv9.setEnabled(false); label_tb_H.setEnabled(false);
+		lblJugadoresVisitantes.setEnabled(false); fechaV.setVisible(false);
+		TBv1.setEnabled(false); TBv2.setEnabled(false); TBv3.setEnabled(false); TBv4.setEnabled(false); TBv5.setEnabled(false);
+		TBv6.setEnabled(false); TBv7.setEnabled(false); TBv8.setEnabled(false); TBv9.setEnabled(false);		
+		TBh1.setEnabled(false); TBh2.setEnabled(false); TBh3.setEnabled(false); TBh4.setEnabled(false);
+		TBh5.setEnabled(false); TBh6.setEnabled(false); TBh7.setEnabled(false); TBh8.setEnabled(false); TBh9.setEnabled(false);
+	}
+	
+	public void habilitarLocal(){
+		fechaL.setVisible(true); JL1.setEnabled(true); JL2.setEnabled(true); JL3.setEnabled(true); JL4.setEnabled(true);
+		JL5.setEnabled(true); JL6.setEnabled(true); JL7.setEnabled(true); JL8.setEnabled(true); JL9.setEnabled(true);
+		lblJugadores.setEnabled(true); label_tb_HLocal.setEnabled(true);
+		TBLocJ1.setEnabled(true); TBLocJ2.setEnabled(true); TBLocJ3.setEnabled(true); TBLocJ4.setEnabled(true);
+		TBLocJ5.setEnabled(true); TBLocJ6.setEnabled(true); TBLocJ7.setEnabled(true); TBLocJ8.setEnabled(true); TBLocJ9.setEnabled(true);
+		HLocJ1.setEnabled(true); HLocJ2.setEnabled(true); HLocJ3.setEnabled(true); HLocJ4.setEnabled(true); HLocJ5.setEnabled(true);
+		HLocJ6.setEnabled(true); HLocJ7.setEnabled(true); HLocJ8.setEnabled(true); HLocJ9.setEnabled(true);
+	}
+	
+	public void deshabilitarLocal(){
+		fechaL.setVisible(false); JL1.setEnabled(false); JL2.setEnabled(false); JL3.setEnabled(false); JL4.setEnabled(false);
+		JL5.setEnabled(false); JL6.setEnabled(false); JL7.setEnabled(false); JL8.setEnabled(false); JL9.setEnabled(false);
+		lblJugadores.setEnabled(false); label_tb_HLocal.setEnabled(false);
+		TBLocJ1.setEnabled(false); TBLocJ2.setEnabled(false); TBLocJ3.setEnabled(false); TBLocJ4.setEnabled(false);
+		TBLocJ5.setEnabled(false); TBLocJ6.setEnabled(false); TBLocJ7.setEnabled(false); TBLocJ8.setEnabled(false); TBLocJ9.setEnabled(false);
+		HLocJ1.setEnabled(false); HLocJ2.setEnabled(false); HLocJ3.setEnabled(false); HLocJ4.setEnabled(false); HLocJ5.setEnabled(false);
+		HLocJ6.setEnabled(false); HLocJ7.setEnabled(false); HLocJ8.setEnabled(false); HLocJ9.setEnabled(false);
 	}
 }

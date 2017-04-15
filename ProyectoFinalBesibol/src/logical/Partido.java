@@ -11,8 +11,8 @@ public class Partido implements Serializable{
 	private String equipoVisita;
 	private String Estadio;
 	private String hora;
-	private int carrerasCasa;
-	private int carrerasVisita;
+	private int carrerasCasa=0;
+	private int carrerasVisita=0;
 	
 	public Partido(Date fecha, String equipoCasa, String equipoVisita, String estadio, String hora) {
 		super();

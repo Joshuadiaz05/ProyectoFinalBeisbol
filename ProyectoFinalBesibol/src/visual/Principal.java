@@ -58,6 +58,8 @@ public class Principal extends JFrame {
 	private String local=null;
 	private String visita=null;
 	private JLabel lblNewLabel_1;
+	private int ind;
+	private Partido miPartido = null;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -185,16 +187,19 @@ public class Principal extends JFrame {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int ind = table.getSelectedRow();
+				ind = table.getSelectedRow();
 				local = (String) table.getModel().getValueAt(ind, 0);
 				visita = (String) table.getModel().getValueAt(ind, 1);
+				String hora = (String) table.getModel().getValueAt(ind, 4);
+				miPartido = LigaBeisbol.getInstance().buscarPartido(local, visita, hora);
+				System.out.println("casa "+miPartido.getEquipoCasa());
 				btnNewButton.setEnabled(true);
 						
 			}
 		});
 		scrollPane.setViewportView(table);
 		
-		String[] columnsHeaders = {"Equipo Local", " Equipo Visita", " Estadio", " Fecha", " Hora"};
+		String[] columnsHeaders = {"Equipo Local", " Equipo Visita", " Estadio", " Fecha", " Hora", "Finalizado"};
 		tablemodel = new DefaultTableModel();
 		tablemodel.setColumnIdentifiers(columnsHeaders);
 		table.setModel(tablemodel);
@@ -217,7 +222,7 @@ public class Principal extends JFrame {
 		btnNewButton = new JButton("Jugar Partido");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Simulacion simular = new Simulacion(local, visita);
+				Simulacion simular = new Simulacion(local, visita, miPartido);
 				simular.setVisible(true);
 			}
 		});
@@ -267,6 +272,7 @@ public class Principal extends JFrame {
 		table.getColumnModel().getColumn(2).setCellRenderer(tcr);
 		table.getColumnModel().getColumn(3).setCellRenderer(tcr);
 		table.getColumnModel().getColumn(4).setCellRenderer(tcr);
+		table.getColumnModel().getColumn(5).setCellRenderer(tcr);
 		fila = new Object[tablemodel.getColumnCount()];
 		for (Partido aux : LigaBeisbol.getInstance().getPartido()) {
 			Date input = new Date(aux.getFecha().getYear(), aux.getFecha().getMonth(), aux.getFecha().getDate());
@@ -281,6 +287,11 @@ public class Principal extends JFrame {
 				String fechaString = localfecha.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", spanishLocale));
 				fila[3] = fechaString;
 				fila[4] = aux.getHora();
+				if(aux.getCarrerasCasa()==0 && aux.getCarrerasVisita()==0){
+					fila[5] = "-";
+				}else{
+					fila[5] = "Local '"+aux.getEquipoCasa()+"' - Visitantes '"+aux.getEquipoVisita()+"'";
+				}
 				tablemodel.addRow(fila);
 			}
 		}
