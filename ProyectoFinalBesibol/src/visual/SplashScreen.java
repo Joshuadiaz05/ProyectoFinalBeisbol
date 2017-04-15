@@ -3,7 +3,8 @@ package visual;
  import java.awt.Container;
  import java.awt.Font;
  import java.awt.HeadlessException;
- import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
  import java.util.ArrayList;
  
  import javax.swing.*;
@@ -18,7 +19,9 @@ package visual;
      private static JProgressBar progressBar = new JProgressBar();
      private static SplashScreen execute;
      private static int count;
+     private static int count2;
      private static Timer timer1;
+     private static Timer time2;
      private static LigaBeisbol liga;
      private JLabel lbCargando;
      private JLabel lbPorcetanje;
@@ -59,11 +62,19 @@ package visual;
      }
  
      private void loadProgressBar() {
-         ActionListener al = new ActionListener() {
+    	 ActionListener al1 = new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				count2++;
+			}  
+    		 
+    	 };
+         ActionListener al = new ActionListener() {          
  
              public void actionPerformed(java.awt.event.ActionEvent evt) {
                  count++;
- 
+                 
                  ArrayList<String> dot = new ArrayList<String>();
                  for (int i = 0; i < 34; i++) {
                  	dot.add(".");
@@ -71,11 +82,14 @@ package visual;
                  	dot.add("...");
  				}
                  progressBar.setValue(count);
-                 lbCargando.setText("Cargando imágenes"  + dot.get(count));
+                 lbCargando.setText("Cargando imágenes"  + dot.get(count2));
                  lbPorcetanje.setText(count + "%");
                  if(count > 50){
-                 	lbCargando.setText("Cargando datos"  + dot.get(count));
+                 	lbCargando.setText("Cargando datos"  + dot.get(count2));
                  }
+                 if(count > 90){
+                  	lbCargando.setText("Abriendo"  + dot.get(count2));
+                  }
                  if (count == 100) {
  
                      createFrame();
@@ -83,6 +97,9 @@ package visual;
                      execute.setVisible(false);//swapped this around with timer1.stop()
  
                      timer1.stop();
+                 }
+                 if(count2 == 100){
+                	 time2.stop();
                  }
              }
  
@@ -97,7 +114,9 @@ package visual;
                  frame.setVisible(true);
              }
          };
-         timer1 = new Timer(60, al);
+         time2 = new Timer(250, al1);
+         time2.start();
+         timer1 = new Timer(30, al);
          timer1.start();
      }
  
