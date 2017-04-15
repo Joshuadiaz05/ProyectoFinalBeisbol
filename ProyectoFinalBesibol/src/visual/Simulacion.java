@@ -44,7 +44,7 @@ public class Simulacion extends JDialog {
 	private JTextField textviscarreras;
 	private JTextField textvishit;
 	private JTextField textField_5;
-	private JSpinner CLoc1, CLoc2, CLoc3, CLoc4, CLoc5, CLoc6, CLoc7, CLoc8, CLoc9;
+	private JSpinner CLoc1, CLoc2, CLoc3, CLoc4, CLoc5, CLoc6, CLoc7, spinner, spinner_1;
 	private JSpinner CVis1, CVis2, CVis3, CVis4, CVis5, CVis6, CVis7, CVis8, CVis9;
 	private JSpinner TBv1, TBv2, TBv3, TBv4, TBv5, TBv6, TBv7, TBv8, TBv9;
 	private JSpinner TBh1, TBh2, TBh3, TBh4, TBh5, TBh6, TBh7, TBh8, TBh9;
@@ -61,7 +61,7 @@ public class Simulacion extends JDialog {
 	private JSeparator separator_2;
 	private JLabel labelPosiciones;
 	private int carrerasTotal = 0;
-	private int carreras1, carreras2;
+	private int CarrerasTotalV = 0;
 
 	public Simulacion(String local, String visita) {
 		setTitle(" Simulacion");
@@ -102,14 +102,14 @@ public class Simulacion extends JDialog {
 		lblLocal.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
 
 		CLoc1 = new JSpinner();
+		CLoc1.setModel(new SpinnerNumberModel(0, 0, 99, 1));
 		CLoc1.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				carrerasTotal = Integer.valueOf(CLoc1.getValue().toString())
-						+ Integer.valueOf(CLoc1.getValue().toString()) + Integer.valueOf(CLoc2.getValue().toString())
-						+ Integer.valueOf(CLoc3.getValue().toString()) + Integer.valueOf(CLoc4.getValue().toString())
-						+ Integer.valueOf(CLoc5.getValue().toString()) + Integer.valueOf(CLoc6.getValue().toString())
-						+ Integer.valueOf(CLoc7.getValue().toString()) + Integer.valueOf(CLoc8.getValue().toString())
-						+ Integer.valueOf(CLoc9.getValue().toString());
+			public void stateChanged(ChangeEvent e) {
+				int carrerasTotal = Integer.valueOf(CLoc1.getValue().toString())
+						+ Integer.valueOf(CLoc2.getValue().toString()) + Integer.valueOf(CLoc3.getValue().toString())
+						+ Integer.valueOf(CLoc4.getValue().toString()) + Integer.valueOf(CLoc5.getValue().toString())
+						+ Integer.valueOf(CLoc6.getValue().toString()) + Integer.valueOf(CLoc7.getValue().toString())
+						+ Integer.valueOf(spinner.getValue().toString()) + Integer.valueOf(spinner_1.getValue().toString());
 				textloccarreras.setText("" + carrerasTotal);
 			}
 		});
@@ -117,14 +117,14 @@ public class Simulacion extends JDialog {
 		panel_2.add(CLoc1);
 
 		CLoc2 = new JSpinner();
+		CLoc2.setModel(new SpinnerNumberModel(0, 0, 99, 1));
 		CLoc2.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				carrerasTotal = Integer.valueOf(CLoc1.getValue().toString())
-						+ Integer.valueOf(CLoc1.getValue().toString()) + Integer.valueOf(CLoc2.getValue().toString())
-						+ Integer.valueOf(CLoc3.getValue().toString()) + Integer.valueOf(CLoc4.getValue().toString())
-						+ Integer.valueOf(CLoc5.getValue().toString()) + Integer.valueOf(CLoc6.getValue().toString())
-						+ Integer.valueOf(CLoc7.getValue().toString()) + Integer.valueOf(CLoc8.getValue().toString())
-						+ Integer.valueOf(CLoc9.getValue().toString());
+			carrerasTotal = Integer.valueOf(CLoc1.getValue().toString())
+						+ Integer.valueOf(CLoc2.getValue().toString()) + Integer.valueOf(CLoc3.getValue().toString())
+						+ Integer.valueOf(CLoc4.getValue().toString()) + Integer.valueOf(CLoc5.getValue().toString())
+						+ Integer.valueOf(CLoc6.getValue().toString()) + Integer.valueOf(CLoc7.getValue().toString())
+						+ Integer.valueOf(spinner.getValue().toString()) + Integer.valueOf(spinner_1.getValue().toString());
 				textloccarreras.setText("" + carrerasTotal);
 			}
 		});
@@ -132,14 +132,14 @@ public class Simulacion extends JDialog {
 		panel_2.add(CLoc2);
 
 		CLoc3 = new JSpinner();
+		CLoc3.setModel(new SpinnerNumberModel(0, 0, 99, 1));
 		CLoc3.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				carrerasTotal = Integer.valueOf(CLoc1.getValue().toString())
-						+ Integer.valueOf(CLoc1.getValue().toString()) + Integer.valueOf(CLoc2.getValue().toString())
-						+ Integer.valueOf(CLoc3.getValue().toString()) + Integer.valueOf(CLoc4.getValue().toString())
-						+ Integer.valueOf(CLoc5.getValue().toString()) + Integer.valueOf(CLoc6.getValue().toString())
-						+ Integer.valueOf(CLoc7.getValue().toString()) + Integer.valueOf(CLoc8.getValue().toString())
-						+ Integer.valueOf(CLoc9.getValue().toString());
+						+ Integer.valueOf(CLoc2.getValue().toString()) + Integer.valueOf(CLoc3.getValue().toString())
+						+ Integer.valueOf(CLoc4.getValue().toString()) + Integer.valueOf(CLoc5.getValue().toString())
+						+ Integer.valueOf(CLoc6.getValue().toString()) + Integer.valueOf(CLoc7.getValue().toString())
+						+ Integer.valueOf(spinner.getValue().toString()) + Integer.valueOf(spinner_1.getValue().toString());
 				textloccarreras.setText("" + carrerasTotal);
 			}
 		});
@@ -147,14 +147,14 @@ public class Simulacion extends JDialog {
 		panel_2.add(CLoc3);
 
 		CLoc4 = new JSpinner();
+		CLoc4.setModel(new SpinnerNumberModel(0, 0, 99, 1));
 		CLoc4.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				carrerasTotal = Integer.valueOf(CLoc1.getValue().toString())
-						+ Integer.valueOf(CLoc1.getValue().toString()) + Integer.valueOf(CLoc2.getValue().toString())
-						+ Integer.valueOf(CLoc3.getValue().toString()) + Integer.valueOf(CLoc4.getValue().toString())
-						+ Integer.valueOf(CLoc5.getValue().toString()) + Integer.valueOf(CLoc6.getValue().toString())
-						+ Integer.valueOf(CLoc7.getValue().toString()) + Integer.valueOf(CLoc8.getValue().toString())
-						+ Integer.valueOf(CLoc9.getValue().toString());
+						+ Integer.valueOf(CLoc2.getValue().toString()) + Integer.valueOf(CLoc3.getValue().toString())
+						+ Integer.valueOf(CLoc4.getValue().toString()) + Integer.valueOf(CLoc5.getValue().toString())
+						+ Integer.valueOf(CLoc6.getValue().toString()) + Integer.valueOf(CLoc7.getValue().toString())
+						+ Integer.valueOf(spinner.getValue().toString()) + Integer.valueOf(spinner_1.getValue().toString());
 				textloccarreras.setText("" + carrerasTotal);
 			}
 		});
@@ -162,14 +162,14 @@ public class Simulacion extends JDialog {
 		panel_2.add(CLoc4);
 
 		CLoc5 = new JSpinner();
+		CLoc5.setModel(new SpinnerNumberModel(0, 0, 99, 1));
 		CLoc5.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				carrerasTotal = Integer.valueOf(CLoc1.getValue().toString())
-						+ Integer.valueOf(CLoc1.getValue().toString()) + Integer.valueOf(CLoc2.getValue().toString())
-						+ Integer.valueOf(CLoc3.getValue().toString()) + Integer.valueOf(CLoc4.getValue().toString())
-						+ Integer.valueOf(CLoc5.getValue().toString()) + Integer.valueOf(CLoc6.getValue().toString())
-						+ Integer.valueOf(CLoc7.getValue().toString()) + Integer.valueOf(CLoc8.getValue().toString())
-						+ Integer.valueOf(CLoc9.getValue().toString());
+						+ Integer.valueOf(CLoc2.getValue().toString()) + Integer.valueOf(CLoc3.getValue().toString())
+						+ Integer.valueOf(CLoc4.getValue().toString()) + Integer.valueOf(CLoc5.getValue().toString())
+						+ Integer.valueOf(CLoc6.getValue().toString()) + Integer.valueOf(CLoc7.getValue().toString())
+						+ Integer.valueOf(spinner.getValue().toString()) + Integer.valueOf(spinner_1.getValue().toString());
 				textloccarreras.setText("" + carrerasTotal);
 			}
 		});
@@ -177,14 +177,14 @@ public class Simulacion extends JDialog {
 		panel_2.add(CLoc5);
 
 		CLoc6 = new JSpinner();
+		CLoc6.setModel(new SpinnerNumberModel(0, 0, 99, 1));
 		CLoc6.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				carrerasTotal = Integer.valueOf(CLoc1.getValue().toString())
-						+ Integer.valueOf(CLoc1.getValue().toString()) + Integer.valueOf(CLoc2.getValue().toString())
-						+ Integer.valueOf(CLoc3.getValue().toString()) + Integer.valueOf(CLoc4.getValue().toString())
-						+ Integer.valueOf(CLoc5.getValue().toString()) + Integer.valueOf(CLoc6.getValue().toString())
-						+ Integer.valueOf(CLoc7.getValue().toString()) + Integer.valueOf(CLoc8.getValue().toString())
-						+ Integer.valueOf(CLoc9.getValue().toString());
+						+ Integer.valueOf(CLoc2.getValue().toString()) + Integer.valueOf(CLoc3.getValue().toString())
+						+ Integer.valueOf(CLoc4.getValue().toString()) + Integer.valueOf(CLoc5.getValue().toString())
+						+ Integer.valueOf(CLoc6.getValue().toString()) + Integer.valueOf(CLoc7.getValue().toString())
+						+ Integer.valueOf(spinner.getValue().toString()) + Integer.valueOf(spinner_1.getValue().toString());
 				textloccarreras.setText("" + carrerasTotal);
 			}
 		});
@@ -192,49 +192,49 @@ public class Simulacion extends JDialog {
 		panel_2.add(CLoc6);
 
 		CLoc7 = new JSpinner();
+		CLoc7.setModel(new SpinnerNumberModel(0, 0, 99, 1));
 		CLoc7.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				carrerasTotal = Integer.valueOf(CLoc1.getValue().toString())
-						+ Integer.valueOf(CLoc1.getValue().toString()) + Integer.valueOf(CLoc2.getValue().toString())
-						+ Integer.valueOf(CLoc3.getValue().toString()) + Integer.valueOf(CLoc4.getValue().toString())
-						+ Integer.valueOf(CLoc5.getValue().toString()) + Integer.valueOf(CLoc6.getValue().toString())
-						+ Integer.valueOf(CLoc7.getValue().toString()) + Integer.valueOf(CLoc8.getValue().toString())
-						+ Integer.valueOf(CLoc9.getValue().toString());
+						+ Integer.valueOf(CLoc2.getValue().toString()) + Integer.valueOf(CLoc3.getValue().toString())
+						+ Integer.valueOf(CLoc4.getValue().toString()) + Integer.valueOf(CLoc5.getValue().toString())
+						+ Integer.valueOf(CLoc6.getValue().toString()) + Integer.valueOf(CLoc7.getValue().toString())
+						+ Integer.valueOf(spinner.getValue().toString()) + Integer.valueOf(spinner_1.getValue().toString());
 				textloccarreras.setText("" + carrerasTotal);
 			}
 		});
 		CLoc7.setBounds(462, 20, 44, 39);
 		panel_2.add(CLoc7);
-
-		JSpinner CLoc8 = new JSpinner();
-		CLoc8.addChangeListener(new ChangeListener() {
+		
+		spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(0, 0, 99, 1));
+		spinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				carrerasTotal = Integer.valueOf(CLoc1.getValue().toString())
-						+ Integer.valueOf(CLoc1.getValue().toString()) + Integer.valueOf(CLoc2.getValue().toString())
-						+ Integer.valueOf(CLoc3.getValue().toString()) + Integer.valueOf(CLoc4.getValue().toString())
-						+ Integer.valueOf(CLoc5.getValue().toString()) + Integer.valueOf(CLoc6.getValue().toString())
-						+ Integer.valueOf(CLoc7.getValue().toString()) + Integer.valueOf(CLoc8.getValue().toString())
-						+ Integer.valueOf(CLoc9.getValue().toString());
+						+ Integer.valueOf(CLoc2.getValue().toString()) + Integer.valueOf(CLoc3.getValue().toString())
+						+ Integer.valueOf(CLoc4.getValue().toString()) + Integer.valueOf(CLoc5.getValue().toString())
+						+ Integer.valueOf(CLoc6.getValue().toString()) + Integer.valueOf(CLoc7.getValue().toString())
+						+ Integer.valueOf(spinner.getValue().toString()) + Integer.valueOf(spinner_1.getValue().toString());
 				textloccarreras.setText("" + carrerasTotal);
 			}
 		});
-		CLoc8.setBounds(518, 20, 44, 39);
-		panel_2.add(CLoc8);
-
-		JSpinner CLoc9 = new JSpinner();
-		CLoc9.addChangeListener(new ChangeListener() {
+		spinner.setBounds(518, 20, 44, 39);
+		panel_2.add(spinner);
+		
+		spinner_1 = new JSpinner();
+		spinner_1.setModel(new SpinnerNumberModel(0, 0, 99, 1));
+		spinner_1.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				carrerasTotal = Integer.valueOf(CLoc1.getValue().toString())
-						+ Integer.valueOf(CLoc1.getValue().toString()) + Integer.valueOf(CLoc2.getValue().toString())
-						+ Integer.valueOf(CLoc3.getValue().toString()) + Integer.valueOf(CLoc4.getValue().toString())
-						+ Integer.valueOf(CLoc5.getValue().toString()) + Integer.valueOf(CLoc6.getValue().toString())
-						+ Integer.valueOf(CLoc7.getValue().toString()) + Integer.valueOf(CLoc8.getValue().toString())
-						+ Integer.valueOf(CLoc9.getValue().toString());
+						+ Integer.valueOf(CLoc2.getValue().toString()) + Integer.valueOf(CLoc3.getValue().toString())
+						+ Integer.valueOf(CLoc4.getValue().toString()) + Integer.valueOf(CLoc5.getValue().toString())
+						+ Integer.valueOf(CLoc6.getValue().toString()) + Integer.valueOf(CLoc7.getValue().toString())
+						+ Integer.valueOf(spinner.getValue().toString()) + Integer.valueOf(spinner_1.getValue().toString());
 				textloccarreras.setText("" + carrerasTotal);
 			}
 		});
-		CLoc9.setBounds(572, 20, 44, 39);
-		panel_2.add(CLoc9);
+		spinner_1.setBounds(572, 20, 44, 39);
+		panel_2.add(spinner_1);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -248,38 +248,128 @@ public class Simulacion extends JDialog {
 		panel_3.add(lblVisitantes);
 
 		CVis1 = new JSpinner();
+		CVis1.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
+					+ Integer.valueOf(CVis3.getValue().toString()) + Integer.valueOf(CVis4.getValue().toString())
+					+ Integer.valueOf(CVis5.getValue().toString()) + Integer.valueOf(CVis6.getValue().toString())
+					+ Integer.valueOf(CVis7.getValue().toString()) + Integer.valueOf(CVis8.getValue().toString())
+					+ Integer.valueOf(CVis9.getValue().toString());
+				textviscarreras.setText("" + CarrerasTotalV);
+			}
+		});
 		CVis1.setBounds(130, 17, 44, 39);
 		panel_3.add(CVis1);
 
 		CVis2 = new JSpinner();
+		CVis2.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
+				+ Integer.valueOf(CVis3.getValue().toString()) + Integer.valueOf(CVis4.getValue().toString())
+				+ Integer.valueOf(CVis5.getValue().toString()) + Integer.valueOf(CVis6.getValue().toString())
+				+ Integer.valueOf(CVis7.getValue().toString()) + Integer.valueOf(CVis8.getValue().toString())
+				+ Integer.valueOf(CVis9.getValue().toString());
+			textviscarreras.setText("" + CarrerasTotalV);
+			}
+		});
 		CVis2.setBounds(185, 17, 44, 39);
 		panel_3.add(CVis2);
 
 		CVis3 = new JSpinner();
+		CVis3.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
+				+ Integer.valueOf(CVis3.getValue().toString()) + Integer.valueOf(CVis4.getValue().toString())
+				+ Integer.valueOf(CVis5.getValue().toString()) + Integer.valueOf(CVis6.getValue().toString())
+				+ Integer.valueOf(CVis7.getValue().toString()) + Integer.valueOf(CVis8.getValue().toString())
+				+ Integer.valueOf(CVis9.getValue().toString());
+			textviscarreras.setText("" + CarrerasTotalV);
+			}
+		});
 		CVis3.setBounds(240, 17, 44, 39);
 		panel_3.add(CVis3);
 
 		CVis4 = new JSpinner();
+		CVis4.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
+				+ Integer.valueOf(CVis3.getValue().toString()) + Integer.valueOf(CVis4.getValue().toString())
+				+ Integer.valueOf(CVis5.getValue().toString()) + Integer.valueOf(CVis6.getValue().toString())
+				+ Integer.valueOf(CVis7.getValue().toString()) + Integer.valueOf(CVis8.getValue().toString())
+				+ Integer.valueOf(CVis9.getValue().toString());
+			textviscarreras.setText("" + CarrerasTotalV);
+			}
+		});
 		CVis4.setBounds(295, 17, 44, 39);
 		panel_3.add(CVis4);
 
 		CVis5 = new JSpinner();
+		CVis5.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
+				+ Integer.valueOf(CVis3.getValue().toString()) + Integer.valueOf(CVis4.getValue().toString())
+				+ Integer.valueOf(CVis5.getValue().toString()) + Integer.valueOf(CVis6.getValue().toString())
+				+ Integer.valueOf(CVis7.getValue().toString()) + Integer.valueOf(CVis8.getValue().toString())
+				+ Integer.valueOf(CVis9.getValue().toString());
+			textviscarreras.setText("" + CarrerasTotalV);
+			}
+		});
 		CVis5.setBounds(349, 17, 44, 39);
 		panel_3.add(CVis5);
 
 		CVis6 = new JSpinner();
+		CVis6.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
+				+ Integer.valueOf(CVis3.getValue().toString()) + Integer.valueOf(CVis4.getValue().toString())
+				+ Integer.valueOf(CVis5.getValue().toString()) + Integer.valueOf(CVis6.getValue().toString())
+				+ Integer.valueOf(CVis7.getValue().toString()) + Integer.valueOf(CVis8.getValue().toString())
+				+ Integer.valueOf(CVis9.getValue().toString());
+			textviscarreras.setText("" + CarrerasTotalV);
+			}
+		});
 		CVis6.setBounds(405, 17, 44, 39);
 		panel_3.add(CVis6);
 
 		CVis7 = new JSpinner();
+		CVis7.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
+				+ Integer.valueOf(CVis3.getValue().toString()) + Integer.valueOf(CVis4.getValue().toString())
+				+ Integer.valueOf(CVis5.getValue().toString()) + Integer.valueOf(CVis6.getValue().toString())
+				+ Integer.valueOf(CVis7.getValue().toString()) + Integer.valueOf(CVis8.getValue().toString())
+				+ Integer.valueOf(CVis9.getValue().toString());
+			textviscarreras.setText("" + CarrerasTotalV);
+			}
+		});
 		CVis7.setBounds(461, 17, 44, 39);
 		panel_3.add(CVis7);
 
 		CVis8 = new JSpinner();
+		CVis8.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
+				+ Integer.valueOf(CVis3.getValue().toString()) + Integer.valueOf(CVis4.getValue().toString())
+				+ Integer.valueOf(CVis5.getValue().toString()) + Integer.valueOf(CVis6.getValue().toString())
+				+ Integer.valueOf(CVis7.getValue().toString()) + Integer.valueOf(CVis8.getValue().toString())
+				+ Integer.valueOf(CVis9.getValue().toString());
+			textviscarreras.setText("" + CarrerasTotalV);
+			}
+		});
 		CVis8.setBounds(517, 17, 44, 39);
 		panel_3.add(CVis8);
 
 		CVis9 = new JSpinner();
+		CVis9.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				CarrerasTotalV = Integer.valueOf(CVis1.getValue().toString()) + Integer.valueOf(CVis2.getValue().toString())
+				+ Integer.valueOf(CVis3.getValue().toString()) + Integer.valueOf(CVis4.getValue().toString())
+				+ Integer.valueOf(CVis5.getValue().toString()) + Integer.valueOf(CVis6.getValue().toString())
+				+ Integer.valueOf(CVis7.getValue().toString()) + Integer.valueOf(CVis8.getValue().toString())
+				+ Integer.valueOf(CVis9.getValue().toString());
+			textviscarreras.setText("" + CarrerasTotalV);
+			}
+		});
 		CVis9.setBounds(571, 17, 44, 39);
 		panel_3.add(CVis9);
 
@@ -290,31 +380,43 @@ public class Simulacion extends JDialog {
 		panel_4.setLayout(null);
 
 		textloccarreras = new JTextField();
+		textloccarreras.setText("0");
+		textloccarreras.setHorizontalAlignment(SwingConstants.CENTER);
 		textloccarreras.setBounds(6, 17, 42, 45);
 		panel_4.add(textloccarreras);
 		textloccarreras.setColumns(10);
 
 		textlochit = new JTextField();
+		textlochit.setText("0");
+		textlochit.setHorizontalAlignment(SwingConstants.CENTER);
 		textlochit.setColumns(10);
 		textlochit.setBounds(50, 17, 42, 45);
 		panel_4.add(textlochit);
 
 		textField_2 = new JTextField();
+		textField_2.setText("0");
+		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_2.setColumns(10);
 		textField_2.setBounds(94, 17, 42, 45);
 		panel_4.add(textField_2);
 
 		textviscarreras = new JTextField();
+		textviscarreras.setText("0");
+		textviscarreras.setHorizontalAlignment(SwingConstants.CENTER);
 		textviscarreras.setColumns(10);
 		textviscarreras.setBounds(6, 95, 42, 45);
 		panel_4.add(textviscarreras);
 
 		textvishit = new JTextField();
+		textvishit.setText("0");
+		textvishit.setHorizontalAlignment(SwingConstants.CENTER);
 		textvishit.setColumns(10);
 		textvishit.setBounds(50, 95, 42, 45);
 		panel_4.add(textvishit);
 
 		textField_5 = new JTextField();
+		textField_5.setText("0");
+		textField_5.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_5.setColumns(10);
 		textField_5.setBounds(94, 95, 42, 45);
 		panel_4.add(textField_5);
