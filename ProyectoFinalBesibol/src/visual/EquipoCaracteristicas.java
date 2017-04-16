@@ -87,9 +87,12 @@ public class EquipoCaracteristicas extends JDialog {
 	private static JPanel panel_5;
 	private JLabel lblNewLabel;
 	private JPanel panel_8;
+<<<<<<< HEAD
 	private JLabel lblNewLabel_1;
 	private JButton button_1;
 	private JLabel lblQuitarLesion;
+=======
+>>>>>>> branch 'master' of https://github.com/Joshuadiaz05/ProyectoFinalBeisbol.git
 	private JPanel panel;
 
 	/**
@@ -131,7 +134,11 @@ public class EquipoCaracteristicas extends JDialog {
 				int index = table.getSelectedRow();
 				jugador = (String) table.getModel().getValueAt(index, 0);
 				tabbedPane.addTab("Jugador", null, panel, null);
+<<<<<<< HEAD
 				tabbedPane.setSelectedIndex(4);
+=======
+				tabbedPane.setSelectedIndex(3);
+>>>>>>> branch 'master' of https://github.com/Joshuadiaz05/ProyectoFinalBeisbol.git
 				cargarJugadoresLesionadoPorEquipo();
 				cargarJugador(jugador);
 			}
@@ -161,7 +168,11 @@ public class EquipoCaracteristicas extends JDialog {
 				int index = table_1.getSelectedRow();
 				jugador = (String) table_1.getModel().getValueAt(index, 0);
 				tabbedPane.addTab("Jugador", null, panel, null);
+<<<<<<< HEAD
 				tabbedPane.setSelectedIndex(4);
+=======
+				tabbedPane.setSelectedIndex(3);
+>>>>>>> branch 'master' of https://github.com/Joshuadiaz05/ProyectoFinalBeisbol.git
 				cargarJugadoresPorEquipo();
 				cargarJugador(jugador);
 				button_1.setEnabled(true);
