@@ -78,6 +78,12 @@ public class RegistrarPartido extends JDialog {
 				nomlocal = cBlocal.getSelectedItem().toString();
 				textField.setText(""+LigaBeisbol.getInstance().BuscarPorNombre(nomlocal).getEstadio());
 				cBvisita.setEnabled(true);
+				cBvisita.removeAllItems();
+				for (String aux : equipLocal) {
+					if(nomlocal!=aux){
+						cBvisita.addItem(aux);
+					}
+				}
 			}
 		});
 		cBlocal.setBounds(10, 176, 231, 32);
@@ -85,9 +91,9 @@ public class RegistrarPartido extends JDialog {
 			
 		ArrayList<String> equipVisita = new ArrayList<String>();
 		equipVisita.add("<Seleccione Equipo>");
-		for (int index = 0; index < LigaBeisbol.getInstance().getEquipo().size(); index++) {
+		/*for (int index = 0; index < LigaBeisbol.getInstance().getEquipo().size(); index++) {
 			equipVisita.add("" + LigaBeisbol.getInstance().getEquipo().get(index).getNombre());
-		}
+		}*/
 		
 		cBvisita = new JComboBox(equipVisita.toArray());
 		cBvisita.setEnabled(false);
