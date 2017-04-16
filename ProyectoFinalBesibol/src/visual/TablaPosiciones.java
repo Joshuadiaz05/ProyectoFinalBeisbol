@@ -58,13 +58,13 @@ public class TablaPosiciones extends JDialog {
 		contentPanel.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		JLabel lblNewLabel = new JLabel("Tabla de posiciones");
+		JLabel lblNewLabel = new JLabel("Listado de Equipos");
 		lblNewLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
 		lblNewLabel.setBounds(10, 11, 245, 47);
 		contentPanel.add(lblNewLabel);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 56, 904, 2);
+		separator.setBounds(10, 50, 904, 2);
 		contentPanel.add(separator);
 		
 		JPanel norte = new JPanel();

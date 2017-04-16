@@ -105,7 +105,7 @@ public class EquipoCaracteristicas extends JDialog {
 		contentPanel.add(lblEquipo);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(12, 94, 1159, 2);
+		separator.setBounds(12, 93, 1159, 2);
 		contentPanel.add(separator);
 
 		JPanel panel_jugadores = new JPanel();
@@ -350,7 +350,7 @@ public class EquipoCaracteristicas extends JDialog {
 		tablecalendario.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane2.setViewportView(tablecalendario);
 
-		String[] columnsHeade = { "Equipo Local", " Equipo Visita", " Estadio", " Fecha", " Hora" };
+		String[] columnsHeade = { "Equipo Local", " Equipo Visita", " Estadio", " Fecha", " Hora", "Finalizado"};
 		tablemodelcalendario = new DefaultTableModel();
 		tablemodelcalendario.setColumnIdentifiers(columnsHeade);
 		tablecalendario.setModel(tablemodelcalendario);
@@ -365,18 +365,18 @@ public class EquipoCaracteristicas extends JDialog {
 		panel_7.add(lblNewLabel);
 		
 		panel_8 = new JPanel();
-		panel_8.setBounds(921, 1, 250, 96);
+		panel_8.setBounds(921, 1, 250, 95);
 		contentPanel.add(panel_8);
 		panel_8.setLayout(null);
 		
 				lblJugadorLesionado = new JLabel("Jugador Lesionado");
-				lblJugadorLesionado.setBounds(10, 11, 108, 20);
+				lblJugadorLesionado.setBounds(10, 22, 108, 20);
 				panel_8.add(lblJugadorLesionado);
 				lblJugadorLesionado.setVisible(false);
 				lblJugadorLesionado.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
 				
 						JButton btnJugadorLesionado = new JButton("");
-						btnJugadorLesionado.setBounds(44, 33, 48, 40);
+						btnJugadorLesionado.setBounds(44, 50, 48, 40);
 						panel_8.add(btnJugadorLesionado);
 						btnJugadorLesionado.addMouseListener(new MouseAdapter() {
 							@Override
@@ -399,7 +399,7 @@ public class EquipoCaracteristicas extends JDialog {
 						btnJugadorLesionado.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 						
 								JButton btnAgregarJugador = new JButton("");
-								btnAgregarJugador.setBounds(102, 33, 48, 40);
+								btnAgregarJugador.setBounds(102, 50, 48, 40);
 								panel_8.add(btnAgregarJugador);
 								btnAgregarJugador.addMouseListener(new MouseAdapter() {
 									@Override
@@ -422,12 +422,12 @@ public class EquipoCaracteristicas extends JDialog {
 								btnAgregarJugador.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 								
 										lblAgregarJugador = new JLabel("Agregar Jugador");
-										lblAgregarJugador.setBounds(85, 11, 108, 20);
+										lblAgregarJugador.setBounds(85, 22, 108, 20);
 										panel_8.add(lblAgregarJugador);
 										lblAgregarJugador.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
 										
 												JButton btnFormarEquipo = new JButton("");
-												btnFormarEquipo.setBounds(160, 33, 48, 40);
+												btnFormarEquipo.setBounds(160, 50, 48, 40);
 												panel_8.add(btnFormarEquipo);
 												btnFormarEquipo.addMouseListener(new MouseAdapter() {
 													@Override
@@ -450,7 +450,7 @@ public class EquipoCaracteristicas extends JDialog {
 												btnFormarEquipo.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 												
 														lblFormarEquipo = new JLabel("Formar Equipo");
-														lblFormarEquipo.setBounds(155, 11, 108, 20);
+														lblFormarEquipo.setBounds(155, 22, 108, 20);
 														panel_8.add(lblFormarEquipo);
 														lblFormarEquipo.setVisible(false);
 														lblFormarEquipo.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
@@ -485,7 +485,7 @@ public class EquipoCaracteristicas extends JDialog {
 		fila = new Object[tablemodel.getColumnCount()];
 		for (Jugadores e : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
 			if (!e.isLesion()) {
-				fila[0] = e.getNombre();
+				fila[0] = e.getNombre()+" "+e.getApellido()+" - "+e.getPosicion();
 				tablemodel.addRow(fila);
 			}
 		}
@@ -499,7 +499,7 @@ public class EquipoCaracteristicas extends JDialog {
 		fila2 = new Object[tablemodel2.getColumnCount()];
 		for (Jugadores e : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
 			if (e.isLesion() == true) {
-				fila2[0] = e.getNombre();
+				fila2[0] = e.getNombre()+" "+e.getApellido()+" - "+e.getPosicion();
 				tablemodel2.addRow(fila2);
 			}
 		}
@@ -514,6 +514,7 @@ public class EquipoCaracteristicas extends JDialog {
 		tablecalendario.getColumnModel().getColumn(2).setCellRenderer(tcr);
 		tablecalendario.getColumnModel().getColumn(3).setCellRenderer(tcr);
 		tablecalendario.getColumnModel().getColumn(4).setCellRenderer(tcr);
+		tablecalendario.getColumnModel().getColumn(5).setCellRenderer(tcr);
 		fila3 = new Object[tablemodelcalendario.getColumnCount()];
 		for (Partido partidos : LigaBeisbol.getInstance().getPartido()) {
 			if (aux.getNombre().equalsIgnoreCase(partidos.getEquipoCasa())
@@ -527,6 +528,11 @@ public class EquipoCaracteristicas extends JDialog {
 				String fechaString = localfecha.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", spanishLocale));
 				fila3[3] = fechaString;
 				fila3[4] = partidos.getHora();
+		/*		if(partidos.getCarrerasCasa()==0 && partidos.getCarrerasVisita()==0){
+					fila[5] = "-";
+				}else{
+					fila[5] = ""+partidos.getCarrerasCasa()+" - "+partidos.getCarrerasVisita();
+				}*/
 				tablemodelcalendario.addRow(fila3);
 			}
 		}

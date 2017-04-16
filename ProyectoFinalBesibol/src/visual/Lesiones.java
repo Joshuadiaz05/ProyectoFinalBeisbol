@@ -24,10 +24,13 @@ import javax.swing.JTextPane;
 import javax.swing.JEditorPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
+import java.awt.Color;
 
 public class Lesiones extends JDialog {
 
@@ -41,7 +44,7 @@ public class Lesiones extends JDialog {
 	public Lesiones(Equipos equipo) {
 		setTitle("Lesiones");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imag/crutches-293962_960_720.png"));
-		setBounds(100, 100, 412, 362);
+		setBounds(100, 100, 412, 432);
 		setResizable(false);
 		setModal(true);
 		setLocationRelativeTo(null);
@@ -52,19 +55,19 @@ public class Lesiones extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel.setBounds(10, 11, 375, 268);
+			panel.setBounds(10, 11, 375, 346);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
 				JLabel lblEquipo = new JLabel("Equipo");
 				lblEquipo.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-				lblEquipo.setBounds(10, 54, 58, 17);
+				lblEquipo.setBounds(149, 57, 58, 17);
 				panel.add(lblEquipo);
 			}
 			{
 				JLabel lblJugador = new JLabel("Jugador");
 				lblJugador.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-				lblJugador.setBounds(201, 54, 114, 17);
+				lblJugador.setBounds(10, 121, 114, 17);
 				panel.add(lblJugador);
 			}
 			{
@@ -87,24 +90,24 @@ public class Lesiones extends JDialog {
 						}
 					}
 				});
-				cBjugador.setBounds(201, 75, 164, 32);
+				cBjugador.setBounds(10, 142, 164, 32);
 				panel.add(cBjugador);
 			}
 			{
 				JLabel lblFecha = new JLabel("Fecha");
 				lblFecha.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-				lblFecha.setBounds(10, 202, 58, 17);
+				lblFecha.setBounds(201, 121, 58, 17);
 				panel.add(lblFecha);
 			}
 
 			dateChooser = new JDateChooser();
 			dateChooser.setEnabled(false);
-			dateChooser.setBounds(10, 220, 164, 32);
+			dateChooser.setBounds(201, 142, 164, 32);
 			panel.add(dateChooser);
 
 			JLabel lblTipo = new JLabel("Tipo");
 			lblTipo.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblTipo.setBounds(10, 128, 64, 17);
+			lblTipo.setBounds(10, 195, 64, 17);
 			panel.add(lblTipo);
 
 			cBtipo = new JComboBox();
@@ -113,34 +116,41 @@ public class Lesiones extends JDialog {
 					"Esguinces o torceduras de ligamentos y tendones", "Lesiones en la rodilla",
 					"Hinchaz\u00F3n muscular", "Lesiones en el tend\u00F3n de Aquiles",
 					"Dolor a lo largo del hueso de la canilla", "Fracturas", "Dislocaciones" }));
-			cBtipo.setBounds(10, 146, 355, 32);
+			cBtipo.setBounds(10, 213, 355, 32);
 			panel.add(cBtipo);
 
 			JLabel lblComentario = new JLabel("Observaci\u00F3n");
 			lblComentario.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			lblComentario.setBounds(201, 202, 137, 17);
+			lblComentario.setBounds(132, 259, 93, 17);
 			panel.add(lblComentario);
 
 			editorPane = new JEditorPane();
-			editorPane.setBounds(201, 220, 164, 32);
+			editorPane.setForeground(new Color(0, 0, 0));
+			editorPane.setBounds(10, 277, 355, 58);
 			panel.add(editorPane);
 			{
 				textField = new JTextField("" + equipo.getNombre());
 				textField.setEditable(false);
-				textField.setBounds(10, 75, 164, 32);
+				textField.setBounds(81, 78, 195, 32);
 				panel.add(textField);
 				textField.setColumns(10);
 			}
 			{
 				JLabel lblLesiones = new JLabel("Lesiones");
 				lblLesiones.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
-				lblLesiones.setBounds(10, 11, 185, 32);
+				lblLesiones.setBounds(10, 11, 124, 32);
 				panel.add(lblLesiones);
 			}
 			{
 				JSeparator separator = new JSeparator();
 				separator.setBounds(10, 44, 355, 2);
 				panel.add(separator);
+			}
+			{
+				JLabel label = new JLabel(""); 
+				label.setIcon(new ImageIcon("img/less.png"));
+				label.setBounds(128, 11, 35, 32);
+				panel.add(label);
 			}
 		}
 		{

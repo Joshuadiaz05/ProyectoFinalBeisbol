@@ -67,7 +67,7 @@ public class ListadoEventos extends JDialog {
 			scrollPane.setBounds(10, 11, 621, 277);
 			panel.add(scrollPane);
 			
-			String[] columnsHeaders = {"Equipo Local", " Equipo Visita", " Estadio", " Fecha", " Hora"};
+			String[] columnsHeaders = {"Equipo Local", " Equipo Visita", " Estadio", " Fecha", " Hora", "Finalizado"};
 			tablemodel = new DefaultTableModel();
 			tablemodel.setColumnIdentifiers(columnsHeaders);
 			
@@ -124,6 +124,11 @@ public class ListadoEventos extends JDialog {
 			String fechaString = localfecha.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", spanishLocale));
 			fila[3] = fechaString;
 			fila[4] = aux.getHora();
+			if(aux.getCarrerasCasa()==0 && aux.getCarrerasVisita()==0){
+				fila[5] = "-";
+			}else{
+				fila[5] = ""+aux.getCarrerasCasa()+" - "+aux.getCarrerasVisita();
+			}
 			tablemodel.addRow(fila);
 		}
 	}

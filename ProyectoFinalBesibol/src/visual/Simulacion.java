@@ -36,6 +36,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTextPane;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.UIManager;
+import java.awt.SystemColor;
 
 public class Simulacion extends JDialog {
 
@@ -49,10 +51,10 @@ public class Simulacion extends JDialog {
 	private JTextField textField_5;
 	private JSpinner CLoc1, CLoc2, CLoc3, CLoc4, CLoc5, CLoc6, CLoc7, spinner, spinner_1;
 	private JSpinner CVis1, CVis2, CVis3, CVis4, CVis5, CVis6, CVis7, CVis8, CVis9;
-	private JSpinner TBv1, TBv2, TBv3, TBv4, TBv5, TBv6, TBv7, TBv8, TBv9;
-	private JSpinner TBh1, TBh2, TBh3, TBh4, TBh5, TBh6, TBh7, TBh8, TBh9;
-	private JSpinner HLocJ1, HLocJ2, HLocJ3, HLocJ4, HLocJ5, HLocJ6, HLocJ7, HLocJ8, HLocJ9;
-	private JSpinner TBLocJ1, TBLocJ2, TBLocJ3, TBLocJ4, TBLocJ5, TBLocJ6, TBLocJ7, TBLocJ8, TBLocJ9;
+	private JSpinner TBv1, TBv2, TBv3, TBv4, TBv5, TBv6, TBv7, TBv8, TBv9; //Turnos al bate Visitantes
+	private JSpinner TBh1, TBh2, TBh3, TBh4, TBh5, TBh6, TBh7, TBh8, TBh9; //Hits al bate visitantes
+	private JSpinner HLocJ1, HLocJ2, HLocJ3, HLocJ4, HLocJ5, HLocJ6, HLocJ7, HLocJ8, HLocJ9; //Spinner Hits Local
+	private JSpinner TBLocJ1, TBLocJ2, TBLocJ3, TBLocJ4, TBLocJ5, TBLocJ6, TBLocJ7, TBLocJ8, TBLocJ9; //Spinner Turnos al Bate Local
 	private JButton btnEquipoLocal;
 	private JPanel panel_11;
 	private JButton btnCancelar;
@@ -67,8 +69,23 @@ public class Simulacion extends JDialog {
 	private int CarrerasTotalV = 0;
 	private int totallocalhit = 0;
 	private int totalvisitahit = 0;
-	private JLabel label_tb_H, lblJugadoresVisitantes, Jv1, Jv2, Jv3, Jv4, Jv5, Jv6, Jv7, Jv8, Jv9, fechaV;
-	private JLabel fechaL, JL1, JL2, JL3, JL4, JL5, JL6, JL7, JL8, JL9, lblJugadores, label_tb_HLocal;
+	private JLabel label_tb_H, lblJugadoresVisitantes, Jv1, Jv2, Jv3, Jv4, Jv5, Jv6, Jv7, Jv8, Jv9, fechaV; //nombres de los visitantes
+	private JLabel fechaL, JL1, JL2, JL3, JL4, JL5, JL6, JL7, JL8, JL9, lblJugadores, label_tb_HLocal; //nombres de los locales
+	private Jugadores leftfield, primerabase, segundabase, TerceraBase, catcher, shortstop, centerfield, rigthfield, bateadesignado; //Jugadores Locales
+	private Jugadores leftfieldv, primerabasev, segundabasev, tercerabasev, catcherv, shortstopv, centerfieldv, rigthfieldv, bateadesignadov; //Jugadores Visitantes
+	private int tlcatcher, tlpb, tlsb, tltb, tlss, tllf, tlrf, tlcf, tlbd; //Guardan los turnos al bate de los Locales
+	private int hlcatcher, hlpb, hlsb, hltb, hlss, hllf, hlrf, hlcf, hlbd; //Guardan los Hits de los Locales
+	private int tvcatcher, tvpb, tvsb, tvtb, tvss, tvlf, tvrf, tvcf, tvbd; //Guardan turnos al bate de los Visitantes
+	private int hvcatcher, hvpb, hvsb, hvtb, hvss, hvlf, hvrf, hvcf, hvbd; //Guardan Hits de los Visitantes
+	private JLabel Centerv;
+	private JLabel Rigthv;
+	private JLabel Lefthv;
+	private JLabel SBv;
+	private JLabel TBv;
+	private JLabel PBv;
+	private JLabel CTHv;
+	private JLabel SSv;
+	private JLabel lblEnDefensa;
 	
 	public Simulacion(String local, String visita, Partido partido) {
 		setTitle(" Simulacion");
@@ -452,17 +469,17 @@ public class Simulacion extends JDialog {
 		panel_5.add(panel_7);
 		panel_7.setLayout(null);
 
-		Jugadores pitcher = equipolocal.buscarJugadorbyposicion("Pitcher");
+		bateadesignado = equipolocal.buscarJugadorbyposicion("Bateador designado");
 		JL9 = new JLabel();
-		if (pitcher == null) {
-			JL9.setText("Pitcher");
+		if (bateadesignado == null) {
+			JL9.setText("Bateador Designado");
 		} else {
-			JL9.setText("" + pitcher.getNombre() + " " + pitcher.getApellido());
+			JL9.setText("" + bateadesignado.getNombre() + " " + bateadesignado.getApellido());
 		}
 		JL9.setBounds(6, 358, 119, 20);
 		panel_7.add(JL9);
 
-		Jugadores centerfield = equipolocal.buscarJugadorbyposicion("Center fielder");
+		centerfield = equipolocal.buscarJugadorbyposicion("Center fielder");
 		JL8 = new JLabel();
 		if (centerfield == null) {
 			JL8.setText("Center Fielder");
@@ -472,7 +489,7 @@ public class Simulacion extends JDialog {
 		JL8.setBounds(6, 315, 119, 20);
 		panel_7.add(JL8);
 
-		Jugadores leftfield = equipolocal.buscarJugadorbyposicion("Left fielder");
+		leftfield = equipolocal.buscarJugadorbyposicion("Left fielder");
 		JL7 = new JLabel();
 		if (leftfield == null) {
 			JL7.setText("Left Fielder");
@@ -482,7 +499,7 @@ public class Simulacion extends JDialog {
 		JL7.setBounds(6, 274, 119, 20);
 		panel_7.add(JL7);
 
-		Jugadores rigthfield = equipolocal.buscarJugadorbyposicion("Rigth fielder");
+		rigthfield = equipolocal.buscarJugadorbyposicion("Rigth fielder");
 		JL6 = new JLabel();
 		if (rigthfield == null) {
 			JL6.setText("Rigth Fielder");
@@ -492,7 +509,7 @@ public class Simulacion extends JDialog {
 		JL6.setBounds(6, 234, 119, 20);
 		panel_7.add(JL6);
 
-		Jugadores shortstop = equipolocal.buscarJugadorbyposicion("Short stop");
+		shortstop = equipolocal.buscarJugadorbyposicion("Short stop");
 		JL5 = new JLabel();
 		if (shortstop == null) {
 			JL5.setText("Short Stop");
@@ -502,7 +519,7 @@ public class Simulacion extends JDialog {
 		JL5.setBounds(6, 193, 101, 20);
 		panel_7.add(JL5);
 
-		Jugadores TerceraBase = equipolocal.buscarJugadorbyposicion("Tercera base");
+		TerceraBase = equipolocal.buscarJugadorbyposicion("Tercera base");
 		JL4 = new JLabel();
 		if (TerceraBase == null) {
 			JL4.setText("Tercera Base");
@@ -512,7 +529,7 @@ public class Simulacion extends JDialog {
 		JL4.setBounds(6, 154, 119, 20);
 		panel_7.add(JL4);
 
-		Jugadores segundabase = equipolocal.buscarJugadorbyposicion("Segunda base");
+		segundabase = equipolocal.buscarJugadorbyposicion("Segunda base");
 		JL3 = new JLabel();
 		if (segundabase == null) {
 			JL3.setText("Segunda Base");
@@ -522,7 +539,7 @@ public class Simulacion extends JDialog {
 		JL3.setBounds(6, 111, 119, 20);
 		panel_7.add(JL3);
 
-		Jugadores primerabase = equipolocal.buscarJugadorbyposicion("Primera base");
+		primerabase = equipolocal.buscarJugadorbyposicion("Primera base");
 		JL2 = new JLabel();
 		if (primerabase == null) {
 			JL2.setText("Primera Base");
@@ -532,7 +549,7 @@ public class Simulacion extends JDialog {
 		JL2.setBounds(6, 72, 119, 20);
 		panel_7.add(JL2);
 
-		Jugadores catcher = equipolocal.buscarJugadorbyposicion("Catcher");
+		catcher = equipolocal.buscarJugadorbyposicion("Catcher");
 		JL1 = new JLabel();
 		if (catcher == null) {
 			JL1.setText("Catcher");
@@ -745,7 +762,7 @@ public class Simulacion extends JDialog {
 		btnEquipoLocal = new JButton("" + equipolocal.getNombre());
 		btnEquipoLocal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				deshabilitarVisita();
+				deshabilitarVisita(equipovisita);
 				habilitarLocal();
 			}
 		});
@@ -770,18 +787,18 @@ public class Simulacion extends JDialog {
 		panel_9.setBounds(10, 40, 113, 388);
 		panel_6.add(panel_9);
 
-		Jugadores pitcherv = equipovisita.buscarJugadorbyposicion("Pitcher");
+		bateadesignadov = equipovisita.buscarJugadorbyposicion("Bateador designado");
 		Jv9 = new JLabel();
 		Jv9.setEnabled(false);
-		if (pitcherv == null) {
-			Jv9.setText("Pitcher");
+		if (bateadesignadov == null) {
+			Jv9.setText("Bateador Designado");
 		} else {
-			Jv9.setText("" + pitcherv.getNombre() + " " + pitcherv.getApellido());
+			Jv9.setText("" + bateadesignadov.getNombre() + " " + bateadesignadov.getApellido());
 		}
 		Jv9.setBounds(6, 358, 119, 20);
 		panel_9.add(Jv9);
 
-		Jugadores centerfieldv = equipovisita.buscarJugadorbyposicion("Center fielder");
+		centerfieldv = equipovisita.buscarJugadorbyposicion("Center fielder");
 		Jv8 = new JLabel();
 		Jv8.setEnabled(false);
 		if (centerfieldv == null) {
@@ -792,7 +809,7 @@ public class Simulacion extends JDialog {
 		Jv8.setBounds(6, 315, 119, 20);
 		panel_9.add(Jv8);
 
-		Jugadores leftfieldv = equipovisita.buscarJugadorbyposicion("Left fielder");
+		leftfieldv = equipovisita.buscarJugadorbyposicion("Left fielder");
 		Jv7 = new JLabel();
 		Jv7.setEnabled(false);
 		if (leftfieldv == null) {
@@ -803,7 +820,7 @@ public class Simulacion extends JDialog {
 		Jv7.setBounds(6, 274, 119, 20);
 		panel_9.add(Jv7);
 
-		Jugadores rigthfieldv = equipovisita.buscarJugadorbyposicion("Rigth fielder");
+		rigthfieldv = equipovisita.buscarJugadorbyposicion("Rigth fielder");
 		Jv6 = new JLabel();
 		Jv6.setEnabled(false);
 		if (rigthfieldv == null) {
@@ -814,7 +831,7 @@ public class Simulacion extends JDialog {
 		Jv6.setBounds(6, 234, 119, 20);
 		panel_9.add(Jv6);
 
-		Jugadores shortstopv = equipovisita.buscarJugadorbyposicion("Short stop");
+		shortstopv = equipovisita.buscarJugadorbyposicion("Short stop");
 		Jv5 = new JLabel();
 		Jv5.setEnabled(false);
 		if (shortstopv == null) {
@@ -825,7 +842,7 @@ public class Simulacion extends JDialog {
 		Jv5.setBounds(6, 193, 119, 20);
 		panel_9.add(Jv5);
 
-		Jugadores tercerabasev = equipovisita.buscarJugadorbyposicion("Tercera base");
+		tercerabasev = equipovisita.buscarJugadorbyposicion("Tercera base");
 		Jv4 = new JLabel();
 		Jv4.setEnabled(false);
 		if (tercerabasev == null) {
@@ -836,7 +853,7 @@ public class Simulacion extends JDialog {
 		Jv4.setBounds(6, 154, 119, 20);
 		panel_9.add(Jv4);
 
-		Jugadores segundabasev = equipovisita.buscarJugadorbyposicion("Segunda base");
+		segundabasev = equipovisita.buscarJugadorbyposicion("Segunda base");
 		Jv3 = new JLabel();
 		Jv3.setEnabled(false);
 		if (segundabasev == null) {
@@ -847,7 +864,7 @@ public class Simulacion extends JDialog {
 		Jv3.setBounds(6, 111, 119, 20);
 		panel_9.add(Jv3);
 
-		Jugadores primerabasev = equipovisita.buscarJugadorbyposicion("Primera base");
+		primerabasev = equipovisita.buscarJugadorbyposicion("Primera base");
 		Jv2 = new JLabel();
 		Jv2.setEnabled(false);
 		if (primerabasev == null) {
@@ -858,7 +875,7 @@ public class Simulacion extends JDialog {
 		Jv2.setBounds(6, 72, 119, 20);
 		panel_9.add(Jv2);
 
-		Jugadores catcherv = equipovisita.buscarJugadorbyposicion("Catcher");
+		catcherv = equipovisita.buscarJugadorbyposicion("Catcher");
 		Jv1 = new JLabel();
 		Jv1.setEnabled(false);
 		if (catcherv == null) {
@@ -1093,7 +1110,7 @@ public class Simulacion extends JDialog {
 		btnEquipoVisitante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				habilitarVisita();
-				deshabilitarLocal();
+				deshabilitarLocal(equipolocal);
 			}
 		});
 		btnEquipoVisitante.setFont(new Font("Times New Roman", Font.BOLD, 20));
@@ -1120,11 +1137,65 @@ public class Simulacion extends JDialog {
 		lblE.setBounds(760, 484, 17, 20);
 		panel.add(lblE);
 		lblE.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
+		
+		Centerv = new JLabel("");
+		Centerv.setForeground(new Color(0, 0, 255));
+		Centerv.setFont(new Font("Tahoma", Font.BOLD, 12));
+		Centerv.setBounds(386, 150, 62, 14);
+		panel.add(Centerv);
+		
+		Rigthv = new JLabel("");
+		Rigthv.setForeground(new Color(0, 0, 255));
+		Rigthv.setFont(new Font("Tahoma", Font.BOLD, 12));
+		Rigthv.setBounds(460, 175, 56, 14);
+		panel.add(Rigthv);
+		
+		Lefthv = new JLabel("");
+		Lefthv.setForeground(new Color(0, 0, 255));
+		Lefthv.setFont(new Font("Tahoma", Font.BOLD, 12));
+		Lefthv.setBounds(302, 168, 81, 14);
+		panel.add(Lefthv);
+		
+		SBv = new JLabel("");
+		SBv.setForeground(new Color(0, 0, 255));
+		SBv.setFont(new Font("Tahoma", Font.BOLD, 12));
+		SBv.setBounds(455, 210, 56, 14);
+		panel.add(SBv);
+		
+		TBv = new JLabel("");
+		TBv.setForeground(new Color(0, 0, 255));
+		TBv.setFont(new Font("Tahoma", Font.BOLD, 12));
+		TBv.setBounds(327, 252, 56, 14);
+		panel.add(TBv);
+		
+		CTHv = new JLabel("");
+		CTHv.setForeground(new Color(0, 0, 255));
+		CTHv.setFont(new Font("Tahoma", Font.BOLD, 12));
+		CTHv.setBounds(385, 305, 56, 14);
+		panel.add(CTHv);
+		
+		PBv = new JLabel("");
+		PBv.setForeground(new Color(0, 0, 255));
+		PBv.setFont(new Font("Tahoma", Font.BOLD, 12));
+		PBv.setBounds(443, 252, 56, 14);
+		panel.add(PBv);
+		
+		SSv = new JLabel("");
+		SSv.setForeground(new Color(0, 0, 255));
+		SSv.setFont(new Font("Tahoma", Font.BOLD, 12));
+		SSv.setBounds(335, 215, 56, 14);
+		panel.add(SSv);
 
 		labelPosiciones = new JLabel("");
 		labelPosiciones.setBounds(282, 50, 257, 305);
 		panel.add(labelPosiciones);
 		labelPosiciones.setIcon(new ImageIcon("img/CentroSimulador.png"));
+		
+		lblEnDefensa = new JLabel("En Defensa: ");
+		lblEnDefensa.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblEnDefensa.setForeground(new Color(139, 0, 0));
+		lblEnDefensa.setBounds(335, 366, 175, 14);
+		panel.add(lblEnDefensa);
 
 		panel_11 = new JPanel();
 		panel_11.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -1133,6 +1204,11 @@ public class Simulacion extends JDialog {
 		panel_11.setLayout(null);
 
 		btnCancelar = new JButton("");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancelar.setIcon(new ImageIcon("img/saliend.png"));
 		btnCancelar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1152,10 +1228,23 @@ public class Simulacion extends JDialog {
 		btnFinalizarPartido = new JButton("");
 		btnFinalizarPartido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//recolectarDatos();
+				//agregarDatosJugadores();
 				partido.setCarrerasCasa(carrerasTotal);
 				partido.setCarrerasVisita(CarrerasTotalV);
+				if(carrerasTotal>CarrerasTotalV){
+					equipolocal.JuegosGanados();
+					equipovisita.JuegosPerdidos();
+					//JugadoresGanaron(equipolocal);
+					//JugadoresPerdieron(equipovisita);
+				}else{
+					equipolocal.JuegosPerdidos();
+					equipovisita.JuegosGanados();
+					//JugadoresGanaron(equipovisita);
+					//JugadoresPerdieron(equipolocal);
+				}
 				JOptionPane.showMessageDialog(null, "Casa "+partido.getEquipoCasa()+" "+carrerasTotal+" - Visitantes "+partido.getEquipoVisita()+" "+CarrerasTotalV);
-				dispose();
+				Principal.cargar();
 			}
 		});
 		btnFinalizarPartido.setIcon(new ImageIcon("img/finish.png"));
@@ -1208,6 +1297,8 @@ public class Simulacion extends JDialog {
 		lblSalir.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 14));
 		lblSalir.setBounds(770, 719, 46, 14);
 		contentPanel.add(lblSalir);
+		
+		deshabilitarVisita(equipovisita);
 	}
 	
 	public void habilitarVisita(){
@@ -1219,9 +1310,10 @@ public class Simulacion extends JDialog {
 		TBv6.setEnabled(true); TBv7.setEnabled(true); TBv8.setEnabled(true); TBv9.setEnabled(true);		
 		TBh1.setEnabled(true); TBh2.setEnabled(true); TBh3.setEnabled(true); TBh4.setEnabled(true);
 		TBh5.setEnabled(true); TBh6.setEnabled(true); TBh7.setEnabled(true); TBh8.setEnabled(true); TBh9.setEnabled(true);
+	
 	}
 	
-	public void deshabilitarVisita(){
+	public void deshabilitarVisita(Equipos equipo){
 		Jv1.setEnabled(false); Jv2.setEnabled(false); Jv3.setEnabled(false); Jv4.setEnabled(false); Jv5.setEnabled(false); 
 		Jv6.setEnabled(false);	Jv7.setEnabled(false); Jv8.setEnabled(false); Jv9.setEnabled(false); label_tb_H.setEnabled(false);
 		lblJugadoresVisitantes.setEnabled(false); fechaV.setVisible(false);
@@ -1229,6 +1321,32 @@ public class Simulacion extends JDialog {
 		TBv6.setEnabled(false); TBv7.setEnabled(false); TBv8.setEnabled(false); TBv9.setEnabled(false);		
 		TBh1.setEnabled(false); TBh2.setEnabled(false); TBh3.setEnabled(false); TBh4.setEnabled(false);
 		TBh5.setEnabled(false); TBh6.setEnabled(false); TBh7.setEnabled(false); TBh8.setEnabled(false); TBh9.setEnabled(false);
+		
+		lblEnDefensa.setText("En Defensa: "+equipo.getNombre());
+		if(catcherv!=null){
+			CTHv.setText(""+catcherv.getNombre());
+		}
+		if(shortstopv!=null){
+			SSv.setText(""+shortstopv.getNombre());
+		}
+		if(tercerabasev!=null){
+			TBv.setText(""+tercerabasev.getNombre());
+		}
+		if(primerabasev!=null){
+			PBv.setText(""+primerabasev.getNombre());
+		}
+		if(segundabasev!=null){
+			SBv.setText(""+segundabasev.getNombre());
+		}
+		if(leftfieldv!=null){
+			Lefthv.setText(""+leftfieldv.getNombre());
+		}
+		if(rigthfieldv!=null){
+			Rigthv.setText(""+rigthfieldv.getNombre());
+		}
+		if(centerfieldv!=null){
+			Centerv.setText(""+centerfieldv.getNombre());
+		}
 	}
 	
 	public void habilitarLocal(){
@@ -1241,7 +1359,7 @@ public class Simulacion extends JDialog {
 		HLocJ6.setEnabled(true); HLocJ7.setEnabled(true); HLocJ8.setEnabled(true); HLocJ9.setEnabled(true);
 	}
 	
-	public void deshabilitarLocal(){
+	public void deshabilitarLocal(Equipos equipo){
 		fechaL.setVisible(false); JL1.setEnabled(false); JL2.setEnabled(false); JL3.setEnabled(false); JL4.setEnabled(false);
 		JL5.setEnabled(false); JL6.setEnabled(false); JL7.setEnabled(false); JL8.setEnabled(false); JL9.setEnabled(false);
 		lblJugadores.setEnabled(false); label_tb_HLocal.setEnabled(false);
@@ -1249,5 +1367,76 @@ public class Simulacion extends JDialog {
 		TBLocJ5.setEnabled(false); TBLocJ6.setEnabled(false); TBLocJ7.setEnabled(false); TBLocJ8.setEnabled(false); TBLocJ9.setEnabled(false);
 		HLocJ1.setEnabled(false); HLocJ2.setEnabled(false); HLocJ3.setEnabled(false); HLocJ4.setEnabled(false); HLocJ5.setEnabled(false);
 		HLocJ6.setEnabled(false); HLocJ7.setEnabled(false); HLocJ8.setEnabled(false); HLocJ9.setEnabled(false);
+	
+		lblEnDefensa.setText("En Defensa: "+equipo.getNombre());
+		if(catcher!=null){
+			CTHv.setText(""+catcher.getNombre());
+		}
+		if(shortstop!=null){
+			SSv.setText(""+shortstop.getNombre());
+		}
+		if(TerceraBase!=null){
+			TBv.setText(""+TerceraBase.getNombre());
+		}
+		if(primerabase!=null){
+			PBv.setText(""+primerabase.getNombre());
+		}
+		if(segundabase!=null){
+			SBv.setText(""+segundabase.getNombre());
+		}
+		if(leftfield!=null){
+			Lefthv.setText(""+leftfield.getNombre());
+		}
+		if(rigthfield!=null){
+			Rigthv.setText(""+rigthfield.getNombre());
+		}
+		if(centerfield!=null){
+			Centerv.setText(""+centerfield.getNombre());
+		}
+	}
+	
+	public void recolectarDatos(){
+		//turnos al bate  -Locales-
+		tlcatcher = Integer.valueOf(TBLocJ1.getValue().toString()); tlpb = Integer.valueOf(TBLocJ2.getValue().toString()); tlsb = Integer.valueOf(TBLocJ3.getValue().toString()); 
+		tltb = Integer.valueOf(TBLocJ4.getValue().toString());      tlss = Integer.valueOf(TBLocJ5.getValue().toString()); tlrf = Integer.valueOf(TBLocJ6.getValue().toString()); 
+		tllf = Integer.valueOf(TBLocJ7.getValue().toString());      tlcf = Integer.valueOf(TBLocJ8.getValue().toString()); tlbd = Integer.valueOf(TBLocJ9.getValue().toString());
+	    //     	-Visitantes-
+		tvcatcher = Integer.valueOf(TBv1.getValue().toString());   tvpb = Integer.valueOf(TBv2.getValue().toString()); tvsb = Integer.valueOf(TBv3.getValue().toString()); 
+		tvtb = Integer.valueOf(TBv4.getValue().toString());        tvss = Integer.valueOf(TBv5.getValue().toString()); tvrf = Integer.valueOf(TBv6.getValue().toString()); 
+		tvlf = Integer.valueOf(TBv7.getValue().toString());        tvcf = Integer.valueOf(TBv8.getValue().toString()); tvbd = Integer.valueOf(TBv9.getValue().toString());
+	
+		//Hits  -Locales-
+		hlcatcher = Integer.valueOf(HLocJ1.getValue().toString());  hlpb = Integer.valueOf(HLocJ2.getValue().toString()); hlsb = Integer.valueOf(HLocJ3.getValue().toString()); 
+		hltb = Integer.valueOf(HLocJ4.getValue().toString());       hlss = Integer.valueOf(HLocJ5.getValue().toString()); hlrf = Integer.valueOf(HLocJ6.getValue().toString()); 
+		hllf = Integer.valueOf(HLocJ7.getValue().toString());       hlcf = Integer.valueOf(HLocJ8.getValue().toString()); hlbd = Integer.valueOf(HLocJ9.getValue().toString());
+			 //-Visitantes-
+		hvcatcher = Integer.valueOf(TBh1.getValue().toString());    hvpb = Integer.valueOf(TBh2.getValue().toString()); tvsb = Integer.valueOf(TBh3.getValue().toString()); 
+		hvtb = Integer.valueOf(TBh4.getValue().toString());         tvss = Integer.valueOf(TBh5.getValue().toString()); tvrf = Integer.valueOf(TBh6.getValue().toString()); 
+		hvlf = Integer.valueOf(TBh7.getValue().toString());         tvcf = Integer.valueOf(TBh8.getValue().toString()); tvbd = Integer.valueOf(TBh9.getValue().toString());
+	
+	}
+	
+	public void agregarDatosJugadores(){
+		 catcher.getEstadistica().masDatos(tlcatcher, hlcatcher);   primerabase.getEstadistica().masDatos(tvpb, hvpb);    segundabase.getEstadistica().masDatos(tvsb, hlsb);
+		 TerceraBase.getEstadistica().masDatos(tltb, hltb);         shortstop.getEstadistica().masDatos(tvss, hvss);      rigthfield.getEstadistica().masDatos(tvrf, hlrf);
+		 leftfield.getEstadistica().masDatos(tllf, hllf);           centerfield.getEstadistica().masDatos(tvcf, hvcf);    bateadesignado.getEstadistica().masDatos(tvbd, hlbd);
+		 
+		 catcherv.getEstadistica().masDatos(tvcatcher, hvcatcher);  primerabasev.getEstadistica().masDatos(tvpb, hvpb);   segundabasev.getEstadistica().masDatos(tvsb, hlsb);
+		 tercerabasev.getEstadistica().masDatos(tvtb, hvtb);        shortstopv.getEstadistica().masDatos(tvss, hvss);      rigthfieldv.getEstadistica().masDatos(tvrf, hlrf);
+		 leftfieldv.getEstadistica().masDatos(tvlf, hvlf);          centerfieldv.getEstadistica().masDatos(tvcf, hvcf);    bateadesignadov.getEstadistica().masDatos(tvbd, hlbd);		
+	}
+	
+	public void JugadoresGanaron(Equipos equipo){
+		int i=0;
+		while(i<equipo.getJugador().size()) {
+			equipo.getJugador().get(i).getEstadistica().juegoGanado();
+		}
+	}
+	
+	public void JugadoresPerdieron(Equipos equipo){
+		int i=0;
+		while(i<equipo.getJugador().size()) {
+			equipo.getJugador().get(i).getEstadistica().juegoPerdido();
+		}
 	}
 }

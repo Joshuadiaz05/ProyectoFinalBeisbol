@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.jvnet.substance.SubstanceLookAndFeel;
 
+import logical.Equipos;
 import logical.LigaBeisbol;
 import logical.Partido;
 
@@ -59,13 +60,13 @@ public class Principal extends JFrame {
 	static Object fila[];
 	private static JTable table;
 	private JButton btnNewButton;
-	private String local=null;
-	private String visita=null;
+	private String local = null;
+	private String visita = null;
 	private JLabel lblNewLabel_1;
 	private int ind;
 	private Partido miPartido = null;
 	private ArrayList<Integer> posicion = new ArrayList<>();
-	
+
 	public Principal(final LigaBeisbol liga) {
 		setTitle("Liga de Beisbol");
 		getContentPane().setLayout(null);
@@ -114,8 +115,9 @@ public class Principal extends JFrame {
 		JMenuItem mntmRegistrarJugador = new JMenuItem("Registrar Jugador");
 		mntmRegistrarJugador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(LigaBeisbol.getInstance().getEquipo().size()==0){
-					JOptionPane.showMessageDialog(null, "No hay equipos disponibles", "Error", JOptionPane.WARNING_MESSAGE);
+				if (LigaBeisbol.getInstance().getEquipo().size() == 0) {
+					JOptionPane.showMessageDialog(null, "No hay equipos disponibles", "Error",
+							JOptionPane.WARNING_MESSAGE);
 				} else {
 					RegistrarJugador regjug = new RegistrarJugador(true, false, null);
 					regjug.setVisible(true);
@@ -164,11 +166,11 @@ public class Principal extends JFrame {
 		panel.setBounds(10, 32, 766, 429);
 		getContentPane().add(panel);
 		panel.setLayout(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 64, 746, 317);
 		panel.add(scrollPane);
-		
+
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -186,44 +188,60 @@ public class Principal extends JFrame {
 					e1.printStackTrace();
 				}
 				miPartido = LigaBeisbol.getInstance().buscarPartido(local, visita, date);
-				System.out.println("casa " + miPartido.getEquipoCasa());
 				btnNewButton.setEnabled(true);
-						
+
 			}
 		});
 		scrollPane.setViewportView(table);
-		
-		String[] columnsHeaders = {"Equipo Local", " Equipo Visita", " Estadio", " Fecha", " Hora", "Finalizado"};
+
+		String[] columnsHeaders = { "Equipo Local", " Equipo Visita", " Estadio", " Fecha", " Hora", "Finalizado" };
 		tablemodel = new DefaultTableModel();
 		tablemodel.setColumnIdentifiers(columnsHeaders);
 		table.setModel(tablemodel);
-		
+
 		JLabel lblPartidosDeHoy = new JLabel("Partidos De Hoy");
 		lblPartidosDeHoy.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
 		lblPartidosDeHoy.setBounds(10, 21, 213, 37);
 		panel.add(lblPartidosDeHoy);
-		
+
 		JSeparator separator = new JSeparator();
 		separator.setBounds(11, 55, 197, 2);
 		panel.add(separator);
-		
+
 		lblNewLabel_1 = new JLabel("Ir a Todos los Eventos");
 		lblNewLabel_1.setVisible(false);
 		lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 14));
 		lblNewLabel_1.setBounds(200, 2, 144, 14);
 		panel.add(lblNewLabel_1);
-		
+
 		btnNewButton = new JButton("Jugar Partido");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Simulacion simular = new Simulacion(local, visita, miPartido);
-				simular.setVisible(true);
+				if (miPartido.getCarrerasCasa() == 0 && miPartido.getCarrerasVisita() == 0) {
+					if (verificarEquiposLlenos(local, visita) == true) {
+						Simulacion simular = new Simulacion(local, visita, miPartido);
+						simular.setVisible(true);
+					} else {
+						int answer = JOptionPane.showConfirmDialog(null,
+								"Las posiciones de uno o ambos equipos no están cubiertas\n¿Desea Verificar?", null,
+								JOptionPane.YES_NO_OPTION);
+						if (answer == JOptionPane.YES_OPTION) {
+							TablaPosiciones equip = new TablaPosiciones();
+							equip.setVisible(true);
+						}
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(null, "El Partido ya está Finalizado", "Error",
+							JOptionPane.WARNING_MESSAGE);
+				}
+
 			}
 		});
 		btnNewButton.setEnabled(false);
 		btnNewButton.setBounds(615, 392, 141, 23);
 		panel.add(btnNewButton);
-			
+
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -236,6 +254,7 @@ public class Principal extends JFrame {
 			public void mouseEntered(MouseEvent arg0) {
 				lblNewLabel_1.setVisible(true);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblNewLabel_1.setVisible(false);
@@ -244,9 +263,7 @@ public class Principal extends JFrame {
 		button.setIcon(new ImageIcon("img/iconcalendar.png"));
 		button.setBounds(217, 18, 50, 40);
 		panel.add(button);
-		
-		
-		
+
 		cargar();
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -256,8 +273,8 @@ public class Principal extends JFrame {
 			}
 		});
 	}
-	
-	public void cargar(){
+
+	public static void cargar() {
 		tablemodel.setRowCount(0);
 		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 		tcr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -271,7 +288,7 @@ public class Principal extends JFrame {
 		for (Partido aux : LigaBeisbol.getInstance().getPartido()) {
 			Date input = new Date(aux.getFecha().getYear(), aux.getFecha().getMonth(), aux.getFecha().getDate());
 			LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			if(LocalDate.now().equals(date)){
+			if (LocalDate.now().equals(date)) {
 				fila[0] = aux.getEquipoCasa();
 				fila[1] = aux.getEquipoVisita();
 				fila[2] = aux.getEstadio();
@@ -281,13 +298,39 @@ public class Principal extends JFrame {
 				String fechaString = localfecha.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", spanishLocale));
 				fila[3] = fechaString;
 				fila[4] = aux.getHora();
-				if(aux.getCarrerasCasa()==0 && aux.getCarrerasVisita()==0){
+				if (aux.getCarrerasCasa() == 0 && aux.getCarrerasVisita() == 0) {
 					fila[5] = "-";
-				}else{
-					fila[5] = ""+aux.getCarrerasCasa()+" - "+aux.getCarrerasVisita();
+				} else {
+					fila[5] = "" + aux.getCarrerasCasa() + " - " + aux.getCarrerasVisita();
 				}
 				tablemodel.addRow(fila);
 			}
 		}
+	}
+
+	public boolean verificarEquiposLlenos(String local, String visita) {
+		Equipos equipolocal = LigaBeisbol.getInstance().BuscarPorNombre(local);
+		Equipos equipovisita = LigaBeisbol.getInstance().BuscarPorNombre(visita);
+		boolean confirmar = false;
+		int i = 0;
+		while (i < equipolocal.getJugador().size() && confirmar == false) {
+			if (equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Primera base")
+					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Segunda base")
+					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Tercera base")
+					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Short stop")
+					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Right fielder")
+					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Left fielder")
+					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Center fielder")
+					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Catcher")
+					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Pitcher")
+					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Bateador designado")
+					){
+				confirmar = true;
+			}else{
+				confirmar = false;
+			}
+			i++;
+		}
+		return confirmar;
 	}
 }

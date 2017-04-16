@@ -21,6 +21,8 @@ public class Partido implements Serializable{
 		this.equipoVisita = equipoVisita;
 		Estadio = estadio;
 		this.hora = hora;
+		carrerasCasa=0;
+		carrerasVisita=0;
 	}
 	
 	public Date getFecha() {

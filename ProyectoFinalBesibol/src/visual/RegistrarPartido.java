@@ -32,6 +32,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JSeparator;
 
 public class RegistrarPartido extends JDialog {
 
@@ -47,7 +49,7 @@ public class RegistrarPartido extends JDialog {
 		setResizable(false);
 		setModal(true);
 		setTitle("Registrar Partido");
-		setBounds(100, 100, 534, 363);
+		setBounds(100, 100, 534, 438);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -55,12 +57,12 @@ public class RegistrarPartido extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 11, 511, 279);
+		panel.setBounds(10, 11, 511, 350);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
 		dateChooser = new JDateChooser();
-		dateChooser.setBounds(10, 54, 231, 32);
+		dateChooser.setBounds(10, 95, 231, 32);
 		panel.add(dateChooser);
 		
 		ArrayList<String> equipLocal = new ArrayList<String>();
@@ -77,7 +79,7 @@ public class RegistrarPartido extends JDialog {
 				cBvisita.setEnabled(true);
 			}
 		});
-		cBlocal.setBounds(10, 135, 231, 32);
+		cBlocal.setBounds(10, 176, 231, 32);
 		panel.add(cBlocal);
 			
 		ArrayList<String> equipVisita = new ArrayList<String>();
@@ -89,45 +91,59 @@ public class RegistrarPartido extends JDialog {
 		
 		cBvisita = new JComboBox(equipVisita.toArray());
 		cBvisita.setEnabled(false);
-		cBvisita.setBounds(270, 135, 231, 32);
+		cBvisita.setBounds(270, 176, 231, 32);
 		panel.add(cBvisita);
 		
 		JLabel lblEquipoLocal = new JLabel("Equipo Local");
 		lblEquipoLocal.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblEquipoLocal.setBounds(77, 110, 97, 25);
+		lblEquipoLocal.setBounds(77, 151, 97, 25);
 		panel.add(lblEquipoLocal);
 		
 		JLabel lblEquipoVisita = new JLabel("Equipo Visita");
 		lblEquipoVisita.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblEquipoVisita.setBounds(334, 110, 103, 25);
+		lblEquipoVisita.setBounds(334, 151, 103, 25);
 		panel.add(lblEquipoVisita);
 		
 		JLabel lblEstadio = new JLabel("Estadio");
 		lblEstadio.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblEstadio.setBounds(225, 198, 60, 25);
+		lblEstadio.setBounds(225, 239, 60, 25);
 		panel.add(lblEstadio);
 		
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(140, 225, 231, 32);
+		textField.setBounds(140, 266, 231, 32);
 		panel.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblFechaDePartido = new JLabel("Fecha de Partido");
 		lblFechaDePartido.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblFechaDePartido.setBounds(61, 30, 128, 25);
+		lblFechaDePartido.setBounds(61, 71, 128, 25);
 		panel.add(lblFechaDePartido);
 		
 		JLabel lblHorario = new JLabel("Horario");
 		lblHorario.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblHorario.setBounds(352, 30, 66, 25);
+		lblHorario.setBounds(352, 71, 66, 25);
 		panel.add(lblHorario);
 		
 		cBoxHora = new JComboBox();
 		cBoxHora.setModel(new DefaultComboBoxModel(new String[] {"8:00 Am", "9:00 Am", "10:00 Am", "11:00 Am", "12:00 Pm", "1:00 Pm", "2:00 Pm", "3:00 Pm", "4:00 Pm", "5:00 Pm", "6:00 Pm", "7:00 Pm", "8:00 Pm", "9:00 Pm", "10:00 Pm"}));
 		cBoxHora.setSelectedIndex(0);
-		cBoxHora.setBounds(270, 54, 231, 32);
+		cBoxHora.setBounds(270, 95, 231, 32);
 		panel.add(cBoxHora);
+		
+		JLabel lblRegistrarPartido = new JLabel("Registrar Partido");
+		lblRegistrarPartido.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
+		lblRegistrarPartido.setBounds(10, 11, 231, 49);
+		panel.add(lblRegistrarPartido);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 52, 491, 2);
+		panel.add(separator);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("img/resgistrarpartido.png"));
+		label.setBounds(225, 19, 37, 30);
+		panel.add(label);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -148,6 +164,7 @@ public class RegistrarPartido extends JDialog {
 						}else{
 							Partido partido = new Partido(fecha, local, visita, estadio, horario);
 							LigaBeisbol.getInstance().insertarPartido(partido);
+							Principal.cargar();
 							dispose();
 						}
 						

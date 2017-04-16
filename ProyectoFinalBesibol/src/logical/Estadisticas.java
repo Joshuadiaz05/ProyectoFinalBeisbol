@@ -161,4 +161,19 @@ public class Estadisticas implements Serializable{
 		return slg;
 	}
 	
+	public void masDatos(int turnosJ, int hit){
+		this.turnosjugados+=turnosJ;
+		this.hits+=hit;
+	}
+	
+	public void juegoGanado(){
+		jj++;
+		jg++;
+	}
+	
+	public void juegoPerdido(){
+		jj++;
+		jp++;
+	}
+	
 }
