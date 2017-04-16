@@ -3,6 +3,7 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -27,6 +28,13 @@ import logical.Partido;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ListadoEventos extends JDialog {
 
@@ -34,6 +42,8 @@ public class ListadoEventos extends JDialog {
 	private static DefaultTableModel tablemodel;
 	static Object fila[];
 	private static JTable table;
+	private JButton btnEliminar, modificar;
+	private Partido miPartido;
 	/**
 	 * Create the dialog.
 	 */
@@ -72,6 +82,31 @@ public class ListadoEventos extends JDialog {
 			tablemodel.setColumnIdentifiers(columnsHeaders);
 			
 			table = new JTable();
+			table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					int ind = table.getSelectedRow();
+					String local = (String) table.getModel().getValueAt(ind, 0);
+					String visita = (String) table.getModel().getValueAt(ind, 1);
+					String fecha = (String) table.getModel().getValueAt(ind, 3);
+					Locale spanishLocale = new Locale("es", "ES");
+					DateFormat format = new SimpleDateFormat("dd MMMM yyyy", spanishLocale);
+					Date date = null;
+					try {
+						date = format.parse(fecha);
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					miPartido = LigaBeisbol.getInstance().buscarPartido(local, visita, date);
+					btnEliminar.setEnabled(true);
+					if(miPartido.getCarrerasCasa()==0 && miPartido.getCarrerasVisita()==0){ 
+						modificar.setEnabled(true);
+					}else{ 
+						modificar.setEnabled(false);
+					}
+					
+				}
+			});
 			scrollPane.setViewportView(table);
 			table.setModel(tablemodel);
 		}
@@ -84,11 +119,36 @@ public class ListadoEventos extends JDialog {
 			btnImprimir.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			buttonPane.add(btnImprimir);
 			
-			JButton btnNewButton = new JButton("Ver Detalles");
-			btnNewButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			buttonPane.add(btnNewButton);
+			btnEliminar = new JButton("Eliminar");
+			btnEliminar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					LigaBeisbol.getInstance().eliminarPartido(miPartido);
+					ListadoEventos.cargar();
+				}
+			});
+			btnEliminar.setEnabled(false);
+			//ImageIcon btnEliminar = new ImageIcon(location);
+			//btnEliminar.setSelectedIcon(arg0);
+			btnEliminar.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+			buttonPane.add(btnEliminar);
+			
+			modificar = new JButton("Modificar");
+			modificar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					RegistrarPartido reg = new RegistrarPartido(true, miPartido);
+					reg.setVisible(true);
+				}
+			});
+			modificar.setEnabled(false);
+			modificar.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+			buttonPane.add(modificar);
 			{
 				JButton okButton = new JButton("Cerrar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				okButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 				//okButton.setActionCommand("");
 				buttonPane.add(okButton);
@@ -98,7 +158,7 @@ public class ListadoEventos extends JDialog {
 		cargar();
 	}
 	
-	public void cargar(){
+	public static void cargar(){
 		tablemodel.setRowCount(0);
 		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 		tcr.setHorizontalAlignment(SwingConstants.CENTER);

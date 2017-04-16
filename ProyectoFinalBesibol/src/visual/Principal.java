@@ -155,7 +155,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmCrearEvento = new JMenuItem("Crear Evento");
 		mntmCrearEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarPartido regpar = new RegistrarPartido();
+				RegistrarPartido regpar = new RegistrarPartido(false, null);
 				regpar.setVisible(true);
 			}
 		});
@@ -169,131 +169,131 @@ public class Principal extends JFrame {
 			}
 		});
 		mnPartidos.add(mntmVerAgenda);
-		
+
 		JPanelBackground panel_1 = new JPanelBackground();
 		panel_1.setBackground("img/backgroud.jpg");
 		panel_1.setBounds(0, 0, 1920, 1080);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
-		
-				JPanel panel = new JPanel() {
-					protected void paintComponent(Graphics g) {
-						g.setColor(getBackground());
-						//g.drawLine(0, 0, getWidth(), getHeight());
-						//g.drawRect(0, 0, getWidth(), getHeight());
-						g.fillRect(0, 0, getWidth(), getHeight());
-						//g.drawArc(0, 0, getWidth(), getHeight(), 0, 360); 
-						super.paintComponent(g);
+
+		JPanel panel = new JPanel() {
+			protected void paintComponent(Graphics g) {
+				g.setColor(getBackground());
+				// g.drawLine(0, 0, getWidth(), getHeight());
+				// g.drawRect(0, 0, getWidth(), getHeight());
+				g.fillRect(0, 0, getWidth(), getHeight());
+				// g.drawArc(0, 0, getWidth(), getHeight(), 0, 360);
+				super.paintComponent(g);
+			}
+		};
+		panel.setOpaque(false);
+		panel.setBackground(new Color(0, 0, 0, 10));
+		panel.setBounds(10, 30, 766, 429);
+		panel_1.add(panel);
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setLayout(null);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 64, 746, 317);
+		panel.add(scrollPane);
+
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ind = table.getSelectedRow();
+				local = (String) table.getModel().getValueAt(ind, 0);
+				visita = (String) table.getModel().getValueAt(ind, 1);
+				String fecha = (String) table.getModel().getValueAt(ind, 3);
+				Locale spanishLocale = new Locale("es", "ES");
+				DateFormat format = new SimpleDateFormat("dd MMMM yyyy", spanishLocale);
+				Date date = null;
+				try {
+					date = format.parse(fecha);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				miPartido = LigaBeisbol.getInstance().buscarPartido(local, visita, date);
+				btnNewButton.setEnabled(true);
+
+			}
+		});
+		scrollPane.setViewportView(table);
+		String[] columnsHeaders = { "Equipo Local", " Equipo Visita", " Estadio", " Fecha", " Hora", "Finalizado" };
+		tablemodel = new DefaultTableModel();
+		tablemodel.setColumnIdentifiers(columnsHeaders);
+		table.setModel(tablemodel);
+
+		JLabel lblPartidosDeHoy = new JLabel("Partidos De Hoy");
+		lblPartidosDeHoy.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
+		lblPartidosDeHoy.setBounds(10, 21, 213, 37);
+		panel.add(lblPartidosDeHoy);
+
+		JSeparator separator = new JSeparator();
+		separator.setBounds(11, 55, 197, 2);
+		panel.add(separator);
+
+		lblNewLabel_1 = new JLabel("Ir a Todos los Eventos");
+		lblNewLabel_1.setVisible(false);
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 14));
+		lblNewLabel_1.setBounds(200, 2, 144, 14);
+		panel.add(lblNewLabel_1);
+
+		btnNewButton = new JButton("Jugar Partido");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (miPartido.getCarrerasCasa() == 0 && miPartido.getCarrerasVisita() == 0) {
+					if (verificarEquiposLlenos(local, visita) == true) {
+						Simulacion simular = new Simulacion(local, visita, miPartido);
+						simular.setVisible(true);
+					} else {
+						int answer = JOptionPane.showConfirmDialog(null,
+								"Las posiciones de uno o ambos equipos no están cubiertas\n¿Desea Verificar?", null,
+								JOptionPane.YES_NO_OPTION);
+						if (answer == JOptionPane.YES_OPTION) {
+							TablaPosiciones equip = new TablaPosiciones();
+							equip.setVisible(true);
+						}
 					}
-				};
-				panel.setOpaque(false);
-				panel.setBackground(new Color(0, 0, 0, 10));
-				panel.setBounds(10, 30, 766, 429);
-				panel_1.add(panel);
-				panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-				panel.setLayout(null);
-				
-						JScrollPane scrollPane = new JScrollPane();
-						scrollPane.setBounds(10, 64, 746, 317);
-						panel.add(scrollPane);
-						
-								table = new JTable();
-								table.addMouseListener(new MouseAdapter() {
-									@Override
-									public void mouseClicked(MouseEvent e) {
-										ind = table.getSelectedRow();
-										local = (String) table.getModel().getValueAt(ind, 0);
-										visita = (String) table.getModel().getValueAt(ind, 1);
-										String fecha = (String) table.getModel().getValueAt(ind, 3);
-										Locale spanishLocale = new Locale("es", "ES");
-										DateFormat format = new SimpleDateFormat("dd MMMM yyyy", spanishLocale);
-										Date date = null;
-										try {
-											date = format.parse(fecha);
-										} catch (ParseException e1) {
-											e1.printStackTrace();
-										}
-										miPartido = LigaBeisbol.getInstance().buscarPartido(local, visita, date);
-										btnNewButton.setEnabled(true);
 
-									}
-								});
-								scrollPane.setViewportView(table);
-								String[] columnsHeaders = { "Equipo Local", " Equipo Visita", " Estadio", " Fecha", " Hora", "Finalizado" };
-								tablemodel = new DefaultTableModel();
-								tablemodel.setColumnIdentifiers(columnsHeaders);
-								table.setModel(tablemodel);
-								
-										JLabel lblPartidosDeHoy = new JLabel("Partidos De Hoy");
-										lblPartidosDeHoy.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
-										lblPartidosDeHoy.setBounds(10, 21, 213, 37);
-										panel.add(lblPartidosDeHoy);
-										
-												JSeparator separator = new JSeparator();
-												separator.setBounds(11, 55, 197, 2);
-												panel.add(separator);
-												
-														lblNewLabel_1 = new JLabel("Ir a Todos los Eventos");
-														lblNewLabel_1.setVisible(false);
-														lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 14));
-														lblNewLabel_1.setBounds(200, 2, 144, 14);
-														panel.add(lblNewLabel_1);
-														
-																btnNewButton = new JButton("Jugar Partido");
-																btnNewButton.addActionListener(new ActionListener() {
-																	public void actionPerformed(ActionEvent arg0) {
-																		if (miPartido.getCarrerasCasa() == 0 && miPartido.getCarrerasVisita() == 0) {
-																			if (verificarEquiposLlenos(local, visita) == true) {
-																				Simulacion simular = new Simulacion(local, visita, miPartido);
-																				simular.setVisible(true);
-																			} else {
-																				int answer = JOptionPane.showConfirmDialog(null,
-																						"Las posiciones de uno o ambos equipos no están cubiertas\n¿Desea Verificar?", null,
-																						JOptionPane.YES_NO_OPTION);
-																				if (answer == JOptionPane.YES_OPTION) {
-																					TablaPosiciones equip = new TablaPosiciones();
-																					equip.setVisible(true);
-																				}
-																			}
+				} else {
+					JOptionPane.showMessageDialog(null, "El Partido ya está Finalizado", "Error",
+							JOptionPane.WARNING_MESSAGE);
+				}
 
-																		} else {
-																			JOptionPane.showMessageDialog(null, "El Partido ya está Finalizado", "Error",
-																					JOptionPane.WARNING_MESSAGE);
-																		}
+			}
+		});
+		btnNewButton.setEnabled(false);
+		btnNewButton.setBounds(615, 392, 141, 23);
+		panel.add(btnNewButton);
 
-																	}
-																});
-																btnNewButton.setEnabled(false);
-																btnNewButton.setBounds(615, 392, 141, 23);
-																panel.add(btnNewButton);
-																
-																		JButton button = new JButton("");
-																		button.addActionListener(new ActionListener() {
-																			public void actionPerformed(ActionEvent arg0) {
-																				ListadoEventos lista = new ListadoEventos();
-																				lista.setVisible(true);
-																			}
-																		});
-																		button.addMouseListener(new MouseAdapter() {
-																			@Override
-																			public void mouseEntered(MouseEvent arg0) {
-																				lblNewLabel_1.setVisible(true);
-																			}
+		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ListadoEventos lista = new ListadoEventos();
+				lista.setVisible(true);
+			}
+		});
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				lblNewLabel_1.setVisible(true);
+			}
 
-																			@Override
-																			public void mouseExited(MouseEvent e) {
-																				lblNewLabel_1.setVisible(false);
-																			}
-																		});
-																		button.setIcon(new ImageIcon("img/iconcalendar.png"));
-																		button.setBounds(217, 18, 50, 40);
-																		panel.add(button);
-																		
-																		JLabel lblNewLabel = new JLabel("");
-																		ImageIcon e = new ImageIcon("img/logobaseball_5.png");
-																		lblNewLabel.setIcon(e);
-																		lblNewLabel.setBounds(1592, 27, 300, 300);
-																		panel_1.add(lblNewLabel);
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblNewLabel_1.setVisible(false);
+			}
+		});
+		button.setIcon(new ImageIcon("img/iconcalendar.png"));
+		button.setBounds(217, 18, 50, 40);
+		panel.add(button);
+
+		JLabel lblNewLabel = new JLabel("");
+		ImageIcon e = new ImageIcon("img/logobaseball_5.png");
+		lblNewLabel.setIcon(e);
+		lblNewLabel.setBounds(1592, 27, 300, 300);
+		panel_1.add(lblNewLabel);
 
 		cargar();
 		addWindowListener(new WindowAdapter() {
@@ -355,17 +355,17 @@ public class Principal extends JFrame {
 					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Center fielder")
 					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Catcher")
 					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Pitcher")
-					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Bateador designado")
-					){
+					|| equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Bateador designado")) {
 				confirmar = true;
-			}else{
+			} else {
 				confirmar = true;
 			}
 			i++;
 		}
 		return confirmar;
 	}
-	public static void ordenar(){
+
+	public static void ordenar() {
 		Collections.sort(LigaBeisbol.getInstance().getEquipo(), new Comparator<Equipos>() {
 			public int compare(Equipos o1, Equipos o2) {
 				return new Integer(o2.getJg()).compareTo(o1.getJg());
