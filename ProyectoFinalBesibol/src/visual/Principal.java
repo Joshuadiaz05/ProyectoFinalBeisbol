@@ -31,6 +31,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 import java.awt.event.ActionEvent;
@@ -272,6 +274,7 @@ public class Principal extends JFrame {
 				e.getWindow().dispose();
 			}
 		});
+		ordenar();
 	}
 
 	public static void cargar() {
@@ -332,5 +335,12 @@ public class Principal extends JFrame {
 			i++;
 		}
 		return confirmar;
+	}
+	public void ordenar(){
+		Collections.sort(LigaBeisbol.getInstance().getEquipo(), new Comparator<Equipos>() {
+			public int compare(Equipos o1, Equipos o2) {
+				return new Integer(o2.getJg()).compareTo(o1.getJg());
+			}
+		});
 	}
 }

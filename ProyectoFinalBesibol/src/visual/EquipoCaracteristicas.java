@@ -15,8 +15,11 @@ import logical.Equipos;
 import logical.Jugadores;
 import logical.LigaBeisbol;
 import logical.Partido;
+import sun.util.BuddhistCalendar;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -159,6 +162,12 @@ public class EquipoCaracteristicas extends JDialog {
 				tabbedPane.setSelectedIndex(3);
 				cargarJugadoresPorEquipo();
 				cargarJugador(jugador);
+				int resp = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas ver la información de la lesión?", "Alerta", JOptionPane.INFORMATION_MESSAGE);
+				if(resp==JOptionPane.OK_OPTION){
+					MostrarLesion m = new MostrarLesion(LigaBeisbol.getInstance().buscarjugador(jugador));
+					m.setVisible(true);
+					
+				}
 			}
 		});
 		scrollPane_1.setViewportView(table_1);
@@ -177,13 +186,27 @@ public class EquipoCaracteristicas extends JDialog {
 		tabbedPane.setBounds(0, 0, 664, 488);
 		tab.add(tabbedPane);
 		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(null);
 
 		JLabel et_p1 = new JLabel("Estas en el panel 1");
+		et_p1.setBounds(10, 11, 228, 31);
+		et_p1.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
 		panel_1.add(et_p1);
 		tabbedPane.addTab("Promedio", panel_1);
 
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Estadisticas", null, panel_2, null);
+		panel_2.setLayout(null);
+		
+		JLabel lblJuegosGanados = new JLabel("Juegos Ganados: ");
+		lblJuegosGanados.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
+		lblJuegosGanados.setBounds(10, 11, 210, 31);
+		panel_2.add(lblJuegosGanados);
+		
+		JLabel label = new JLabel(""+aux.getJg());
+		label.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
+		label.setBounds(221, 11, 28, 31);
+		panel_2.add(label);
 
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Calendario", null, panel_3, null);

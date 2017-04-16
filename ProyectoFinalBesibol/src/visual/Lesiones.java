@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -27,6 +28,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
@@ -61,7 +64,7 @@ public class Lesiones extends JDialog {
 			{
 				JLabel lblEquipo = new JLabel("Equipo");
 				lblEquipo.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-				lblEquipo.setBounds(149, 57, 58, 17);
+				lblEquipo.setBounds(158, 57, 58, 17);
 				panel.add(lblEquipo);
 			}
 			{
@@ -131,7 +134,7 @@ public class Lesiones extends JDialog {
 			{
 				textField = new JTextField("" + equipo.getNombre());
 				textField.setEditable(false);
-				textField.setBounds(81, 78, 195, 32);
+				textField.setBounds(90, 78, 195, 32);
 				panel.add(textField);
 				textField.setColumns(10);
 			}
@@ -164,7 +167,9 @@ public class Lesiones extends JDialog {
 						String nomequipo = equipo.getNombre();
 						String tipoLesion = cBtipo.getSelectedItem().toString();
 						String nombrejugador = cBjugador.getSelectedItem().toString();
-						String fechalesion = dateChooser.getDateFormatString();
+						Date date = dateChooser.getDate();
+						DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+						String fechalesion = df.format(date);
 						String comentario = editorPane.getText();
 						logical.Lesiones lesion = new logical.Lesiones(nomequipo, nombrejugador, fechalesion,
 								tipoLesion, comentario);

@@ -25,6 +25,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class TablaPosiciones extends JDialog {
 
@@ -90,7 +92,7 @@ public class TablaPosiciones extends JDialog {
 
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
-		String[] columnsheaders = {"Equipo", "V", "D", "Pct", "PD",	"Local", "Visitante"};
+		String[] columnsheaders = {"Equipo", "G", "P", "PCT", "PD",	"Local", "Visitante"};
 		tablemodel = new DefaultTableModel();
 		tablemodel.setColumnIdentifiers(columnsheaders);
 		table.setModel(tablemodel);
@@ -122,7 +124,7 @@ public class TablaPosiciones extends JDialog {
 		});
 		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_1.setViewportView(table_1);
-		String[] columnsheaders2 = {"Equipo", "V", "D", "Pct", "PD", "Local", "Visitante"};
+		String[] columnsheaders2 = {"Equipo", "G", "P", "PCT", "PD", "Local", "Visitante"};
 		tablemodel2 = new DefaultTableModel();
 		tablemodel2.setColumnIdentifiers(columnsheaders2);
 		table_1.setModel(tablemodel2);
@@ -154,7 +156,7 @@ public class TablaPosiciones extends JDialog {
 		});
 		table_2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_2.setViewportView(table_2);
-		String[] columnsheaders3 = {"Equipo", "V", "D", "Pct", "PD", "Local", "Visitante"};
+		String[] columnsheaders3 = {"Equipo", "G", "P", "PCT", "PD", "Local", "Visitante"};
 		tablemodel3 = new DefaultTableModel();
 		tablemodel3.setColumnIdentifiers(columnsheaders3);
 		table_2.setModel(tablemodel3);
@@ -171,7 +173,7 @@ public class TablaPosiciones extends JDialog {
 		table_3 = new JTable();
 		table_3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_3.setViewportView(table_3);
-		String[] columnsheaders4 = {"Equipo", "V", "D", "Pct", "PD", "Local", "Visitante"};
+		String[] columnsheaders4 = {"Equipo", "G", "P", "PCT", "PD", "Local", "Visitante"};
 		tablemodel4 = new DefaultTableModel();
 		tablemodel4.setColumnIdentifiers(columnsheaders4);
 		table_3.setModel(tablemodel4);
@@ -230,8 +232,8 @@ public class TablaPosiciones extends JDialog {
 		for (Equipos team : LigaBeisbol.getInstance().getEquipo()) {
 			if(team.getRegion().equalsIgnoreCase("Norte")){
 				fila[0] = team.getNombre();
-				fila[1] = team.getVictorias();
-				fila[2] = team.getDerrotas();
+				fila[1] = team.getJg();
+				fila[2] = team.getJp();
 				fila[3] = "1%";
 				fila[4] = "1";
 				fila[5] = "0-0";
@@ -254,8 +256,8 @@ public class TablaPosiciones extends JDialog {
 		for (Equipos team : LigaBeisbol.getInstance().getEquipo()) {
 			if(team.getRegion().equalsIgnoreCase("Sur")){
 				fila2[0] = team.getNombre();
-				fila2[1] = team.getVictorias();
-				fila2[2] = team.getDerrotas();
+				fila2[1] = team.getJg();
+				fila2[2] = team.getJp();
 				fila2[3] = "1%";
 				fila2[4] = "1";
 				fila2[5] = "0-0";
@@ -278,8 +280,8 @@ public class TablaPosiciones extends JDialog {
 		for (Equipos team : LigaBeisbol.getInstance().getEquipo()) {
 			if(team.getRegion().equalsIgnoreCase("Oeste")){
 				fila3[0] = team.getNombre();
-				fila3[1] = team.getVictorias();
-				fila3[2] = team.getDerrotas();
+				fila3[1] = team.getJg();
+				fila3[2] = team.getJp();
 				fila3[3] = "1%";
 				fila3[4] = "1";
 				fila3[5] = "0-0";
@@ -302,10 +304,12 @@ public class TablaPosiciones extends JDialog {
 		for (Equipos team : LigaBeisbol.getInstance().getEquipo()) {
 			if(team.getRegion().equalsIgnoreCase("Este")){
 				fila4[0] = team.getNombre();
-				fila4[1] = team.getVictorias();
-				fila4[2] = team.getDerrotas();
-				fila4[3] = "1%";
-				fila4[4] = "1";
+				fila4[1] = team.getJg();
+				fila4[2] = team.getJp();
+				NumberFormat formatter = new DecimalFormat(".000###%");
+				double ptc = 0.600;
+				fila4[3] = formatter.format(ptc/100);
+				fila4[4] = team.getJj();
 				fila4[5] = "0-0";
 				fila4[6] = "0-0";
 				tablemodel4.addRow(fila4);

@@ -616,11 +616,15 @@ public class RegistrarJugador extends JDialog {
 		if(update==true){
 			cBEquipo.setSelectedItem(0);
 		}
+		ImageIcon image = new ImageIcon("img/player_blank.png");
+		lbFoto.setIcon(image);
 	}
 	
 	public void modificar(String mijugador){
 		for (Jugadores aux : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
 			if (aux.getNombre().equalsIgnoreCase(mijugador)) {
+				ImageIcon image = new ImageIcon("jugadores/" + aux.getNombre() + ".png");
+				lbFoto.setIcon(image);
 				textnombre.setEnabled(false);
 				textnombre.setText(aux.getNombre());
 				textapellido.setText(aux.getApellido());
@@ -633,7 +637,7 @@ public class RegistrarJugador extends JDialog {
 				spinneraltura.setValue(aux.getAltura());
 				cBposicion.setSelectedItem(aux.getPosicion());
 				cBpais.setSelectedItem(aux.getLugarpaisNacimiento());
-				/*spinjj.setValue(aux.getEstadistica().getJj());
+				spinjj.setValue(aux.getEstadistica().getJj());
 				spinbb.setValue(aux.getEstadistica().getBasebola());
 				spin3b.setValue(aux.getEstadistica().getTriples());;
 				spin2b.setValue(aux.getEstadistica().getDobles());
@@ -641,7 +645,7 @@ public class RegistrarJugador extends JDialog {
 				spinhr.setValue(aux.getEstadistica().getHomeruns());;
 				spinc.setValue(aux.getEstadistica().getCarreraAnotadas());
 				spinab.setValue(aux.getEstadistica().getTurnosjugados());
-				spinrbi.setValue(aux.getEstadistica().getRBI());*/
+				spinrbi.setValue(aux.getEstadistica().getRBI());
 			}
 		}
 	}
