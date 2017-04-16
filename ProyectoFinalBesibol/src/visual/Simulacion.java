@@ -89,7 +89,10 @@ public class Simulacion extends JDialog {
 	
 	public Simulacion(String local, String visita, Partido partido) {
 		setTitle(" Simulacion");
+		setModal(true);
+		setResizable(false);
 		setBounds(100, 100, 858, 826);
+		setLocationRelativeTo(null);
 		Equipos equipolocal = LigaBeisbol.getInstance().BuscarPorNombre(local);
 		Equipos equipovisita = LigaBeisbol.getInstance().BuscarPorNombre(visita);
 		getContentPane().setLayout(new BorderLayout());
