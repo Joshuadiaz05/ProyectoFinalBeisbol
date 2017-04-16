@@ -238,7 +238,7 @@ public class TablaPosiciones extends JDialog {
 				NumberFormat formatter = new DecimalFormat(".000###%");
 				double ptc = 0;
 				try {
-					ptc = team.getJg()/team.getJg()+team.getJp();
+					ptc = team.getJg()/team.getJj();
 				} catch (ArithmeticException e) {
 					
 				}
@@ -268,8 +268,9 @@ public class TablaPosiciones extends JDialog {
 				fila2[2] = team.getJp();
 				NumberFormat formatter = new DecimalFormat(".000###%");
 				double ptc = 0;
+				System.out.println(team.getJg() + " " + team.getJj());
 				try {
-					ptc = team.getJg()/team.getJg()+team.getJp();
+					ptc = team.getJg()/team.getJj();
 				} catch (ArithmeticException e) {
 					
 				}

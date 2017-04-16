@@ -166,15 +166,19 @@ public class RegistrarPartido extends JDialog {
 						String local = cBlocal.getSelectedItem().toString();
 						String visita = cBvisita.getSelectedItem().toString();
 						String estadio = textField.getText();
-						if(LigaBeisbol.getInstance().buscarPartidoBoolean(local, visita, fecha)==true){
-							JOptionPane.showMessageDialog(null, "Ya existe un evento programado", "Error", JOptionPane.WARNING_MESSAGE);
+						System.out.println(fecha);
+						if(LigaBeisbol.getInstance().verificarEquipoPartido(local, fecha)==true){
+							JOptionPane.showMessageDialog(null, "Uno de los equipos ya ha jugado despues no vamos a perder tiempo hahahaha hay que comprobarlo con la fecha, no?", "Error", JOptionPane.WARNING_MESSAGE);
 						}else{
-							Partido partido = new Partido(fecha, local, visita, estadio, horario);
-							LigaBeisbol.getInstance().insertarPartido(partido);
-							Principal.cargar();
-							dispose();
-						}
-						
+							if(LigaBeisbol.getInstance().buscarPartidoBoolean(local, visita, fecha)==true){
+								JOptionPane.showMessageDialog(null, "Ya existe un evento con ambos equipo programado", "Error", JOptionPane.WARNING_MESSAGE);
+							}else{
+								Partido partido = new Partido(fecha, local, visita, estadio, horario);
+								LigaBeisbol.getInstance().insertarPartido(partido);
+								Principal.cargar();
+								dispose();
+							}//que vaina con eso. nah con la fecha se valida men. nada mas dime como tu comparas la fecha
+						}						
 					}
 				});
 				okButton.setActionCommand("OK");

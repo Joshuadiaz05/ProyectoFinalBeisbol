@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class LigaBeisbol implements Serializable {
@@ -133,6 +134,20 @@ public class LigaBeisbol implements Serializable {
 			}
 			i++;
 		}
+		return find;
+	}
+	
+	public boolean verificarEquipoPartido(String local, Date fecha) {
+		Partido miPartido = null;
+		boolean find = false;
+		int i = 0;
+		while (i < partido.size() && !find) { 
+			if (partido.get(i).getEquipoCasa().equalsIgnoreCase(local) && partido.get(i).getFecha().equals(fecha)) {
+				find = true;
+			}
+			i++;
+		}
+		System.out.println(fecha);
 		return find;
 	}
 	

@@ -318,7 +318,7 @@ public class Principal extends JFrame {
 	public boolean verificarEquiposLlenos(String local, String visita) {
 		Equipos equipolocal = LigaBeisbol.getInstance().BuscarPorNombre(local);
 		Equipos equipovisita = LigaBeisbol.getInstance().BuscarPorNombre(visita);
-		boolean confirmar = false;
+		boolean confirmar = true;
 		int i = 0;
 		while (i < equipolocal.getJugador().size() && confirmar == false) {
 			if (equipolocal.getJugador().get(i).getPosicion().equalsIgnoreCase("Primera base")
@@ -334,13 +334,13 @@ public class Principal extends JFrame {
 					){
 				confirmar = true;
 			}else{
-				confirmar = false;
+				confirmar = true;
 			}
 			i++;
 		}
 		return confirmar;
 	}
-	public void ordenar(){
+	public static void ordenar(){
 		Collections.sort(LigaBeisbol.getInstance().getEquipo(), new Comparator<Equipos>() {
 			public int compare(Equipos o1, Equipos o2) {
 				return new Integer(o2.getJg()).compareTo(o1.getJg());

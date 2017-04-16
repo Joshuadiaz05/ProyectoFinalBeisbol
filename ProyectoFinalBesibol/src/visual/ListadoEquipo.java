@@ -93,6 +93,7 @@ public class ListadoEquipo extends JDialog {
 			}
 		}
 		cargar();
+		Principal.ordenar();
 	}
 	
 	public void cargar(){

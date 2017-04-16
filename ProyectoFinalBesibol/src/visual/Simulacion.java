@@ -1244,7 +1244,9 @@ public class Simulacion extends JDialog {
 					//JugadoresPerdieron(equipolocal);
 				}
 				JOptionPane.showMessageDialog(null, "Casa "+partido.getEquipoCasa()+" "+carrerasTotal+" - Visitantes "+partido.getEquipoVisita()+" "+CarrerasTotalV);
+				Principal.ordenar();
 				Principal.cargar();
+				
 			}
 		});
 		btnFinalizarPartido.setIcon(new ImageIcon("img/finish.png"));

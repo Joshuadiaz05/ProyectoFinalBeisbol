@@ -88,17 +88,11 @@ public class ListadoEventos extends JDialog {
 			btnNewButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			buttonPane.add(btnNewButton);
 			{
-				JButton okButton = new JButton("Aceptar");
+				JButton okButton = new JButton("Cerrar");
 				okButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 				//okButton.setActionCommand("");
 				buttonPane.add(okButton);
 				//getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
 			}
 		}
 		cargar();
