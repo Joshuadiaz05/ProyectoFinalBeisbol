@@ -76,6 +76,7 @@ public class EquipoCaracteristicas extends JDialog {
 	private static JLabel lbLugar;
 	private static JLabel lblUniversidad;
 	private static JLabel lbUni;
+	private static JLabel lbFoto_equipo;
 	private static JSeparator separator_2;
 	private JLabel lblAgregarJugador;
 	private JLabel lblFormarEquipo;
@@ -88,12 +89,14 @@ public class EquipoCaracteristicas extends JDialog {
 	private JTable table_2;
 	private static JPanel panel_6;
 	private static JPanel panel_5;
-	private JLabel lblNewLabel;
+	private static JLabel lblNewLabel;
 	private JPanel panel_8;
 	private JLabel lblNewLabel_1;
 	private JButton button_1;
 	private JLabel lblQuitarLesion;
 	private JPanel panel;
+	private static JLabel lblNombreEquipo, lblEquipo;
+	private static JLabel lbManager, lbAgnoEquipo, lbRegion, lbEstadioo;
 
 	/**
 	 * Create the dialog.
@@ -108,7 +111,7 @@ public class EquipoCaracteristicas extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		JLabel lblEquipo = new JLabel(aux.getNombre());
+		lblEquipo = new JLabel(aux.getNombre());
 		lblEquipo.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
 		lblEquipo.setBounds(152, 45, 393, 47);
 		contentPanel.add(lblEquipo);
@@ -416,51 +419,50 @@ public class EquipoCaracteristicas extends JDialog {
 		panel_3.add(lblA);
 		lblA.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		
-		JLabel label_1 = new JLabel("");
-		label_1.setBounds(220, 60, 137, 19);
-		panel_3.add(label_1);
-		label_1.setText(aux.getManager());
-		label_1.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		label_1.setText(""+aux.getAgnocreacion());
+		lbManager = new JLabel("");
+		lbManager.setBounds(220, 60, 137, 19);
+		panel_3.add(lbManager);
+		lbManager.setText(aux.getManager());
+		lbManager.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		
 		JLabel label_2 = new JLabel("A\u00F1o de Creacion: ");
 		label_2.setBounds(140, 113, 137, 19);
 		panel_3.add(label_2);
 		label_2.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		
-		JLabel label_3 = new JLabel("");
-		label_3.setBounds(278, 113, 105, 19);
-		panel_3.add(label_3);
-		label_3.setText(aux.getAgnocreacion());
-		label_3.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lbAgnoEquipo = new JLabel("");
+		lbAgnoEquipo.setBounds(278, 113, 105, 19);
+		panel_3.add(lbAgnoEquipo);
+		lbAgnoEquipo.setText(aux.getAgnocreacion());
+		lbAgnoEquipo.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		
 		JLabel lblEstadio = new JLabel("Estadio: ");
 		lblEstadio.setBounds(392, 60, 73, 19);
 		panel_3.add(lblEstadio);
 		lblEstadio.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		
-		JLabel label_5 = new JLabel();
-		label_5.setBounds(461, 60, 150, 19);
-		panel_3.add(label_5);
-		label_5.setText(aux.getEstadio());
-		label_5.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lbEstadioo = new JLabel();
+		lbEstadioo.setBounds(461, 60, 150, 19);
+		panel_3.add(lbEstadioo);
+		lbEstadioo.setText(aux.getEstadio());
+		lbEstadioo.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		
 		JLabel lblRegion = new JLabel("Regi\u00F3n: ");
 		lblRegion.setBounds(393, 113, 73, 19);
 		panel_3.add(lblRegion);
 		lblRegion.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		
-		JLabel label_6 = new JLabel();
-		label_6.setBounds(461, 113, 150, 19);
-		panel_3.add(label_6);
-		label_6.setText(aux.getRegion());
-		label_6.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lbRegion = new JLabel();
+		lbRegion.setBounds(461, 113, 150, 19);
+		panel_3.add(lbRegion);
+		lbRegion.setText(aux.getRegion());
+		lbRegion.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		
-		JLabel lblNombre = new JLabel("");
-		lblNombre.setBounds(140, 17, 208, 35);
-		panel_3.add(lblNombre);
-		lblNombre.setText(aux.getNombre());
-		lblNombre.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
+		lblNombreEquipo = new JLabel("");
+		lblNombreEquipo.setBounds(140, 17, 208, 35);
+		panel_3.add(lblNombreEquipo);
+		lblNombreEquipo.setText(aux.getNombre());
+		lblNombreEquipo.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
 		
 		JSeparator separator_3 = new JSeparator();
 		separator_3.setBounds(140, 47, 509, 2);
@@ -488,7 +490,7 @@ public class EquipoCaracteristicas extends JDialog {
 		panel_3.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lbFoto_equipo = new JLabel("");
+		lbFoto_equipo = new JLabel("");
 		lbFoto_equipo.setBounds(0, 0, 120, 115);
 		lbFoto_equipo.setIcon(imagee);
 		lbFoto_equipo.setHorizontalAlignment(SwingConstants.LEFT);
@@ -850,5 +852,15 @@ public class EquipoCaracteristicas extends JDialog {
 				tablemodel4.addRow(fila4);
 			}
 		}
+	}
+	public static void cargar(Equipos e){
+		ImageIcon icon = new ImageIcon(RegistrarEquipo.route2);
+		lbFoto_equipo.setIcon(icon);
+		lblNewLabel.setIcon(icon);
+		lblEquipo.setText(e.getNombre());
+		lblNombreEquipo.setText(e.getNombre());
+		lbManager.setText(e.getManager());
+		lbRegion.setText(e.getRegion());
+		lbAgnoEquipo.setText(e.getAgnocreacion());
 	}
 }

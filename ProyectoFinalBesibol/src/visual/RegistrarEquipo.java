@@ -43,6 +43,7 @@ public class RegistrarEquipo extends JDialog {
 	private JComboBox cbxRegion;
 	private JComboBox cbxAgno;
 	private JLabel lbFoto;
+	public static String route2;
 
 	/**
 	 * Create the dialog.
@@ -159,7 +160,7 @@ public class RegistrarEquipo extends JDialog {
 					JFileChooser chooser = new JFileChooser();
 					chooser.showOpenDialog(null);
 					File f = chooser.getSelectedFile();
-					String route2 = "";
+					route2 = "";
 					try {
 						route2 = f.getAbsolutePath();
 					} catch (NullPointerException e2) {
@@ -217,10 +218,18 @@ public class RegistrarEquipo extends JDialog {
 							if(nombre.equalsIgnoreCase("")|| manager.equalsIgnoreCase("")|| cbxAgno.getSelectedIndex()==0 || cbxRegion.getSelectedIndex()==0){
 								JOptionPane.showMessageDialog(null, "No dejes los espacios en blancos" , "Error", JOptionPane.WARNING_MESSAGE);
 							} else {
-								Equipos miEquipo = new Equipos(nombre, agno, manager, region, nombreEstadio);
-								LigaBeisbol.getInstance().modificarEquipo(miEquipo);
+								equipo.setNombre(nombre);
+								equipo.setManager(manager);
+								equipo.setAgnocreacion(agno);
+								equipo.setEstadio(nombreEstadio);
+								equipo.setRegion(region);
 								JOptionPane.showMessageDialog(null, "El equipo " + nombre + " se ha modificado correctamente", "Modificado", JOptionPane.INFORMATION_MESSAGE);
-								clean();
+								EquipoCaracteristicas.cargar(equipo);
+								TablaPosiciones.cargarPosicionOeste();
+								TablaPosiciones.cargarPosicionNorte();
+								TablaPosiciones.cargarPosicionSur();
+								TablaPosiciones.cargarPosicionEste();
+								dispose();
 							}
 						}
 					}
