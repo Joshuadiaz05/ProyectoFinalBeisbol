@@ -64,7 +64,6 @@ public class RegistrarJugador extends JDialog {
 	private JSpinner spin3b;
 	private JSpinner spinc;
 	private JSpinner spinh;
-	private JSpinner spinjj;
 	private JTextField textEquipo;
 	private String equipotext = "";
 	private Equipos miEquipos;
@@ -73,7 +72,6 @@ public class RegistrarJugador extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imag/baseball.png"));
 		if(modificacion==true){
 			setTitle("Modificar Jugador");
-			modificar(jugador);
 		}else{
 			setTitle("Registrar Jugador");
 		}
@@ -124,37 +122,7 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblPas);
 
 			cBpais = new JComboBox();
-			cBpais.setModel(new DefaultComboBoxModel(new String[] { "<Seleccione>", "Afganist\u00E1n", "Albania",
-					"Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina",
-					"Armenia", "Australia", "Austria", "Azerbaiy\u00E1n", "Bahamas", "Banglad\u00E9s", "Barbados",
-					"Bar\u00E9in", "B\u00E9lgica", "Belice", "Ben\u00EDn", "Bielorrusia", "Birmania", "Bolivia",
-					"Bosnia y Herzegovina", "Botsuana", "Brasil", "Brun\u00E9i", "Bulgaria", "Burkina Faso", "Burundi",
-					"But\u00E1n", "Cabo Verde", "Camboya", "Camer\u00FAn", "Canad\u00E1", "Catar", "Chad", "Chile",
-					"China", "Chipre", "Ciudad del Vaticano", "Colombia", "Comoras", "Corea del Norte", "Corea del Sur",
-					"Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto",
-					"El Salvador", "Emiratos \u00C1rabes Unidos", "Eritrea", "Eslovaquia", "Eslovenia", "Espa\u00F1a",
-					"Estados Unidos", "Estonia", "Etiop\u00EDa", "Filipinas", "Finlandia", "Fiyi", "Francia",
-					"Gab\u00F3n", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guyana", "Guinea",
-					"Guinea ecuatorial", "Guinea-Bis\u00E1u", "Hait\u00ED", "Honduras", "Hungr\u00EDa", "India",
-					"Indonesia", "Irak", "Ir\u00E1n", "Irlanda", "Islandia", "Islas Marshall", "Islas Salom\u00F3n",
-					"Israel", "Italia", "Jamaica", "Jap\u00F3n", "Jordania", "Kazajist\u00E1n", "Kenia",
-					"Kirguist\u00E1n", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia", "L\u00EDbano", "Liberia",
-					"Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas",
-					"Mal\u00ED", "Malta", "Marruecos", "Mauricio", "Mauritania", "M\u00E9xico", "Micronesia",
-					"Moldavia", "M\u00F3naco", "Mongolia", "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal",
-					"Nicaragua", "N\u00EDger", "Nigeria", "Noruega", "Nueva Zelanda", "Om\u00E1n", "Pa\u00EDses Bajos",
-					"Pakist\u00E1n", "Palaos", "Panam\u00E1", "Pap\u00FAa Nueva Guinea", "Paraguay", "Per\u00FA",
-					"Polonia", "Portugal", "Reino Unido", "Rep\u00FAblica Centroafricana", "Rep\u00FAblica Checa",
-					"Rep\u00FAblica de Macedonia", "Rep\u00FAblica del Congo",
-					"Rep\u00FAblica Democr\u00E1tica del Congo", "Rep\u00FAblica Dominicana",
-					"Rep\u00FAblica Sudafricana", "Ruanda", "Ruman\u00EDa", "Rusia", "Samoa",
-					"San Crist\u00F3bal y Nieves", "San Marino", "San Vicente y las Granadinas", "Santa Luc\u00EDa",
-					"Santo Tom\u00E9 y Pr\u00EDncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur",
-					"Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sud\u00E1n", "Sud\u00E1n del Sur", "Suecia",
-					"Suiza", "Surinam", "Tailandia", "Tanzania", "Tayikist\u00E1n", "Timor Oriental", "Togo", "Tonga",
-					"Trinidad y Tobago", "T\u00FAnez", "Turkmenist\u00E1n", "Turqu\u00EDa", "Tuvalu", "Ucrania",
-					"Uganda", "Uruguay", "Uzbekist\u00E1n", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Yibuti",
-					"Zambia", "Zimbabue" }));
+			cBpais.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Estados Unidos", "Rep\u00FAblica Dominicana", "Afganist\u00E1n", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiy\u00E1n", "Bahamas", "Banglad\u00E9s", "Barbados", "Bar\u00E9in", "B\u00E9lgica", "Belice", "Ben\u00EDn", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina", "Botsuana", "Brasil", "Brun\u00E9i", "Bulgaria", "Burkina Faso", "Burundi", "But\u00E1n", "Cabo Verde", "Camboya", "Camer\u00FAn", "Canad\u00E1", "Catar", "Chad", "Chile", "China", "Chipre", "Ciudad del Vaticano", "Colombia", "Comoras", "Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos \u00C1rabes Unidos", "Eritrea", "Eslovaquia", "Eslovenia", "Espa\u00F1a", "Estonia", "Etiop\u00EDa", "Filipinas", "Finlandia", "Fiyi", "Francia", "Gab\u00F3n", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guyana", "Guinea", "Guinea ecuatorial", "Guinea-Bis\u00E1u", "Hait\u00ED", "Honduras", "Hungr\u00EDa", "India", "Indonesia", "Irak", "Ir\u00E1n", "Irlanda", "Islandia", "Islas Marshall", "Islas Salom\u00F3n", "Israel", "Italia", "Jamaica", "Jap\u00F3n", "Jordania", "Kazajist\u00E1n", "Kenia", "Kirguist\u00E1n", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia", "L\u00EDbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Mal\u00ED", "Malta", "Marruecos", "Mauricio", "Mauritania", "M\u00E9xico", "Micronesia", "Moldavia", "M\u00F3naco", "Mongolia", "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "N\u00EDger", "Nigeria", "Noruega", "Nueva Zelanda", "Om\u00E1n", "Pa\u00EDses Bajos", "Pakist\u00E1n", "Palaos", "Panam\u00E1", "Pap\u00FAa Nueva Guinea", "Paraguay", "Per\u00FA", "Polonia", "Portugal", "Reino Unido", "Rep\u00FAblica Centroafricana", "Rep\u00FAblica Checa", "Rep\u00FAblica de Macedonia", "Rep\u00FAblica del Congo", "Rep\u00FAblica Democr\u00E1tica del Congo", "Rep\u00FAblica Sudafricana", "Ruanda", "Ruman\u00EDa", "Rusia", "Samoa", "San Crist\u00F3bal y Nieves", "San Marino", "San Vicente y las Granadinas", "Santa Luc\u00EDa", "Santo Tom\u00E9 y Pr\u00EDncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sud\u00E1n", "Sud\u00E1n del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Tanzania", "Tayikist\u00E1n", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "T\u00FAnez", "Turkmenist\u00E1n", "Turqu\u00EDa", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekist\u00E1n", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Yibuti", "Zambia", "Zimbabue"}));
 			cBpais.setSelectedIndex(0);
 			cBpais.setBounds(265, 146, 245, 32);
 			panel.add(cBpais);
@@ -175,7 +143,7 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblPeso);
 
 			spinnerpeso = new JSpinner();
-			spinnerpeso.setModel(new SpinnerNumberModel(new Integer(80), new Integer(1), null, new Integer(1)));
+			spinnerpeso.setModel(new SpinnerNumberModel(new Integer(80), new Integer(40), null, new Integer(1)));
 			spinnerpeso.setBounds(52, 326, 71, 32);
 			panel.add(spinnerpeso);
 
@@ -185,7 +153,7 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblAltura);
 
 			spinneraltura = new JSpinner();
-			spinneraltura.setModel(new SpinnerNumberModel(new Integer(170), null, null, new Integer(1)));
+			spinneraltura.setModel(new SpinnerNumberModel(new Integer(170), new Integer(100), null, new Integer(1)));
 			spinneraltura.setBounds(232, 326, 71, 32);
 			panel.add(spinneraltura);
 
@@ -240,6 +208,7 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblNumero);
 			
 			spinnernumero = new JSpinner();
+			spinnernumero.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 			spinnernumero.setBounds(426, 326, 72, 32);
 			panel.add(spinnernumero);
 			
@@ -279,7 +248,6 @@ public class RegistrarJugador extends JDialog {
 							lbFoto.setIcon(imagee);
 							
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}catch (IllegalArgumentException e2) {
 							JOptionPane.showMessageDialog(null, "Debes escoger una foto." , "Error:", JOptionPane.ERROR_MESSAGE);
@@ -394,74 +362,65 @@ public class RegistrarJugador extends JDialog {
 		
 		JLabel lblPromedio = new JLabel("AB");
 		lblPromedio.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblPromedio.setBounds(94, 55, 27, 14);
+		lblPromedio.setBounds(10, 55, 27, 14);
 		panel.add(lblPromedio);
 		
 		spinab = new JSpinner();
-		spinab.setBounds(114, 52, 47, 20);
+		spinab.setBounds(30, 52, 47, 20);
 		panel.add(spinab);
-		
-		JLabel lblJj = new JLabel("JJ");
-		lblJj.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblJj.setBounds(10, 55, 27, 14);
-		panel.add(lblJj);
-		
-		spinjj = new JSpinner();
-		spinjj.setBounds(31, 52, 47, 20);
-		panel.add(spinjj);
 		
 		JLabel lblH = new JLabel("H");
 		lblH.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblH.setBounds(174, 55, 15, 14);
+		lblH.setBounds(105, 55, 15, 14);
 		panel.add(lblH);
 		
 		spinh = new JSpinner();
-		spinh.setBounds(186, 52, 47, 20);
+		spinh.setBounds(117, 52, 47, 20);
 		panel.add(spinh);
 		
 		JLabel lblb = new JLabel("2B");
 		lblb.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblb.setBounds(250, 55, 17, 14);
+		lblb.setBounds(191, 55, 17, 14);
 		panel.add(lblb);
 		
 		spin2b = new JSpinner();
-		spin2b.setBounds(272, 52, 47, 20);
+		spin2b.setBounds(213, 52, 47, 20);
 		panel.add(spin2b);
 		
 		JLabel lblb_1 = new JLabel("3B");
 		lblb_1.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblb_1.setBounds(332, 55, 17, 14);
+		lblb_1.setBounds(285, 55, 17, 14);
 		panel.add(lblb_1);
 		
 		spin3b = new JSpinner();
-		spin3b.setBounds(352, 52, 47, 20);
+		spin3b.setBounds(305, 52, 47, 20);
 		panel.add(spin3b);
 		
 		JLabel lblHr = new JLabel("HR");
 		lblHr.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblHr.setBounds(410, 55, 17, 14);
+		lblHr.setBounds(376, 55, 17, 14);
 		panel.add(lblHr);
 		
 		spinhr = new JSpinner();
-		spinhr.setBounds(430, 52, 47, 20);
+		spinhr.setBounds(396, 52, 47, 20);
 		panel.add(spinhr);
 		
 		JLabel lblBb = new JLabel("BB");
 		lblBb.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblBb.setBounds(492, 55, 17, 14);
+		lblBb.setBounds(469, 55, 17, 14);
 		panel.add(lblBb);
 		
 		spinbb = new JSpinner();
-		spinbb.setBounds(512, 52, 47, 20);
+		spinbb.setBounds(489, 52, 47, 20);
 		panel.add(spinbb);
 		
 		spinc = new JSpinner();
-		spinc.setBounds(586, 52, 47, 20);
+		spinc.setBounds(575, 52, 47, 20);
 		panel.add(spinc);
 		
 		JLabel lblC = new JLabel("C");
 		lblC.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblC.setBounds(576, 55, 15, 14);
+		lblC.setBounds(565, 55, 15, 14);
 		panel.add(lblC);
 		
 		JLabel lblRbi = new JLabel("RBI");
@@ -480,59 +439,104 @@ public class RegistrarJugador extends JDialog {
 				JButton okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(textnombre.getText().equalsIgnoreCase("") || textapellido.getText().equalsIgnoreCase("") || cBpais.getSelectedIndex()==0 ||textlugarnacimiento.getText().equalsIgnoreCase("") || textUniversidad.getText().equalsIgnoreCase("")){
-							JOptionPane.showMessageDialog(null, "Por favor! Complete todos los Campos", null,
-									JOptionPane.WARNING_MESSAGE, null);
-						}else{
-							if(fromprincipal==true){
-								miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(cBEquipo.getSelectedItem().toString());
-							} else {
-								miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo);
+						if(fromprincipal==true){
+							miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(cBEquipo.getSelectedItem().toString());
+						} else {
+							miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo);
+						}
+						if(modificacion==false){
+							if(textnombre.getText().equalsIgnoreCase("") || textapellido.getText().equalsIgnoreCase("") || cBpais.getSelectedIndex()==0 ||textlugarnacimiento.getText().equalsIgnoreCase("") || textUniversidad.getText().equalsIgnoreCase("")){
+								JOptionPane.showMessageDialog(null, "Por favor! Complete todos los Campos", null,
+										JOptionPane.WARNING_MESSAGE, null);
+							}else{
+														
+								String nom = textnombre.getText();
+								String apell = textapellido.getText();
+								String ciudad = textlugarnacimiento.getText();
+								String univ = textUniversidad.getText();
+								int numero = Integer.parseInt(spinnernumero.getValue().toString());
+								double peso = Integer.parseInt(spinnerpeso.getValue().toString());
+								double altura = Integer.parseInt(spinneraltura.getValue().toString());
+								String posicion = cBposicion.getSelectedItem().toString();
+								String pais = cBpais.getSelectedItem().toString();
+								boolean titular = false;
+								if(chckbxNewCheckBox.isSelected()){
+									titular = true;
+								}
+								
+								int dia = cBdia.getSelectedIndex();
+								int mes = cBmes.getSelectedIndex();
+								String agno = cBagno.getSelectedItem().toString();
+								LocalDate date = LocalDate.of(Integer.valueOf(agno), mes+1, dia+1);
+								Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, date, ciudad, pais, univ, miEquipos.getNombre(), titular);
+								LigaBeisbol.getInstance().insertarJugador(nuevojugador);
+								miEquipos.getJugador().add(nuevojugador);
+								int bb = Integer.parseInt(spinbb.getValue().toString());
+								int trb = Integer.parseInt(spin3b.getValue().toString());
+								int dob  = Integer.parseInt(spin2b.getValue().toString());
+								int h = Integer.parseInt(spinh.getValue().toString());
+								int hr = Integer.parseInt(spinhr.getValue().toString());
+								int c = Integer.parseInt(spinc.getValue().toString());
+								int ab = Integer.parseInt(spinab.getValue().toString());								int rbi = Integer.parseInt(spinrbi.getValue().toString());
+								Estadisticas estadisticas = new Estadisticas(h, dob, trb, hr, bb, ab, c, rbi);
+								nuevojugador.setEstadistica(estadisticas);	
+								JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha registrado sasctifactoriamente!", null,
+										JOptionPane.INFORMATION_MESSAGE, null);
+								if(fromprincipal==true){
+									clean(true);
+								} else {
+									clean(false);
+									EquipoCaracteristicas.cargarJugadoresLesionadoPorEquipo();
+									EquipoCaracteristicas.cargarJugadoresPorEquipo();
+								}
+								
 							}
-							
+						} else {
 							String nom = textnombre.getText();
 							String apell = textapellido.getText();
 							String ciudad = textlugarnacimiento.getText();
 							String univ = textUniversidad.getText();
 							int numero = Integer.parseInt(spinnernumero.getValue().toString());
 							double peso = Integer.parseInt(spinnerpeso.getValue().toString());
-							double altura = Integer.parseInt(spinneraltura.getValue().toString());
+							double altura = Double.valueOf(spinneraltura.getValue().toString());
 							String posicion = cBposicion.getSelectedItem().toString();
 							String pais = cBpais.getSelectedItem().toString();
-							boolean titular = false;
-							if(chckbxNewCheckBox.isSelected()){
-								titular = true;
-							}
-							
 							int dia = cBdia.getSelectedIndex();
 							int mes = cBmes.getSelectedIndex();
 							String agno = cBagno.getSelectedItem().toString();
 							LocalDate date = LocalDate.of(Integer.valueOf(agno), mes+1, dia+1);
-							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, date, ciudad, pais, univ, miEquipos.getNombre(), titular);
-							miEquipos.agregarjugador(nuevojugador);
-							LigaBeisbol.getInstance().insertarJugador(nuevojugador);
-							int jj = Integer.parseInt(spinjj.getValue().toString());
-							int bb = Integer.parseInt(spinbb.getValue().toString());
-							int trb = Integer.parseInt(spin3b.getValue().toString());
-							int dob  = Integer.parseInt(spin2b.getValue().toString());
-							int h = Integer.parseInt(spinh.getValue().toString());
-							int hr = Integer.parseInt(spinhr.getValue().toString());
-							int c = Integer.parseInt(spinc.getValue().toString());
-							int ab = Integer.parseInt(spinab.getValue().toString());								int rbi = Integer.parseInt(spinrbi.getValue().toString());
-							Estadisticas estadisticas = new Estadisticas(jj, h, dob, trb, hr, bb, ab, c, rbi);
-							nuevojugador.setEstadistica(estadisticas);	
-							JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha registrado sasctifactoriamente!", null,
-									JOptionPane.INFORMATION_MESSAGE, null);
-							if(fromprincipal==true){
-								clean(true);
-							} else {
-								clean(false);
-								EquipoCaracteristicas.cargarJugadoresLesionadoPorEquipo();
+							boolean titular = false;
+							if(fromprincipal==false){
+								Jugadores j = LigaBeisbol.getInstance().buscarjugador(nom);
+								j.setApellido(apell);
+								j.setLugarciudadNacimiento(ciudad);
+								j.setUniversidad(univ);
+								j.setNumero(numero);
+								j.setPeso(peso);
+								j.setAltura(altura);
+								j.setPosicion(posicion);
+								j.setLugarpaisNacimiento(pais);
+								j.setTitular(titular);
+								j.setFechanacimiento(date);
+								int bb = Integer.parseInt(spinbb.getValue().toString());
+								int trb = Integer.parseInt(spin3b.getValue().toString());
+								int dob  = Integer.parseInt(spin2b.getValue().toString());
+								int h = Integer.parseInt(spinh.getValue().toString());
+								int hr = Integer.parseInt(spinhr.getValue().toString());
+								int c = Integer.parseInt(spinc.getValue().toString());
+								int ab = Integer.parseInt(spinab.getValue().toString());
+								int rbi = Integer.parseInt(spinrbi.getValue().toString());
+								Estadisticas estadisticas = new Estadisticas(h, dob, trb, hr, bb, ab, c, rbi);
+								j.setEstadistica(estadisticas);	
+								JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha modificado sasctifactoriamente!", null,
+										JOptionPane.INFORMATION_MESSAGE, null);
 								EquipoCaracteristicas.cargarJugadoresPorEquipo();
+								EquipoCaracteristicas.cargarJugadoresLesionadoPorEquipo();
+								EquipoCaracteristicas.cargarJugador(nom);
+								EquipoCaracteristicas.cargarEstadisticas(nom);
 							}
 							
 						}
-						
 					}
 				});
 				okButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
@@ -552,6 +556,9 @@ public class RegistrarJugador extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		if(modificacion==true){
+			modificar(jugador);
+		}
 	}
 	
 	public void clean(boolean update){
@@ -560,7 +567,7 @@ public class RegistrarJugador extends JDialog {
 		textlugarnacimiento.setText("");
 		textUniversidad.setText("");
 		spinnernumero.setValue(0);
-		spinnerpeso.setValue(70);
+		spinnerpeso.setValue(80);
 		spinneraltura.setValue(170);
 		cBposicion.setSelectedIndex(0);
 		cBpais.setSelectedIndex(0);
@@ -568,20 +575,40 @@ public class RegistrarJugador extends JDialog {
 		if(update==true){
 			cBEquipo.setSelectedItem(0);
 		}
+		spinab.setValue(0);
+		spin2b.setValue(0);
+		spin3b.setValue(0);
+		spinbb.setValue(0);
+		spinc.setValue(0);
+		spinh.setValue(0);
+		spinhr.setValue(0);
+		spinrbi.setValue(0);
 	}
 	
 	public void modificar(String mijugador){
 		for (Jugadores aux : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
 			if (aux.getNombre().equalsIgnoreCase(mijugador)) {
+				textnombre.setEnabled(false);
 				textnombre.setText(aux.getNombre());
 				textapellido.setText(aux.getApellido());
 				textlugarnacimiento.setText(aux.getLugarciudadNacimiento());
 				textUniversidad.setText(aux.getUniversidad());
 				spinnernumero.setValue(aux.getNumero());
-				spinnerpeso.setValue(aux.getPeso());
+				double d = aux.getPeso();
+				int i = (int) d;
+				spinnerpeso.setValue(i);
 				spinneraltura.setValue(aux.getAltura());
 				cBposicion.setSelectedItem(aux.getPosicion());
-				cBpais.setSelectedItem(0);
+				cBpais.setSelectedItem(aux.getLugarpaisNacimiento());
+				/*spinjj.setValue(aux.getEstadistica().getJj());
+				spinbb.setValue(aux.getEstadistica().getBasebola());
+				spin3b.setValue(aux.getEstadistica().getTriples());;
+				spin2b.setValue(aux.getEstadistica().getDobles());
+				spinh.setValue(aux.getEstadistica().getHits());;
+				spinhr.setValue(aux.getEstadistica().getHomeruns());;
+				spinc.setValue(aux.getEstadistica().getCarreraAnotadas());
+				spinab.setValue(aux.getEstadistica().getTurnosjugados());
+				spinrbi.setValue(aux.getEstadistica().getRBI());*/
 			}
 		}
 	}

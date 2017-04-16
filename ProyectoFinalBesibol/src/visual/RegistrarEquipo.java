@@ -47,17 +47,25 @@ public class RegistrarEquipo extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public RegistrarEquipo() {
+	public RegistrarEquipo(boolean update, Equipos equipo) {
 		setModal(true);
 		setResizable(false);
 		setBounds(100, 100, 530, 354);
+		if(update == true){
+			cargarModificacion(equipo);
+		}
 		getContentPane().setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Registrar Equipo");
+		JLabel lblNewLabel = new JLabel();
+		if(update==false){
+			lblNewLabel.setText("Registrar Equipo");
+		}else{
+			lblNewLabel.setText("Modificar Equipo");
+		}
 		lblNewLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
 		lblNewLabel.setBounds(10, 11, 207, 37);
 		contentPanel.add(lblNewLabel);
@@ -169,7 +177,6 @@ public class RegistrarEquipo extends JDialog {
 						lbFoto.setIcon(imagee);
 						
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}catch (IllegalArgumentException e2) {
 						JOptionPane.showMessageDialog(null, "Debes escoger una foto." , "Error:", JOptionPane.ERROR_MESSAGE);
@@ -189,19 +196,35 @@ public class RegistrarEquipo extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						String nombre = tdfNombre.getText();
-						String manager = tdfManager.getText();
-						String agno = cbxAgno.getSelectedItem().toString();
-						String nombreEstadio = tdfEstadio.getText();
-						String region = cbxRegion.getSelectedItem().toString();
-						
-						if(nombre.equalsIgnoreCase("")|| manager.equalsIgnoreCase("")|| cbxAgno.getSelectedIndex()==0 || cbxRegion.getSelectedIndex()==0){
-							JOptionPane.showMessageDialog(null, "No dejes los espacios en blancos" , "Error", JOptionPane.WARNING_MESSAGE);
-						} else {
-							Equipos miEquipo = new Equipos(nombre, agno, manager, region, nombreEstadio);
-							LigaBeisbol.getInstance().insertarEquipo(miEquipo);
-							JOptionPane.showMessageDialog(null, "El equipo " + nombre + " se registró correctamente", "Registrado", JOptionPane.INFORMATION_MESSAGE);
-							clean();
+						if(update==false){
+							String nombre = tdfNombre.getText();
+							String manager = tdfManager.getText();
+							String agno = cbxAgno.getSelectedItem().toString();
+							String nombreEstadio = tdfEstadio.getText();
+							String region = cbxRegion.getSelectedItem().toString();
+							
+							if(nombre.equalsIgnoreCase("")|| manager.equalsIgnoreCase("")|| cbxAgno.getSelectedIndex()==0 || cbxRegion.getSelectedIndex()==0){
+								JOptionPane.showMessageDialog(null, "No dejes los espacios en blancos" , "Error", JOptionPane.WARNING_MESSAGE);
+							} else {
+								Equipos miEquipo = new Equipos(nombre, agno, manager, region, nombreEstadio);
+								LigaBeisbol.getInstance().insertarEquipo(miEquipo);
+								JOptionPane.showMessageDialog(null, "El equipo " + nombre + " se registró correctamente", "Registrado", JOptionPane.INFORMATION_MESSAGE);
+								clean();
+							}
+						}else{
+							String nombre = tdfNombre.getText();
+							String manager = tdfManager.getText();
+							String agno = cbxAgno.getSelectedItem().toString();
+							String nombreEstadio = tdfEstadio.getText();
+							String region = cbxRegion.getSelectedItem().toString();
+							if(nombre.equalsIgnoreCase("")|| manager.equalsIgnoreCase("")|| cbxAgno.getSelectedIndex()==0 || cbxRegion.getSelectedIndex()==0){
+								JOptionPane.showMessageDialog(null, "No dejes los espacios en blancos" , "Error", JOptionPane.WARNING_MESSAGE);
+							} else {
+								Equipos miEquipo = new Equipos(nombre, agno, manager, region, nombreEstadio);
+								LigaBeisbol.getInstance().modificarEquipo(miEquipo);
+								JOptionPane.showMessageDialog(null, "El equipo " + nombre + " se ha modificado correctamente", "Modificado", JOptionPane.INFORMATION_MESSAGE);
+								clean();
+							}
 						}
 					}
 				});
@@ -229,5 +252,14 @@ public class RegistrarEquipo extends JDialog {
 		tdfEstadio.setText("");
 		cbxRegion.setSelectedIndex(0);
 		lbFoto.setIcon(null);
+	}
+	
+	public void cargarModificacion(Equipos equipo){
+	/*	tdfNombre.setText(equipo.getNombre());
+		tdfManager.setText(equipo.getManager());
+		tdfEstadio.setText(equipo.getEstadio());
+		cbxRegion.setSelectedItem(equipo.getRegion());
+		cbxAgno.setSelectedItem(equipo.getAgnocreacion());*/
+		//lbFoto.setIcon();
 	}
 }
