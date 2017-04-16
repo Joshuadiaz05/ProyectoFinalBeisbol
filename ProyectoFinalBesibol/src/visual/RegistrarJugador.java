@@ -73,7 +73,6 @@ public class RegistrarJugador extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imag/baseball.png"));
 		if(modificacion==true){
 			setTitle("Modificar Jugador");
-			modificar(jugador);
 		}else{
 			setTitle("Registrar Jugador");
 		}
@@ -279,7 +278,6 @@ public class RegistrarJugador extends JDialog {
 							lbFoto.setIcon(imagee);
 							
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}catch (IllegalArgumentException e2) {
 							JOptionPane.showMessageDialog(null, "Debes escoger una foto." , "Error:", JOptionPane.ERROR_MESSAGE);
@@ -480,59 +478,106 @@ public class RegistrarJugador extends JDialog {
 				JButton okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(textnombre.getText().equalsIgnoreCase("") || textapellido.getText().equalsIgnoreCase("") || cBpais.getSelectedIndex()==0 ||textlugarnacimiento.getText().equalsIgnoreCase("") || textUniversidad.getText().equalsIgnoreCase("")){
-							JOptionPane.showMessageDialog(null, "Por favor! Complete todos los Campos", null,
-									JOptionPane.WARNING_MESSAGE, null);
-						}else{
-							if(fromprincipal==true){
-								miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(cBEquipo.getSelectedItem().toString());
-							} else {
-								miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo);
+						if(fromprincipal==true){
+							miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(cBEquipo.getSelectedItem().toString());
+						} else {
+							miEquipos = LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo);
+						}
+						if(modificacion==false){
+							if(textnombre.getText().equalsIgnoreCase("") || textapellido.getText().equalsIgnoreCase("") || cBpais.getSelectedIndex()==0 ||textlugarnacimiento.getText().equalsIgnoreCase("") || textUniversidad.getText().equalsIgnoreCase("")){
+								JOptionPane.showMessageDialog(null, "Por favor! Complete todos los Campos", null,
+										JOptionPane.WARNING_MESSAGE, null);
+							}else{
+														
+								String nom = textnombre.getText();
+								String apell = textapellido.getText();
+								String ciudad = textlugarnacimiento.getText();
+								String univ = textUniversidad.getText();
+								int numero = Integer.parseInt(spinnernumero.getValue().toString());
+								double peso = Integer.parseInt(spinnerpeso.getValue().toString());
+								double altura = Integer.parseInt(spinneraltura.getValue().toString());
+								String posicion = cBposicion.getSelectedItem().toString();
+								String pais = cBpais.getSelectedItem().toString();
+								boolean titular = false;
+								if(chckbxNewCheckBox.isSelected()){
+									titular = true;
+								}
+								
+								int dia = cBdia.getSelectedIndex();
+								int mes = cBmes.getSelectedIndex();
+								String agno = cBagno.getSelectedItem().toString();
+								LocalDate date = LocalDate.of(Integer.valueOf(agno), mes+1, dia+1);
+								Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, date, ciudad, pais, univ, miEquipos.getNombre(), titular);
+								LigaBeisbol.getInstance().insertarJugador(nuevojugador);
+								miEquipos.getJugador().add(nuevojugador);
+								int jj = Integer.parseInt(spinjj.getValue().toString());
+								int bb = Integer.parseInt(spinbb.getValue().toString());
+								int trb = Integer.parseInt(spin3b.getValue().toString());
+								int dob  = Integer.parseInt(spin2b.getValue().toString());
+								int h = Integer.parseInt(spinh.getValue().toString());
+								int hr = Integer.parseInt(spinhr.getValue().toString());
+								int c = Integer.parseInt(spinc.getValue().toString());
+								int ab = Integer.parseInt(spinab.getValue().toString());								int rbi = Integer.parseInt(spinrbi.getValue().toString());
+								Estadisticas estadisticas = new Estadisticas(jj, h, dob, trb, hr, bb, ab, c, rbi);
+								nuevojugador.setEstadistica(estadisticas);	
+								JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha registrado sasctifactoriamente!", null,
+										JOptionPane.INFORMATION_MESSAGE, null);
+								if(fromprincipal==true){
+									clean(true);
+								} else {
+									clean(false);
+									EquipoCaracteristicas.cargarJugadoresLesionadoPorEquipo();
+									EquipoCaracteristicas.cargarJugadoresPorEquipo();
+								}
+								
 							}
-							
+						} else {
 							String nom = textnombre.getText();
 							String apell = textapellido.getText();
 							String ciudad = textlugarnacimiento.getText();
 							String univ = textUniversidad.getText();
 							int numero = Integer.parseInt(spinnernumero.getValue().toString());
 							double peso = Integer.parseInt(spinnerpeso.getValue().toString());
-							double altura = Integer.parseInt(spinneraltura.getValue().toString());
+							double altura = Double.valueOf(spinneraltura.getValue().toString());
 							String posicion = cBposicion.getSelectedItem().toString();
 							String pais = cBpais.getSelectedItem().toString();
-							boolean titular = false;
-							if(chckbxNewCheckBox.isSelected()){
-								titular = true;
-							}
-							
 							int dia = cBdia.getSelectedIndex();
 							int mes = cBmes.getSelectedIndex();
 							String agno = cBagno.getSelectedItem().toString();
 							LocalDate date = LocalDate.of(Integer.valueOf(agno), mes+1, dia+1);
-							Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, date, ciudad, pais, univ, miEquipos.getNombre(), titular);
-							miEquipos.agregarjugador(nuevojugador);
-							LigaBeisbol.getInstance().insertarJugador(nuevojugador);
-							int jj = Integer.parseInt(spinjj.getValue().toString());
-							int bb = Integer.parseInt(spinbb.getValue().toString());
-							int trb = Integer.parseInt(spin3b.getValue().toString());
-							int dob  = Integer.parseInt(spin2b.getValue().toString());
-							int h = Integer.parseInt(spinh.getValue().toString());
-							int hr = Integer.parseInt(spinhr.getValue().toString());
-							int c = Integer.parseInt(spinc.getValue().toString());
-							int ab = Integer.parseInt(spinab.getValue().toString());								int rbi = Integer.parseInt(spinrbi.getValue().toString());
-							Estadisticas estadisticas = new Estadisticas(jj, h, dob, trb, hr, bb, ab, c, rbi);
-							nuevojugador.setEstadistica(estadisticas);	
-							JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha registrado sasctifactoriamente!", null,
-									JOptionPane.INFORMATION_MESSAGE, null);
-							if(fromprincipal==true){
-								clean(true);
-							} else {
-								clean(false);
-								EquipoCaracteristicas.cargarJugadoresLesionadoPorEquipo();
+							boolean titular = false;
+							if(fromprincipal==false){
+								Jugadores j = LigaBeisbol.getInstance().buscarjugador(nom);
+								j.setApellido(apell);
+								j.setLugarciudadNacimiento(ciudad);
+								j.setUniversidad(univ);
+								j.setNumero(numero);
+								j.setPeso(peso);
+								j.setAltura(altura);
+								j.setPosicion(posicion);
+								j.setLugarpaisNacimiento(pais);
+								j.setTitular(titular);
+								j.setFechanacimiento(date);
+								int jj = Integer.parseInt(spinjj.getValue().toString());
+								int bb = Integer.parseInt(spinbb.getValue().toString());
+								int trb = Integer.parseInt(spin3b.getValue().toString());
+								int dob  = Integer.parseInt(spin2b.getValue().toString());
+								int h = Integer.parseInt(spinh.getValue().toString());
+								int hr = Integer.parseInt(spinhr.getValue().toString());
+								int c = Integer.parseInt(spinc.getValue().toString());
+								int ab = Integer.parseInt(spinab.getValue().toString());
+								int rbi = Integer.parseInt(spinrbi.getValue().toString());
+								Estadisticas estadisticas = new Estadisticas(jj, h, dob, trb, hr, bb, ab, c, rbi);
+								j.setEstadistica(estadisticas);	
+								JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha modificado sasctifactoriamente!", null,
+										JOptionPane.INFORMATION_MESSAGE, null);
 								EquipoCaracteristicas.cargarJugadoresPorEquipo();
+								EquipoCaracteristicas.cargarJugadoresLesionadoPorEquipo();
+								EquipoCaracteristicas.cargarJugador(nom);
+								EquipoCaracteristicas.cargarEstadisticas(nom);
 							}
 							
 						}
-						
 					}
 				});
 				okButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
@@ -551,6 +596,9 @@ public class RegistrarJugador extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+		if(modificacion==true){
+			modificar(jugador);
 		}
 	}
 	
@@ -573,15 +621,27 @@ public class RegistrarJugador extends JDialog {
 	public void modificar(String mijugador){
 		for (Jugadores aux : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
 			if (aux.getNombre().equalsIgnoreCase(mijugador)) {
+				textnombre.setEnabled(false);
 				textnombre.setText(aux.getNombre());
 				textapellido.setText(aux.getApellido());
 				textlugarnacimiento.setText(aux.getLugarciudadNacimiento());
 				textUniversidad.setText(aux.getUniversidad());
 				spinnernumero.setValue(aux.getNumero());
-				spinnerpeso.setValue(aux.getPeso());
+				double d = aux.getPeso();
+				int i = (int) d;
+				spinnerpeso.setValue(i);
 				spinneraltura.setValue(aux.getAltura());
 				cBposicion.setSelectedItem(aux.getPosicion());
-				cBpais.setSelectedItem(0);
+				cBpais.setSelectedItem(aux.getLugarpaisNacimiento());
+				/*spinjj.setValue(aux.getEstadistica().getJj());
+				spinbb.setValue(aux.getEstadistica().getBasebola());
+				spin3b.setValue(aux.getEstadistica().getTriples());;
+				spin2b.setValue(aux.getEstadistica().getDobles());
+				spinh.setValue(aux.getEstadistica().getHits());;
+				spinhr.setValue(aux.getEstadistica().getHomeruns());;
+				spinc.setValue(aux.getEstadistica().getCarreraAnotadas());
+				spinab.setValue(aux.getEstadistica().getTurnosjugados());
+				spinrbi.setValue(aux.getEstadistica().getRBI());*/
 			}
 		}
 	}

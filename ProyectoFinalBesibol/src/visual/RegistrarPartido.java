@@ -15,6 +15,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import javax.swing.SpinnerListModel;
 import java.awt.event.ActionListener;
@@ -86,7 +87,6 @@ public class RegistrarPartido extends JDialog {
 		equipVisita.add("<Seleccione Equipo>");
 		for (int index = 0; index < LigaBeisbol.getInstance().getEquipo().size(); index++) {
 			equipVisita.add("" + LigaBeisbol.getInstance().getEquipo().get(index).getNombre());
-
 		}
 		
 		cBvisita = new JComboBox(equipVisita.toArray());

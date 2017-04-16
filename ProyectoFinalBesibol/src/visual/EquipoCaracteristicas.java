@@ -85,6 +85,7 @@ public class EquipoCaracteristicas extends JDialog {
 	private static JPanel panel_5;
 	private JLabel lblNewLabel;
 	private JPanel panel_8;
+	private JPanel panel;
 
 	/**
 	 * Create the dialog.
@@ -124,6 +125,7 @@ public class EquipoCaracteristicas extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				int index = table.getSelectedRow();
 				jugador = (String) table.getModel().getValueAt(index, 0);
+				tabbedPane.addTab("Jugador", null, panel, null);
 				tabbedPane.setSelectedIndex(3);
 				cargarJugadoresLesionadoPorEquipo();
 				cargarJugador(jugador);
@@ -153,6 +155,7 @@ public class EquipoCaracteristicas extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				int index = table_1.getSelectedRow();
 				jugador = (String) table_1.getModel().getValueAt(index, 0);
+				tabbedPane.addTab("Jugador", null, panel, null);
 				tabbedPane.setSelectedIndex(3);
 				cargarJugadoresPorEquipo();
 				cargarJugador(jugador);
@@ -185,8 +188,7 @@ public class EquipoCaracteristicas extends JDialog {
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Calendario", null, panel_3, null);
 
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("Jugador", null, panel, null);
+		panel = new JPanel();
 		tabbedPane.setSelectedIndex(0);
 		panel.setLayout(null);
 
@@ -485,7 +487,7 @@ public class EquipoCaracteristicas extends JDialog {
 		fila = new Object[tablemodel.getColumnCount()];
 		for (Jugadores e : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
 			if (!e.isLesion()) {
-				fila[0] = e.getNombre()+" "+e.getApellido()+" - "+e.getPosicion();
+				fila[0] = e.getNombre();
 				tablemodel.addRow(fila);
 			}
 		}
@@ -499,7 +501,7 @@ public class EquipoCaracteristicas extends JDialog {
 		fila2 = new Object[tablemodel2.getColumnCount()];
 		for (Jugadores e : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
 			if (e.isLesion() == true) {
-				fila2[0] = e.getNombre()+" "+e.getApellido()+" - "+e.getPosicion();
+				fila2[0] = e.getNombre();
 				tablemodel2.addRow(fila2);
 			}
 		}
