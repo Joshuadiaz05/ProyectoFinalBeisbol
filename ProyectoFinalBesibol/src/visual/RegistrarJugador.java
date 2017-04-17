@@ -36,7 +36,6 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
 
 public class RegistrarJugador extends JDialog {
 
@@ -55,6 +54,8 @@ public class RegistrarJugador extends JDialog {
 	private JComboBox cBagno;
 	private JComboBox cBmes;
 	private JComboBox cBdia;
+	private JComboBox cbBatea;
+	private JComboBox cbLanza;
 	private JCheckBox chckbxNewCheckBox;
 	private JSpinner spinrbi;
 	private JSpinner spinhr;
@@ -64,7 +65,6 @@ public class RegistrarJugador extends JDialog {
 	private JSpinner spin3b;
 	private JSpinner spinc;
 	private JSpinner spinh;
-	private JSpinner spinjj;
 	private JTextField textEquipo;
 	private String equipotext = "";
 	private Equipos miEquipos;
@@ -98,6 +98,7 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblNombre);
 
 			textnombre = new JTextField();
+			textnombre.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 			textnombre.setBounds(10, 78, 245, 32);
 			panel.add(textnombre);
 			textnombre.setColumns(10);
@@ -108,6 +109,7 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblApellidos);
 
 			textapellido = new JTextField();
+			textapellido.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 			textapellido.setColumns(10);
 			textapellido.setBounds(265, 78, 245, 32);
 			panel.add(textapellido);
@@ -123,37 +125,8 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblPas);
 
 			cBpais = new JComboBox();
-			cBpais.setModel(new DefaultComboBoxModel(new String[] { "<Seleccione>", "Afganist\u00E1n", "Albania",
-					"Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina",
-					"Armenia", "Australia", "Austria", "Azerbaiy\u00E1n", "Bahamas", "Banglad\u00E9s", "Barbados",
-					"Bar\u00E9in", "B\u00E9lgica", "Belice", "Ben\u00EDn", "Bielorrusia", "Birmania", "Bolivia",
-					"Bosnia y Herzegovina", "Botsuana", "Brasil", "Brun\u00E9i", "Bulgaria", "Burkina Faso", "Burundi",
-					"But\u00E1n", "Cabo Verde", "Camboya", "Camer\u00FAn", "Canad\u00E1", "Catar", "Chad", "Chile",
-					"China", "Chipre", "Ciudad del Vaticano", "Colombia", "Comoras", "Corea del Norte", "Corea del Sur",
-					"Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto",
-					"El Salvador", "Emiratos \u00C1rabes Unidos", "Eritrea", "Eslovaquia", "Eslovenia", "Espa\u00F1a",
-					"Estados Unidos", "Estonia", "Etiop\u00EDa", "Filipinas", "Finlandia", "Fiyi", "Francia",
-					"Gab\u00F3n", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guyana", "Guinea",
-					"Guinea ecuatorial", "Guinea-Bis\u00E1u", "Hait\u00ED", "Honduras", "Hungr\u00EDa", "India",
-					"Indonesia", "Irak", "Ir\u00E1n", "Irlanda", "Islandia", "Islas Marshall", "Islas Salom\u00F3n",
-					"Israel", "Italia", "Jamaica", "Jap\u00F3n", "Jordania", "Kazajist\u00E1n", "Kenia",
-					"Kirguist\u00E1n", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia", "L\u00EDbano", "Liberia",
-					"Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas",
-					"Mal\u00ED", "Malta", "Marruecos", "Mauricio", "Mauritania", "M\u00E9xico", "Micronesia",
-					"Moldavia", "M\u00F3naco", "Mongolia", "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal",
-					"Nicaragua", "N\u00EDger", "Nigeria", "Noruega", "Nueva Zelanda", "Om\u00E1n", "Pa\u00EDses Bajos",
-					"Pakist\u00E1n", "Palaos", "Panam\u00E1", "Pap\u00FAa Nueva Guinea", "Paraguay", "Per\u00FA",
-					"Polonia", "Portugal", "Reino Unido", "Rep\u00FAblica Centroafricana", "Rep\u00FAblica Checa",
-					"Rep\u00FAblica de Macedonia", "Rep\u00FAblica del Congo",
-					"Rep\u00FAblica Democr\u00E1tica del Congo", "Rep\u00FAblica Dominicana",
-					"Rep\u00FAblica Sudafricana", "Ruanda", "Ruman\u00EDa", "Rusia", "Samoa",
-					"San Crist\u00F3bal y Nieves", "San Marino", "San Vicente y las Granadinas", "Santa Luc\u00EDa",
-					"Santo Tom\u00E9 y Pr\u00EDncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur",
-					"Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sud\u00E1n", "Sud\u00E1n del Sur", "Suecia",
-					"Suiza", "Surinam", "Tailandia", "Tanzania", "Tayikist\u00E1n", "Timor Oriental", "Togo", "Tonga",
-					"Trinidad y Tobago", "T\u00FAnez", "Turkmenist\u00E1n", "Turqu\u00EDa", "Tuvalu", "Ucrania",
-					"Uganda", "Uruguay", "Uzbekist\u00E1n", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Yibuti",
-					"Zambia", "Zimbabue" }));
+			cBpais.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+			cBpais.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Estados Unidos", "Rep\u00FAblica Dominicana", "Afganist\u00E1n", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiy\u00E1n", "Bahamas", "Banglad\u00E9s", "Barbados", "Bar\u00E9in", "B\u00E9lgica", "Belice", "Ben\u00EDn", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina", "Botsuana", "Brasil", "Brun\u00E9i", "Bulgaria", "Burkina Faso", "Burundi", "But\u00E1n", "Cabo Verde", "Camboya", "Camer\u00FAn", "Canad\u00E1", "Catar", "Chad", "Chile", "China", "Chipre", "Ciudad del Vaticano", "Colombia", "Comoras", "Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos \u00C1rabes Unidos", "Eritrea", "Eslovaquia", "Eslovenia", "Espa\u00F1a", "Estonia", "Etiop\u00EDa", "Filipinas", "Finlandia", "Fiyi", "Francia", "Gab\u00F3n", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guyana", "Guinea", "Guinea ecuatorial", "Guinea-Bis\u00E1u", "Hait\u00ED", "Honduras", "Hungr\u00EDa", "India", "Indonesia", "Irak", "Ir\u00E1n", "Irlanda", "Islandia", "Islas Marshall", "Islas Salom\u00F3n", "Israel", "Italia", "Jamaica", "Jap\u00F3n", "Jordania", "Kazajist\u00E1n", "Kenia", "Kirguist\u00E1n", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia", "L\u00EDbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Madagascar", "Malasia", "Malaui", "Maldivas", "Mal\u00ED", "Malta", "Marruecos", "Mauricio", "Mauritania", "M\u00E9xico", "Micronesia", "Moldavia", "M\u00F3naco", "Mongolia", "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "N\u00EDger", "Nigeria", "Noruega", "Nueva Zelanda", "Om\u00E1n", "Pa\u00EDses Bajos", "Pakist\u00E1n", "Palaos", "Panam\u00E1", "Pap\u00FAa Nueva Guinea", "Paraguay", "Per\u00FA", "Polonia", "Portugal", "Reino Unido", "Rep\u00FAblica Centroafricana", "Rep\u00FAblica Checa", "Rep\u00FAblica de Macedonia", "Rep\u00FAblica del Congo", "Rep\u00FAblica Democr\u00E1tica del Congo", "Rep\u00FAblica Sudafricana", "Ruanda", "Ruman\u00EDa", "Rusia", "Samoa", "San Crist\u00F3bal y Nieves", "San Marino", "San Vicente y las Granadinas", "Santa Luc\u00EDa", "Santo Tom\u00E9 y Pr\u00EDncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sud\u00E1n", "Sud\u00E1n del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Tanzania", "Tayikist\u00E1n", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "T\u00FAnez", "Turkmenist\u00E1n", "Turqu\u00EDa", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekist\u00E1n", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Yibuti", "Zambia", "Zimbabue"}));
 			cBpais.setSelectedIndex(0);
 			cBpais.setBounds(265, 146, 245, 32);
 			panel.add(cBpais);
@@ -164,7 +137,8 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblCiudad);
 
 			textlugarnacimiento = new JTextField();
-			textlugarnacimiento.setBounds(10, 216, 500, 32);
+			textlugarnacimiento.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+			textlugarnacimiento.setBounds(10, 216, 245, 32);
 			panel.add(textlugarnacimiento);
 			textlugarnacimiento.setColumns(10);
 
@@ -174,7 +148,8 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblPeso);
 
 			spinnerpeso = new JSpinner();
-			spinnerpeso.setModel(new SpinnerNumberModel(new Integer(80), new Integer(1), null, new Integer(1)));
+			spinnerpeso.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+			spinnerpeso.setModel(new SpinnerNumberModel(new Integer(80), new Integer(40), null, new Integer(1)));
 			spinnerpeso.setBounds(52, 326, 71, 32);
 			panel.add(spinnerpeso);
 
@@ -184,7 +159,8 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblAltura);
 
 			spinneraltura = new JSpinner();
-			spinneraltura.setModel(new SpinnerNumberModel(new Integer(170), null, null, new Integer(1)));
+			spinneraltura.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+			spinneraltura.setModel(new SpinnerNumberModel(new Integer(170), new Integer(100), null, new Integer(1)));
 			spinneraltura.setBounds(232, 326, 71, 32);
 			panel.add(spinneraltura);
 
@@ -194,6 +170,7 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblPosicin);
 
 			cBposicion = new JComboBox();
+			cBposicion.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 			cBposicion.setModel(new DefaultComboBoxModel(new String[] {"Pitcher", "Catcher", "Primera base", "Segunda base", "Tercera base", "Short stop", "Left fielder", "Center fielder", "Right fielder"}));
 			cBposicion.setSelectedIndex(0);
 			cBposicion.setBounds(10, 278, 245, 32);
@@ -205,6 +182,7 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblUniversidad);
 
 			textUniversidad = new JTextField();
+			textUniversidad.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 			textUniversidad.setColumns(10);
 			textUniversidad.setBounds(265, 278, 245, 32);
 			panel.add(textUniversidad);
@@ -225,10 +203,12 @@ public class RegistrarJugador extends JDialog {
 			if(fromprincipal==true){
 			cBEquipo = new JComboBox(equipos.toArray());
 			cBEquipo.setBounds(525, 278, 195, 32);
+			cBEquipo.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			panel.add(cBEquipo);
 			}else{
 				textEquipo = new JTextField(miEquipos.getNombre());
 				textEquipo.setEditable(false);
+				textEquipo.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 				textEquipo.setBounds(520, 278, 206, 32);
 				panel.add(textEquipo);
 				textEquipo.setColumns(10);
@@ -239,6 +219,8 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblNumero);
 			
 			spinnernumero = new JSpinner();
+			spinnernumero.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+			spinnernumero.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 			spinnernumero.setBounds(426, 326, 72, 32);
 			panel.add(spinnernumero);
 			
@@ -322,25 +304,27 @@ public class RegistrarJugador extends JDialog {
 			panel.add(lblNewLabel);
 			
 			cBdia = new JComboBox();
+			cBdia.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 			cBdia.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
 			cBdia.setSelectedIndex(0);
-			cBdia.setBounds(32, 151, 43, 23);
+			cBdia.setBounds(32, 146, 43, 32);
 			panel.add(cBdia);
 			
 			cBmes = new JComboBox();
+			cBmes.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 			cBmes.setModel(new DefaultComboBoxModel(new String[] {"Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Agos", "Sept", "Oct", "Nov", "Dic"}));
 			cBmes.setSelectedIndex(0);
-			cBmes.setBounds(112, 151, 56, 23);
+			cBmes.setBounds(101, 146, 56, 32);
 			panel.add(cBmes);
 			
 			JLabel lblMes = new JLabel("Mes");
 			lblMes.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
-			lblMes.setBounds(86, 146, 22, 32);
+			lblMes.setBounds(77, 146, 25, 32);
 			panel.add(lblMes);
 			
 			JLabel lblAo = new JLabel("A\u00F1o");
 			lblAo.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
-			lblAo.setBounds(174, 146, 22, 32);
+			lblAo.setBounds(160, 146, 25, 32);
 			panel.add(lblAo);
 			
 			ArrayList<Integer> agno = new ArrayList<Integer>();
@@ -348,9 +332,10 @@ public class RegistrarJugador extends JDialog {
 				agno.add(i);
 			}
 			cBagno = new JComboBox(agno.toArray());
+			cBagno.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 			long date = Math.abs(LocalDate.now().getYear() - 1900);
 			cBagno.setSelectedIndex((int) date);
-			cBagno.setBounds(199, 151, 56, 23);
+			cBagno.setBounds(185, 146, 72, 32);
 			panel.add(cBagno);
 			
 			JLabel label = new JLabel("#");
@@ -373,6 +358,30 @@ public class RegistrarJugador extends JDialog {
 			lblNewLabel_1.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 14));
 			lblNewLabel_1.setBounds(290, 0, 144, 14);
 			panel.add(lblNewLabel_1);
+			
+			cbBatea = new JComboBox();
+			cbBatea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Izquierda", "Derecha"}));
+			cbBatea.setSelectedIndex(0);
+			cbBatea.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+			cbBatea.setBounds(265, 216, 121, 32);
+			panel.add(cbBatea);
+			
+			cbLanza = new JComboBox();
+			cbLanza.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Izquierda", "Derecha"}));
+			cbLanza.setSelectedIndex(0);
+			cbLanza.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+			cbLanza.setBounds(396, 216, 114, 32);
+			panel.add(cbLanza);
+			
+			JLabel label_1 = new JLabel("Batea");
+			label_1.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+			label_1.setBounds(265, 197, 71, 18);
+			panel.add(label_1);
+			
+			JLabel label_2 = new JLabel("Lanza");
+			label_2.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+			label_2.setBounds(396, 197, 71, 18);
+			panel.add(label_2);
 		}
 		
 		JPanel panel = new JPanel();
@@ -392,74 +401,65 @@ public class RegistrarJugador extends JDialog {
 		
 		JLabel lblPromedio = new JLabel("AB");
 		lblPromedio.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblPromedio.setBounds(94, 55, 27, 14);
+		lblPromedio.setBounds(10, 55, 27, 14);
 		panel.add(lblPromedio);
 		
 		spinab = new JSpinner();
-		spinab.setBounds(114, 52, 47, 20);
+		spinab.setBounds(30, 46, 47, 32);
 		panel.add(spinab);
-		
-		JLabel lblJj = new JLabel("JJ");
-		lblJj.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblJj.setBounds(10, 55, 27, 14);
-		panel.add(lblJj);
-		
-		spinjj = new JSpinner();
-		spinjj.setBounds(31, 52, 47, 20);
-		panel.add(spinjj);
 		
 		JLabel lblH = new JLabel("H");
 		lblH.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblH.setBounds(174, 55, 15, 14);
+		lblH.setBounds(105, 55, 15, 14);
 		panel.add(lblH);
 		
 		spinh = new JSpinner();
-		spinh.setBounds(186, 52, 47, 20);
+		spinh.setBounds(117, 46, 47, 32);
 		panel.add(spinh);
 		
 		JLabel lblb = new JLabel("2B");
 		lblb.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblb.setBounds(250, 55, 17, 14);
+		lblb.setBounds(191, 55, 17, 14);
 		panel.add(lblb);
 		
 		spin2b = new JSpinner();
-		spin2b.setBounds(272, 52, 47, 20);
+		spin2b.setBounds(213, 47, 47, 31);
 		panel.add(spin2b);
 		
 		JLabel lblb_1 = new JLabel("3B");
 		lblb_1.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblb_1.setBounds(332, 55, 17, 14);
+		lblb_1.setBounds(285, 55, 17, 14);
 		panel.add(lblb_1);
 		
 		spin3b = new JSpinner();
-		spin3b.setBounds(352, 52, 47, 20);
+		spin3b.setBounds(305, 46, 47, 32);
 		panel.add(spin3b);
 		
 		JLabel lblHr = new JLabel("HR");
 		lblHr.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblHr.setBounds(410, 55, 17, 14);
+		lblHr.setBounds(376, 55, 17, 14);
 		panel.add(lblHr);
 		
 		spinhr = new JSpinner();
-		spinhr.setBounds(430, 52, 47, 20);
+		spinhr.setBounds(396, 46, 47, 32);
 		panel.add(spinhr);
 		
 		JLabel lblBb = new JLabel("BB");
 		lblBb.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblBb.setBounds(492, 55, 17, 14);
+		lblBb.setBounds(469, 55, 17, 14);
 		panel.add(lblBb);
 		
 		spinbb = new JSpinner();
-		spinbb.setBounds(512, 52, 47, 20);
+		spinbb.setBounds(489, 46, 47, 32);
 		panel.add(spinbb);
 		
 		spinc = new JSpinner();
-		spinc.setBounds(586, 52, 47, 20);
+		spinc.setBounds(575, 46, 47, 32);
 		panel.add(spinc);
 		
 		JLabel lblC = new JLabel("C");
 		lblC.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		lblC.setBounds(576, 55, 15, 14);
+		lblC.setBounds(565, 55, 15, 14);
 		panel.add(lblC);
 		
 		JLabel lblRbi = new JLabel("RBI");
@@ -468,7 +468,7 @@ public class RegistrarJugador extends JDialog {
 		panel.add(lblRbi);
 		
 		spinrbi = new JSpinner();
-		spinrbi.setBounds(674, 52, 47, 20);
+		spinrbi.setBounds(674, 46, 47, 32);
 		panel.add(spinrbi);
 		{
 			JPanel buttonPane = new JPanel();
@@ -495,6 +495,8 @@ public class RegistrarJugador extends JDialog {
 								String univ = textUniversidad.getText();
 								int numero = Integer.parseInt(spinnernumero.getValue().toString());
 								double peso = Integer.parseInt(spinnerpeso.getValue().toString());
+								String batea = cbBatea.getSelectedItem().toString();
+								String lanza = cbLanza.getSelectedItem().toString();
 								double altura = Integer.parseInt(spinneraltura.getValue().toString());
 								String posicion = cBposicion.getSelectedItem().toString();
 								String pais = cBpais.getSelectedItem().toString();
@@ -507,10 +509,9 @@ public class RegistrarJugador extends JDialog {
 								int mes = cBmes.getSelectedIndex();
 								String agno = cBagno.getSelectedItem().toString();
 								LocalDate date = LocalDate.of(Integer.valueOf(agno), mes+1, dia+1);
-								Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, posicion, altura, date, ciudad, pais, univ, miEquipos.getNombre(), titular);
+								Jugadores nuevojugador = new Jugadores(numero, nom, apell, peso, batea, lanza, posicion, altura, date, ciudad, pais, univ, miEquipos.getNombre(), titular);
 								LigaBeisbol.getInstance().insertarJugador(nuevojugador);
 								miEquipos.getJugador().add(nuevojugador);
-								int jj = Integer.parseInt(spinjj.getValue().toString());
 								int bb = Integer.parseInt(spinbb.getValue().toString());
 								int trb = Integer.parseInt(spin3b.getValue().toString());
 								int dob  = Integer.parseInt(spin2b.getValue().toString());
@@ -518,7 +519,7 @@ public class RegistrarJugador extends JDialog {
 								int hr = Integer.parseInt(spinhr.getValue().toString());
 								int c = Integer.parseInt(spinc.getValue().toString());
 								int ab = Integer.parseInt(spinab.getValue().toString());								int rbi = Integer.parseInt(spinrbi.getValue().toString());
-								Estadisticas estadisticas = new Estadisticas(jj, h, dob, trb, hr, bb, ab, c, rbi);
+								Estadisticas estadisticas = new Estadisticas(h, dob, trb, hr, bb, ab, c, rbi);
 								nuevojugador.setEstadistica(estadisticas);	
 								JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha registrado sasctifactoriamente!", null,
 										JOptionPane.INFORMATION_MESSAGE, null);
@@ -538,6 +539,8 @@ public class RegistrarJugador extends JDialog {
 							String univ = textUniversidad.getText();
 							int numero = Integer.parseInt(spinnernumero.getValue().toString());
 							double peso = Integer.parseInt(spinnerpeso.getValue().toString());
+							String batea = cbBatea.getSelectedItem().toString();
+							String lanza = cbLanza.getSelectedItem().toString();
 							double altura = Double.valueOf(spinneraltura.getValue().toString());
 							String posicion = cBposicion.getSelectedItem().toString();
 							String pais = cBpais.getSelectedItem().toString();
@@ -553,12 +556,13 @@ public class RegistrarJugador extends JDialog {
 								j.setUniversidad(univ);
 								j.setNumero(numero);
 								j.setPeso(peso);
+								j.setBatea(batea);
+								j.setLanza(lanza);
 								j.setAltura(altura);
 								j.setPosicion(posicion);
 								j.setLugarpaisNacimiento(pais);
 								j.setTitular(titular);
 								j.setFechanacimiento(date);
-								int jj = Integer.parseInt(spinjj.getValue().toString());
 								int bb = Integer.parseInt(spinbb.getValue().toString());
 								int trb = Integer.parseInt(spin3b.getValue().toString());
 								int dob  = Integer.parseInt(spin2b.getValue().toString());
@@ -567,7 +571,7 @@ public class RegistrarJugador extends JDialog {
 								int c = Integer.parseInt(spinc.getValue().toString());
 								int ab = Integer.parseInt(spinab.getValue().toString());
 								int rbi = Integer.parseInt(spinrbi.getValue().toString());
-								Estadisticas estadisticas = new Estadisticas(jj, h, dob, trb, hr, bb, ab, c, rbi);
+								Estadisticas estadisticas = new Estadisticas(h, dob, trb, hr, bb, ab, c, rbi);
 								j.setEstadistica(estadisticas);	
 								JOptionPane.showMessageDialog(null, "El jugador " + nom +" se ha modificado sasctifactoriamente!", null,
 										JOptionPane.INFORMATION_MESSAGE, null);
@@ -608,7 +612,9 @@ public class RegistrarJugador extends JDialog {
 		textlugarnacimiento.setText("");
 		textUniversidad.setText("");
 		spinnernumero.setValue(0);
-		spinnerpeso.setValue(70);
+		spinnerpeso.setValue(80);
+		cbBatea.setSelectedIndex(0);
+		cbLanza.setSelectedIndex(0);
 		spinneraltura.setValue(170);
 		cBposicion.setSelectedIndex(0);
 		cBpais.setSelectedIndex(0);
@@ -618,26 +624,46 @@ public class RegistrarJugador extends JDialog {
 		}
 		ImageIcon image = new ImageIcon("img/player_blank.png");
 		lbFoto.setIcon(image);
+		spinab.setValue(0);
+		spin2b.setValue(0);
+		spin3b.setValue(0);
+		spinbb.setValue(0);
+		spinc.setValue(0);
+		spinh.setValue(0);
+		spinhr.setValue(0);
+		spinrbi.setValue(0);
 	}
 	
 	public void modificar(String mijugador){
 		for (Jugadores aux : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
 			if (aux.getNombre().equalsIgnoreCase(mijugador)) {
-				ImageIcon image = new ImageIcon("jugadores/" + aux.getNombre() + ".png");
-				lbFoto.setIcon(image);
+				File file = new File("jugadores/" + aux.getNombre() + ".png");
+				if(!file.exists()){
+					ImageIcon image = new ImageIcon("img/player_blank.png");
+					lbFoto.setIcon(image);
+				} else {
+					ImageIcon image = new ImageIcon("jugadores/" + aux.getNombre() + ".png");
+					lbFoto.setIcon(image);
+				}
 				textnombre.setEnabled(false);
 				textnombre.setText(aux.getNombre());
 				textapellido.setText(aux.getApellido());
 				textlugarnacimiento.setText(aux.getLugarciudadNacimiento());
 				textUniversidad.setText(aux.getUniversidad());
 				spinnernumero.setValue(aux.getNumero());
+				cBdia.setSelectedItem(aux.getFechanacimiento().getDayOfMonth());
+				cBmes.setSelectedItem(aux.getFechanacimiento().getMonthValue());
+				cBagno.setSelectedItem(aux.getFechanacimiento().getYear());
 				double d = aux.getPeso();
 				int i = (int) d;
 				spinnerpeso.setValue(i);
-				spinneraltura.setValue(aux.getAltura());
+				double d2 = aux.getAltura();
+				int i2 = (int) d2;
+				cbBatea.setSelectedItem(aux.getBatea());
+				cbLanza.setSelectedItem(aux.getLanza());
+				spinneraltura.setValue(i2);
 				cBposicion.setSelectedItem(aux.getPosicion());
 				cBpais.setSelectedItem(aux.getLugarpaisNacimiento());
-				spinjj.setValue(aux.getEstadistica().getJj());
 				spinbb.setValue(aux.getEstadistica().getBasebola());
 				spin3b.setValue(aux.getEstadistica().getTriples());;
 				spin2b.setValue(aux.getEstadistica().getDobles());

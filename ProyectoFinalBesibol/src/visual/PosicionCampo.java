@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import java.awt.Window.Type;
 
 public class PosicionCampo extends JDialog {
 
@@ -44,6 +45,7 @@ public class PosicionCampo extends JDialog {
 	private String seleccionarjugador9;
 
 	public PosicionCampo() {
+		setTitle("Posici\u00F3n en el campo");
 		setModal(true);
 		setResizable(false);
 		setBounds(100, 100, 794, 800);

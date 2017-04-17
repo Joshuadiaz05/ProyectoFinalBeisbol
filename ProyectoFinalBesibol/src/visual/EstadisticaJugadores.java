@@ -144,9 +144,9 @@ public class EstadisticaJugadores extends JDialog {
 		separator_2.setBounds(260, 60, 8, 14);
 		panel.add(separator_2);
 
-		JLabel lbZurdoODiestro = new JLabel("Batea: D, Lanza: D");
+		JLabel lbZurdoODiestro = new JLabel("Batea:");
 		lbZurdoODiestro.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lbZurdoODiestro.setBounds(270, 60, 151, 14);
+		lbZurdoODiestro.setBounds(270, 60, 54, 14);
 		panel.add(lbZurdoODiestro);
 
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento: ");
@@ -184,6 +184,31 @@ public class EstadisticaJugadores extends JDialog {
 		lbUni.setBounds(327, 130, 429, 19);
 		panel.add(lbUni);
 		
+		JLabel lbBatea = new JLabel("I");
+		if(aux.getBatea().equalsIgnoreCase("Izquierda")){
+			lbBatea.setText("I");
+		}else if(aux.getBatea().equalsIgnoreCase("Derecha")){
+			lbBatea.setText("D");
+		}
+		lbBatea.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lbBatea.setBounds(325, 60, 14, 14);
+		panel.add(lbBatea);
+		
+		JLabel lbLanza = new JLabel("Lanza:");
+		lbLanza.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lbLanza.setBounds(334, 60, 54, 14);
+		panel.add(lbLanza);
+		
+		JLabel lbLanzaa = new JLabel("D");
+		if(aux.getLanza().equalsIgnoreCase("Izquierda")){
+			lbLanzaa.setText("I");
+		}else if(aux.getLanza().equalsIgnoreCase("Derecha")){
+			lbLanzaa.setText("D");
+		}
+		lbLanzaa.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lbLanzaa.setBounds(390, 60, 14, 14);
+		panel.add(lbLanzaa);
+		
 		JLabel lblNewLabel = new JLabel("Jugador MLB");
 		lblNewLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
 		lblNewLabel.setBounds(10, 0, 767, 48);
@@ -207,7 +232,7 @@ public class EstadisticaJugadores extends JDialog {
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		String[] columndsheaders = { "JJ", "AB", "C", "H", "2B", "3B", "HR", "RBI", "BB"}; 
+		String[] columndsheaders = {"AB", "C", "H", "2B", "3B", "HR", "RBI", "BB"}; 
 		tablemodel = new DefaultTableModel();
 		tablemodel.setColumnIdentifiers(columndsheaders);
 		table.setModel(tablemodel);
@@ -249,7 +274,6 @@ public class EstadisticaJugadores extends JDialog {
 		table.getColumnModel().getColumn(5).setCellRenderer(tcr);
 		table.getColumnModel().getColumn(6).setCellRenderer(tcr);
 		table.getColumnModel().getColumn(7).setCellRenderer(tcr);
-		table.getColumnModel().getColumn(8).setCellRenderer(tcr);
 		table.getColumnModel().getColumn(0).setPreferredWidth(100);
 		table.getColumnModel().getColumn(1).setPreferredWidth(100);
 		table.getColumnModel().getColumn(2).setPreferredWidth(100);
@@ -258,17 +282,15 @@ public class EstadisticaJugadores extends JDialog {
 		table.getColumnModel().getColumn(5).setPreferredWidth(100);
 		table.getColumnModel().getColumn(6).setPreferredWidth(100);
 		table.getColumnModel().getColumn(7).setPreferredWidth(100);
-		table.getColumnModel().getColumn(8).setPreferredWidth(100);
 		fila = new Object[tablemodel.getColumnCount()];
-		fila[0] = ListadoJugadores.jugador.getEstadistica().getJj();
-		fila[1] = ListadoJugadores.jugador.getEstadistica().getTurnosjugados();
-		fila[2] = ListadoJugadores.jugador.getEstadistica().getCarreraAnotadas();
-		fila[3] = ListadoJugadores.jugador.getEstadistica().getHits();
-		fila[4] = ListadoJugadores.jugador.getEstadistica().getDobles();
-		fila[5] = ListadoJugadores.jugador.getEstadistica().getTriples();
-		fila[6] = ListadoJugadores.jugador.getEstadistica().getHomeruns();
-		fila[7] = ListadoJugadores.jugador.getEstadistica().getRBI();
-		fila[8] = ListadoJugadores.jugador.getEstadistica().getBasebola();
+		fila[0] = ListadoJugadores.jugador.getEstadistica().getTurnosjugados();
+		fila[1] = ListadoJugadores.jugador.getEstadistica().getCarreraAnotadas();
+		fila[2] = ListadoJugadores.jugador.getEstadistica().getHits();
+		fila[3] = ListadoJugadores.jugador.getEstadistica().getDobles();
+		fila[4] = ListadoJugadores.jugador.getEstadistica().getTriples();
+		fila[5] = ListadoJugadores.jugador.getEstadistica().getHomeruns();
+		fila[6] = ListadoJugadores.jugador.getEstadistica().getRBI();
+		fila[7] = ListadoJugadores.jugador.getEstadistica().getBasebola();
 		tablemodel.addRow(fila);
 	}
 }

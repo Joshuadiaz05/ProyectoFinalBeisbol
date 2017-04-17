@@ -173,7 +173,7 @@ public class Lesiones extends JDialog {
 						String comentario = editorPane.getText();
 						logical.Lesiones lesion = new logical.Lesiones(nomequipo, nombrejugador, fechalesion,
 								tipoLesion, comentario);
-						equipo.buscarJugador(nombrejugador, true, false, lesion);
+						equipo.agregarLesion(nombrejugador, true, false, lesion);
 						EquipoCaracteristicas.cargarJugadoresLesionadoPorEquipo();
 						dispose();						
 					} 

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class Estadisticas implements Serializable{
 
-	private int jj;
 	private int jg;
 	private int jp;
 	private int hits;
@@ -13,30 +12,13 @@ public class Estadisticas implements Serializable{
 	private int homeruns;
 	private int basebola;
 	private int turnosjugados;
-	private int deball;
-	private int errores;
 	private int carreraAnotadas;
 	private int RBI;
 	
-	public Estadisticas(int jj, int jg, int jp, int hits, int dobles, int triples, int homeruns, int basebola, int turnosjugados, int carreras) {
+	public Estadisticas(int hits, int dobles, int triples, int homeruns, int basebola, int turnosjugados, int carreras, int rbi) {
 		super();
-		this.jj = jj;
-		this.jg = jg;
-		this.jp = jp;
-		this.hits = hits;
-		this.dobles = dobles;
-		this.triples = triples;
-		this.homeruns = homeruns;
-		this.basebola = basebola;
-		this.turnosjugados = turnosjugados;
-		this.carreraAnotadas = carreras;
-	}
-	
-	public Estadisticas(int jj, int hits, int dobles, int triples, int homeruns, int basebola, int turnosjugados, int carreras, int rbi) {
-		super();
-		this.jj = jj;
-		this.jg = jg;
-		this.jp = jp;
+		this.jg = 0;
+		this.jp = 0;
 		this.hits = hits;
 		this.dobles = dobles;
 		this.triples = triples;
@@ -45,14 +27,6 @@ public class Estadisticas implements Serializable{
 		this.turnosjugados = turnosjugados;
 		this.carreraAnotadas = carreras;
 		this.RBI = rbi;
-	}
-
-	public int getJj() {
-		return jj;
-	}
-
-	public void setJj(int jj) {
-		this.jj = jj;
 	}
 
 	public int getJg() {
@@ -95,14 +69,6 @@ public class Estadisticas implements Serializable{
 		this.triples = triples;
 	}
 
-	public int getDeball() {
-		return deball;
-	}
-
-	public void setDeball(int deball) {
-		this.deball = deball;
-	}
-
 	public int getHomeruns() {
 		return homeruns;
 	}
@@ -125,14 +91,6 @@ public class Estadisticas implements Serializable{
 
 	public void setTurnosjugados(int turnosjugados) {
 		this.turnosjugados = turnosjugados;
-	}
-
-	public int getErrores() {
-		return errores;
-	}
-
-	public void setErrores(int errores) {
-		this.errores = errores;
 	}
 
 	public int getCarreraAnotadas() {
@@ -167,12 +125,10 @@ public class Estadisticas implements Serializable{
 	}
 	
 	public void juegoGanado(){
-		jj++;
 		jg++;
 	}
 	
 	public void juegoPerdido(){
-		jj++;
 		jp++;
 	}
 	

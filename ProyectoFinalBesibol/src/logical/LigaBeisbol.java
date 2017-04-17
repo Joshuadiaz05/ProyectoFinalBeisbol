@@ -135,6 +135,19 @@ public class LigaBeisbol implements Serializable {
 		}
 		return find;
 	}
+	
+	public void modificarEquipo(Equipos equip){
+		int i = 0, pos = 0;
+		boolean find = false;
+		while(i<equipo.size() && find==false){
+			if(equipo.get(i)==equip){
+				pos=i;
+				find=true;
+			}
+			i++;
+		}
+		equipo.set(pos, equip);
+	}
 
 	// ARCHIVOS
 	public void cargarArchivo(LigaBeisbol beisbol) {

@@ -18,11 +18,13 @@ public class Jugadores implements Serializable{
 	private String lugarpaisNacimiento;
 	private String universidad;
 	private String equipo;
+	private String batea;
+	private String lanza;
 	private boolean titular;
 	private Estadisticas estadistica;
 	private Lesiones lesiones;
 	
-	public Jugadores(int numero, String nombre, String apellido, double peso, String posicion, double altura,
+	public Jugadores(int numero, String nombre, String apellido, double peso, String batea, String lanza, String posicion, double altura,
 			LocalDate fechanacimiento, String lugarciudadNacimiento, String lugarpaisNacimiento,
 			String universidad, String equipo, boolean titular) {
 		super();
@@ -30,6 +32,8 @@ public class Jugadores implements Serializable{
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.peso = peso;
+		this.batea = batea;
+		this.lanza = lanza;
 		this.posicion = posicion;
 		this.altura = altura;
 		lesion = false;
@@ -71,6 +75,22 @@ public class Jugadores implements Serializable{
 
 	public void setPeso(double peso) {
 		this.peso = peso;
+	}
+
+	public String getBatea() {
+		return batea;
+	}
+
+	public void setBatea(String batea) {
+		this.batea = batea;
+	}
+
+	public String getLanza() {
+		return lanza;
+	}
+
+	public void setLanza(String lanza) {
+		this.lanza = lanza;
 	}
 
 	public String getPosicion() {

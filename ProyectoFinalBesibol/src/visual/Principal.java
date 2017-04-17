@@ -19,11 +19,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import java.io.File;
 
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -56,6 +58,7 @@ import java.awt.event.MouseEvent;
 
 public class Principal extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private Dimension dim;
 	private static LigaBeisbol liga;
 	private static DefaultTableModel tablemodel;
@@ -68,6 +71,7 @@ public class Principal extends JFrame {
 	private int ind;
 	private Partido miPartido = null;
 	private ArrayList<Integer> posicion = new ArrayList<>();
+	File f = new File("./Archivo.dat");
 
 	public Principal(final LigaBeisbol liga) {
 		setTitle("Liga de Beisbol");
@@ -86,7 +90,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmCrearEquipo = new JMenuItem("Crear Equipo");
 		mntmCrearEquipo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				RegistrarEquipo reg = new RegistrarEquipo();
+				RegistrarEquipo reg = new RegistrarEquipo(false, null);
 				reg.setVisible(true);
 			}
 		});
