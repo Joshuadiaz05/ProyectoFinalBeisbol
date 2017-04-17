@@ -1,6 +1,8 @@
 package visual;
 
 import java.awt.BorderLayout;
+
+import java.io.*;
 import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
@@ -116,6 +118,12 @@ public class ListadoEventos extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			
 			JButton btnImprimir = new JButton("Imprimir");
+			btnImprimir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					InformePartidos i = new InformePartidos();
+					i.setVisible(true);
+				}
+			});
 			btnImprimir.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			buttonPane.add(btnImprimir);
 			
@@ -155,6 +163,7 @@ public class ListadoEventos extends JDialog {
 				//getRootPane().setDefaultButton(okButton);
 			}
 		}
+		generarTexto();
 		cargar();
 	}
 	
@@ -185,5 +194,45 @@ public class ListadoEventos extends JDialog {
 			}
 			tablemodel.addRow(fila);
 		}
+	}
+	public static void generarTexto(){
+		try {
+			String separador = System.getProperty("line.separator");
+			try {
+				String name = "informePartido.txt";
+				File file = new File(name);
+				Writer writer = new BufferedWriter(new FileWriter(file));
+				writer.write("+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+");
+				writer.write(separador+"|  Equipo Local                                     Equipo Visitante                                     Estadio                                     Fecha                                     Hora                                     Finalizado   |");
+				for (Partido aux : LigaBeisbol.getInstance().getPartido()) {
+					Date fecha = new Date(aux.getFecha().getYear(), aux.getFecha().getMonth(), aux.getFecha().getDate());
+					LocalDate localfecha = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+					Locale spanishLocale = new Locale("es", "ES");
+					String fechaString = localfecha.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", spanishLocale));
+					String vacio;
+					if (aux.getCarrerasCasa() == 0 && aux.getCarrerasVisita() == 0) {
+						vacio =  "-";
+					} else {
+						vacio = aux.getCarrerasCasa() + " - " + aux.getCarrerasVisita();
+					}
+					writer.write(separador+"|    "+ padRight(aux.getEquipoCasa(), 55) +  "           " + padRight(aux.getEquipoVisita(), 35) +  "           "  + padRight(aux.getEstadio(), 25) +  "           "  + padRight(fechaString, 32) +  "           " + padRight(aux.getHora(), 32) + "           " + padRight(vacio, 18) + " |");
+				}
+				writer.write(separador+"+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+");
+				writer.flush();
+				writer.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (NullPointerException e) {
+			System.out.println("Error: no hay jugadores y no se pudo crear el archivo txt");
+		}
+	}
+	public static String padRight(String s, int n) {
+	     return String.format("%1$-" + n + "s", s);  
+	}
+
+	public static String padLeft(String s, int n) {
+	    return String.format("%1$" + n + "s", s);  
 	}
 }
