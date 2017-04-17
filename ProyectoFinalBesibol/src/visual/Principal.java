@@ -95,6 +95,7 @@ public class Principal extends JFrame {
 		});
 	}
 	public Principal(final LigaBeisbol liga) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img\\logobaseball_5.png"));
 		setTitle("Liga de Beisbol");
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 1920, 1080);

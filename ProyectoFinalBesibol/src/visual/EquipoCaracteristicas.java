@@ -13,7 +13,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.sun.javafx.scene.paint.GradientUtils.Point;
+import com.sun.prism.Image;
 
+import jdk.nashorn.internal.scripts.JO;
 import logical.Equipos;
 import logical.Jugadores;
 import logical.LigaBeisbol;
@@ -469,7 +471,7 @@ public class EquipoCaracteristicas extends JDialog {
 		panel_3.add(separator_3);
 		
 		JButton btnModificar = new JButton("");
-		btnModificar.setBounds(584, 8, 45, 34);
+		btnModificar.setBounds(549, 11, 45, 34);
 		panel_3.add(btnModificar);
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -495,6 +497,28 @@ public class EquipoCaracteristicas extends JDialog {
 		lbFoto_equipo.setIcon(imagee);
 		lbFoto_equipo.setHorizontalAlignment(SwingConstants.LEFT);
 		panel_1.add(lbFoto_equipo);
+		
+		JButton button_2 = new JButton("");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int resp = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas eliminar este equipo: " + aux.getNombre() + "?", null, JOptionPane.INFORMATION_MESSAGE);
+				if(resp==JOptionPane.OK_OPTION){
+					String nombre = aux.getNombre();
+					aux.getJugador().clear();
+					LigaBeisbol.getInstance().getEquipo().remove(aux);
+					JOptionPane.showMessageDialog(null, "El equipo " + nombre + " Equipo eliminado", null, JOptionPane.INFORMATION_MESSAGE);
+					TablaPosiciones.cargarPosicionEste();
+					TablaPosiciones.cargarPosicionNorte();
+					TablaPosiciones.cargarPosicionOeste();
+					TablaPosiciones.cargarPosicionSur();
+					dispose();
+				}
+			}
+		});
+		ImageIcon ee = new ImageIcon("img/remove.png");
+		button_2.setIcon(ee);
+		button_2.setBounds(604, 11, 45, 34);
+		panel_3.add(button_2);
 
 		JPanel panel_7 = new JPanel();
 		panel_7.setBounds(22, 8, 120, 83);
