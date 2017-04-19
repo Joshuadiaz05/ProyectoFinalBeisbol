@@ -168,7 +168,7 @@ public class Equipos implements Serializable{
 		boolean find = false;
 		int i=0;
 		while(i<jugador.size() && find==false){
-			if(jugador.get(i).getPosicion().equalsIgnoreCase(posicion)){
+			if(jugador.get(i).getPosicion().equalsIgnoreCase(posicion) && jugador.get(i).isTitular()==true){
 				aux=jugador.get(i);
 				find=true;
 			}
@@ -194,5 +194,23 @@ public class Equipos implements Serializable{
 	public void eliminarJugador(String nombre){
 		Jugadores aux = buscarJugadorbynombre(nombre);
 		jugador.remove(aux);
+	}
+	
+	public double promedioBateoEquipo(){
+		double promedioTotalJugadores = 0;
+		for(Jugadores aux : jugador){
+			promedioTotalJugadores += aux.getEstadistica().obtenerPromedioBateo();
+		}
+		return promedioTotalJugadores = (double)promedioTotalJugadores/jugador.size();	
+		
+	}
+	
+	public double porcenajeSLGequipo(){
+		double pocentajetotal = 0;
+		for(Jugadores aux : jugador){
+			pocentajetotal += aux.getEstadistica().obtenerSlugging();
+		}
+		return pocentajetotal = (double)pocentajetotal/jugador.size();	
+		
 	}
 }

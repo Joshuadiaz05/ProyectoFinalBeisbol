@@ -11,7 +11,6 @@ import javax.swing.border.EmptyBorder;
 
 import org.jvnet.substance.SubstanceLookAndFeel;
 
-import com.sun.prism.Image;
 
 import logical.Equipos;
 import logical.LigaBeisbol;
@@ -35,10 +34,14 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
@@ -75,25 +78,8 @@ public class Principal extends JFrame {
 	private Partido miPartido = null;
 	private ArrayList<Integer> posicion = new ArrayList<>();
 	File f = new File("./Archivo.dat");
+	static int randomNum = 0;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					// BusinessBlackSteelSkin
-					SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.BusinessBlackSteelSkin");
-					Principal frame = new Principal(liga);
-					frame.pack();
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-					frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	public Principal(final LigaBeisbol liga) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("img\\logobaseball_5.png"));
 		setTitle("Liga de Beisbol");
@@ -164,9 +150,6 @@ public class Principal extends JFrame {
 		});
 		mnJugadores.add(mntmMostrarJugadores);
 
-		JMenuItem menuItem_1 = new JMenuItem("Ver Estadisticas");
-		mnJugadores.add(menuItem_1);
-
 		JMenu mnPartidos = new JMenu("Partidos");
 		mnPartidos.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		menuBar.add(mnPartidos);
@@ -224,15 +207,7 @@ public class Principal extends JFrame {
 				local = (String) table.getModel().getValueAt(ind, 0);
 				visita = (String) table.getModel().getValueAt(ind, 1);
 				String fecha = (String) table.getModel().getValueAt(ind, 3);
-				Locale spanishLocale = new Locale("es", "ES");
-				DateFormat format = new SimpleDateFormat("dd MMMM yyyy", spanishLocale);
-				Date date = null;
-				try {
-					date = format.parse(fecha);
-				} catch (ParseException e1) {
-					e1.printStackTrace();
-				}
-				miPartido = LigaBeisbol.getInstance().buscarPartido(local, visita, date);
+				miPartido = LigaBeisbol.getInstance().buscarPartido(local, visita, fecha);
 				btnNewButton.setEnabled(true);
 
 			}
@@ -323,6 +298,8 @@ public class Principal extends JFrame {
 			}
 		});
 		ordenar();
+	//	Equipos ee = LigaBeisbol.getInstance().BuscarPorNombre("Boston Red Sox");
+		//ee.getJugador().clear();
 	}
 
 	public static void cargar() {
@@ -337,17 +314,26 @@ public class Principal extends JFrame {
 		table.getColumnModel().getColumn(5).setCellRenderer(tcr);
 		fila = new Object[tablemodel.getColumnCount()];
 		for (Partido aux : LigaBeisbol.getInstance().getPartido()) {
-			Date input = new Date(aux.getFecha().getYear(), aux.getFecha().getMonth(), aux.getFecha().getDate());
-			LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			if (LocalDate.now().equals(date)) {
+			String string = aux.getFecha();
+			Locale spanishLocale = new Locale("es", "ES");
+			DateFormat format = new SimpleDateFormat("dd MMMM yyyy", spanishLocale);
+			Calendar cal = Calendar.getInstance();
+			String string2 = Calendar.getInstance().get(Calendar.DATE) + " " + new SimpleDateFormat("MMMM", spanishLocale).format(cal.getTime()) + " " + Calendar.getInstance().get(Calendar.YEAR) ;
+			DateFormat format2 = new SimpleDateFormat("dd MMMM yyyy", spanishLocale);
+			Date date = null;
+			Date date2 = null;
+			try {
+				date = format.parse(string);
+				date2 = format2.parse(string2);	
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (date2.equals(date)) {
 				fila[0] = aux.getEquipoCasa();
 				fila[1] = aux.getEquipoVisita();
 				fila[2] = aux.getEstadio();
-				Date fecha = new Date(aux.getFecha().getYear(), aux.getFecha().getMonth(), aux.getFecha().getDate());
-				LocalDate localfecha = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				Locale spanishLocale = new Locale("es", "ES");
-				String fechaString = localfecha.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", spanishLocale));
-				fila[3] = fechaString;
+				fila[3] = aux.getFecha();
 				fila[4] = aux.getHora();
 				if (aux.getCarrerasCasa() == 0 && aux.getCarrerasVisita() == 0) {
 					fila[5] = "-";
@@ -391,4 +377,69 @@ public class Principal extends JFrame {
 			}
 		});
 	}
+	public static int random(int min, int max){
+		randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+		return randomNum;
+	}
+	public static int randBetween(int start, int end) {
+        return start + (int)Math.round(Math.random() * (end - start));
+    }
+	public static void liga(){
+		   
+		   int tope=LigaBeisbol.getInstance().getEquipo().size();
+		;//modificar el numero de clubes
+		   ArrayList <String> clubes=new ArrayList<String>();
+		   for (int i=0; i<tope;i++){
+		      clubes.add(LigaBeisbol.getInstance().getEquipo().get(i).getNombre());
+		   }
+		   int auxT=clubes.size();
+		   boolean impar=(auxT%2!=0);
+		   if(impar){
+		      ++auxT;
+		   }
+		   int totalP=(auxT*(auxT-1))/2;//total de partidos de una ronda
+		   String [] local=new String [totalP];
+		   String [] visita=new String [totalP];
+		   int modIF=(auxT/2);//para hacer mod cada inicio de fecha
+		   int indiceInverso=auxT-2;
+		   for(int i=0;i<totalP;i++){
+		      if (i%modIF==0){//seria el partido inicial de cada fecha
+		         //si es impar el numero de clubes la primera fecha se borra poniendo null
+		         if (impar){
+		            local[i]=null;
+		            visita[i]=null;
+		         }
+		         else{
+		            //se pone uno local otro  visita al ultimo equipo
+		            if(i%2==0){
+		               local[i]=clubes.get(i%(auxT-1));
+		               visita[i]=clubes.get(auxT-1);
+		            }
+		            else{
+		               local[i]=clubes.get(auxT-1);
+		                visita[i]=clubes.get(i%(auxT-1));
+		            }
+		         }
+		      }
+		      else{
+		         local[i]=clubes.get(i%(auxT-1));
+		         visita[i]=clubes.get(indiceInverso);           
+		         --indiceInverso;
+		         if (indiceInverso<0){
+		            indiceInverso=auxT-2;
+		         }
+		      }
+		   }
+		   for(int i=0;i<totalP;i++){
+		      if(local[i]!=null){
+		    	  Locale spanishLocale = new Locale("es", "ES");
+		    	  Calendar cal = Calendar.getInstance();
+		    	  String string2 = String.valueOf(random(0, 3))+ ""+ String.valueOf(random(0, 3)) + " " + new SimpleDateFormat("MMMM", spanishLocale).format(cal.getTime()) + " " + Calendar.getInstance().get(Calendar.YEAR);
+		    	  Equipos pe = LigaBeisbol.getInstance().BuscarPorNombre(local[i]);
+
+		    	  Partido p = new Partido(string2, local[i], visita[i], pe.getEstadio(), String.valueOf(random(1, 12))+ ":"+ String.valueOf(random(0, 5))+String.valueOf(random(0, 9))+ " Pm");
+		    	  LigaBeisbol.getInstance().insertarPartido(p);
+		      }
+		   }
+		}
 }

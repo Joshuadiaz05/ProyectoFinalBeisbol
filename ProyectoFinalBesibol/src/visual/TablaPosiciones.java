@@ -92,7 +92,7 @@ public class TablaPosiciones extends JDialog {
 
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
-		String[] columnsheaders = {"Equipo", "G", "P", "PCT", "Local", "Visitante"};
+		String[] columnsheaders = {"Equipo", "G", "P", "PCT"};
 		tablemodel = new DefaultTableModel();
 		tablemodel.setColumnIdentifiers(columnsheaders);
 		table.setModel(tablemodel);
@@ -124,7 +124,7 @@ public class TablaPosiciones extends JDialog {
 		});
 		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_1.setViewportView(table_1);
-		String[] columnsheaders2 = {"Equipo", "G", "P", "PCT", "Local", "Visitante"};
+		String[] columnsheaders2 = {"Equipo", "G", "P", "PCT"};
 		tablemodel2 = new DefaultTableModel();
 		tablemodel2.setColumnIdentifiers(columnsheaders2);
 		table_1.setModel(tablemodel2);
@@ -156,7 +156,7 @@ public class TablaPosiciones extends JDialog {
 		});
 		table_2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_2.setViewportView(table_2);
-		String[] columnsheaders3 = {"Equipo", "G", "P", "PCT", "Local", "Visitante"};
+		String[] columnsheaders3 = {"Equipo", "G", "P", "PCT"};
 		tablemodel3 = new DefaultTableModel();
 		tablemodel3.setColumnIdentifiers(columnsheaders3);
 		table_2.setModel(tablemodel3);
@@ -173,7 +173,7 @@ public class TablaPosiciones extends JDialog {
 		table_3 = new JTable();
 		table_3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_3.setViewportView(table_3);
-		String[] columnsheaders4 = {"Equipo", "G", "P", "PCT", "Local", "Visitante"};
+		String[] columnsheaders4 = {"Equipo", "G", "P", "PCT"};
 		tablemodel4 = new DefaultTableModel();
 		tablemodel4.setColumnIdentifiers(columnsheaders4);
 		table_3.setModel(tablemodel4);
@@ -226,8 +226,6 @@ public class TablaPosiciones extends JDialog {
 		table.getColumnModel().getColumn(1).setCellRenderer(tcr);
 		table.getColumnModel().getColumn(2).setCellRenderer(tcr);
 		table.getColumnModel().getColumn(3).setCellRenderer(tcr);
-		table.getColumnModel().getColumn(4).setCellRenderer(tcr);
-		table.getColumnModel().getColumn(5).setCellRenderer(tcr);
 		table.getColumnModel().getColumn(0).setPreferredWidth(250);
 		fila = new Object[tablemodel.getColumnCount()];
 		for (Equipos team : LigaBeisbol.getInstance().getEquipo()) {
@@ -243,8 +241,6 @@ public class TablaPosiciones extends JDialog {
 					
 				}
 				fila[3] = formatter.format(ptc/1000);
-				fila[4] = "0-0";
-				fila[5] = "0-0";
 				tablemodel.addRow(fila);
 			}
 		}
@@ -257,8 +253,6 @@ public class TablaPosiciones extends JDialog {
 		table_1.getColumnModel().getColumn(1).setCellRenderer(tcr);
 		table_1.getColumnModel().getColumn(2).setCellRenderer(tcr);
 		table_1.getColumnModel().getColumn(3).setCellRenderer(tcr);
-		table_1.getColumnModel().getColumn(4).setCellRenderer(tcr);
-		table_1.getColumnModel().getColumn(5).setCellRenderer(tcr);
 		table_1.getColumnModel().getColumn(0).setPreferredWidth(250);
 		fila2 = new Object[tablemodel2.getColumnCount()];
 		for (Equipos team : LigaBeisbol.getInstance().getEquipo()) {
@@ -275,8 +269,6 @@ public class TablaPosiciones extends JDialog {
 					
 				}
 				fila2[3] = formatter.format(ptc/100);
-				fila2[4] = "0-0";
-				fila2[5] = "0-0";
 				tablemodel2.addRow(fila2);
 			}
 		}
@@ -289,8 +281,6 @@ public class TablaPosiciones extends JDialog {
 		table_2.getColumnModel().getColumn(1).setCellRenderer(tcr);
 		table_2.getColumnModel().getColumn(2).setCellRenderer(tcr);
 		table_2.getColumnModel().getColumn(3).setCellRenderer(tcr);
-		table_2.getColumnModel().getColumn(4).setCellRenderer(tcr);
-		table_2.getColumnModel().getColumn(5).setCellRenderer(tcr);
 		table_2.getColumnModel().getColumn(0).setPreferredWidth(250);
 		fila3 = new Object[tablemodel3.getColumnCount()];
 		for (Equipos team : LigaBeisbol.getInstance().getEquipo()) {
@@ -306,8 +296,6 @@ public class TablaPosiciones extends JDialog {
 					
 				}
 				fila3[3] = formatter.format(ptc/100);
-				fila3[4] = "0-0";
-				fila3[5] = "0-0";
 				tablemodel3.addRow(fila3);
 			}
 		}
@@ -320,8 +308,6 @@ public class TablaPosiciones extends JDialog {
 		table_3.getColumnModel().getColumn(1).setCellRenderer(tcr);
 		table_3.getColumnModel().getColumn(2).setCellRenderer(tcr);
 		table_3.getColumnModel().getColumn(3).setCellRenderer(tcr);
-		table_3.getColumnModel().getColumn(4).setCellRenderer(tcr);
-		table_3.getColumnModel().getColumn(5).setCellRenderer(tcr);
 		table_3.getColumnModel().getColumn(0).setPreferredWidth(250);
 		fila4 = new Object[tablemodel4.getColumnCount()];
 		for (Equipos team : LigaBeisbol.getInstance().getEquipo()) {
@@ -337,8 +323,6 @@ public class TablaPosiciones extends JDialog {
 					
 				}
 				fila4[3] = formatter.format(ptc/100);
-				fila4[4] = "0-0";
-				fila4[5] = "0-0";
 				tablemodel4.addRow(fila4);
 			}
 		}

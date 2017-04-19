@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Partido implements Serializable{
 
-	private Date fecha;
+	private String fecha;
 	private String equipoCasa;
 	private String equipoVisita;
 	private String Estadio;
@@ -14,7 +14,7 @@ public class Partido implements Serializable{
 	private int carrerasCasa=0;
 	private int carrerasVisita=0;
 	
-	public Partido(Date fecha, String equipoCasa, String equipoVisita, String estadio, String hora) {
+	public Partido(String fecha, String equipoCasa, String equipoVisita, String estadio, String hora) {
 		super();
 		this.fecha = fecha;
 		this.equipoCasa = equipoCasa;
@@ -25,10 +25,10 @@ public class Partido implements Serializable{
 		carrerasVisita=0;
 	}
 	
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	public String getEquipoCasa() {

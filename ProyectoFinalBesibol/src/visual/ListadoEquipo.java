@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JSeparator;
 import javax.swing.border.EtchedBorder;
@@ -18,6 +20,11 @@ import logical.LigaBeisbol;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.awt.event.ActionEvent;
 
 public class ListadoEquipo extends JDialog {
 
@@ -72,21 +79,51 @@ public class ListadoEquipo extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			
 			JButton btnImprimir = new JButton("Imprimir");
+			btnImprimir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+						try {
+							File file = new File("ListadoEquipos.txt");
+							if (!file.exists()) {
+								file.createNewFile();
+							}
+							String separador = System.getProperty("line.separator");
+							FileWriter fw = new FileWriter(file.getAbsoluteFile());
+							BufferedWriter bw = new BufferedWriter(fw);
+							bw.write(
+									"\n		    <<<<<<<<<<<Lista de Equipos>>>>>>>>>>>   \r\n");
+							bw.write(
+									"\r\n ------------------------------------------------------------------------------------------------------------------------\r\n");
+							bw.write("Nombre               Año de Creación            Entranador             Region            Estadio \r\n");
+							bw.write(
+									"-------------------------------------------------------------------------------------------------------------------------\r\n");
+							for (int i = 0; i < tablemodel.getRowCount(); i++) {
+
+								for (int j = 0; j < tablemodel.getColumnCount(); j++) {
+									bw.write(table.getModel().getValueAt(i, j) + "               ");
+								}
+
+								bw.write("\r\n");
+							}
+							bw.write(
+									"-------------------------------------------------------------------------------------------------------------------------\r\n");
+							bw.close();
+							fw.close();
+							JOptionPane.showMessageDialog(null, "Lista de Equipos impresa!");
+
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+			});
 			btnImprimir.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			buttonPane.add(btnImprimir);
-			
-			JButton btnNewButton = new JButton("Caracteristicas");
-			btnNewButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-			buttonPane.add(btnNewButton);
 			{
-				JButton okButton = new JButton("Aceptar");
-				okButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-				//okButton.setActionCommand("");
-				buttonPane.add(okButton);
-				//getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancelar");
+				JButton cancelButton = new JButton("Cerrar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
@@ -108,4 +145,5 @@ public class ListadoEquipo extends JDialog {
 			tablemodel.addRow(fila);
 		}
 	}
+	
 }

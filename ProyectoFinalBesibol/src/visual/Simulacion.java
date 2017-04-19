@@ -59,9 +59,7 @@ public class Simulacion extends JDialog {
 	private JPanel panel_11;
 	private JButton btnCancelar;
 	private JButton btnFinalizarPartido;
-	private JButton button_1;
 	private JLabel lblFinalizarPartido;
-	private JLabel lblImprimir;
 	private JLabel lblSalir;
 	private JSeparator separator_2;
 	private JLabel labelPosiciones;
@@ -1231,8 +1229,8 @@ public class Simulacion extends JDialog {
 		btnFinalizarPartido = new JButton("");
 		btnFinalizarPartido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//recolectarDatos();
-				//agregarDatosJugadores();
+				recolectarDatos();
+				agregarDatosJugadores();
 				partido.setCarrerasCasa(carrerasTotal);
 				partido.setCarrerasVisita(CarrerasTotalV);
 				if(carrerasTotal>CarrerasTotalV){
@@ -1268,34 +1266,11 @@ public class Simulacion extends JDialog {
 		btnFinalizarPartido.setBounds(670, 6, 90, 40);
 		panel_11.add(btnFinalizarPartido);
 
-		button_1 = new JButton("");
-		button_1.setIcon(new ImageIcon("img/impres.png"));
-		button_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblImprimir.setVisible(false);
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblImprimir.setVisible(true);
-			}
-		});
-		button_1.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		button_1.setBounds(570, 6, 90, 40);
-		panel_11.add(button_1);
-
 		lblFinalizarPartido = new JLabel("Finalizar Partido");
 		lblFinalizarPartido.setVisible(false);
 		lblFinalizarPartido.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
 		lblFinalizarPartido.setBounds(650, 719, 111, 14);
 		contentPanel.add(lblFinalizarPartido);
-
-		lblImprimir = new JLabel("Imprimir");
-		lblImprimir.setVisible(false);
-		lblImprimir.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 14));
-		lblImprimir.setBounds(570, 719, 62, 14);
-		contentPanel.add(lblImprimir);
 
 		lblSalir = new JLabel("Salir");
 		lblSalir.setVisible(false);
@@ -1416,20 +1391,104 @@ public class Simulacion extends JDialog {
 		hllf = Integer.valueOf(HLocJ7.getValue().toString());       hlcf = Integer.valueOf(HLocJ8.getValue().toString()); hlbd = Integer.valueOf(HLocJ9.getValue().toString());
 			 //-Visitantes-
 		hvcatcher = Integer.valueOf(TBh1.getValue().toString());    hvpb = Integer.valueOf(TBh2.getValue().toString()); tvsb = Integer.valueOf(TBh3.getValue().toString()); 
-		hvtb = Integer.valueOf(TBh4.getValue().toString());         tvss = Integer.valueOf(TBh5.getValue().toString()); tvrf = Integer.valueOf(TBh6.getValue().toString()); 
-		hvlf = Integer.valueOf(TBh7.getValue().toString());         tvcf = Integer.valueOf(TBh8.getValue().toString()); tvbd = Integer.valueOf(TBh9.getValue().toString());
+		hvtb = Integer.valueOf(TBh4.getValue().toString());         hvss = Integer.valueOf(TBh5.getValue().toString()); tvrf = Integer.valueOf(TBh6.getValue().toString()); 
+		hvlf = Integer.valueOf(TBh7.getValue().toString());         hvcf = Integer.valueOf(TBh8.getValue().toString()); tvbd = Integer.valueOf(TBh9.getValue().toString());
 	
 	}
 	
 	public void agregarDatosJugadores(){
-		 catcher.getEstadistica().masDatos(tlcatcher, hlcatcher);   primerabase.getEstadistica().masDatos(tvpb, hvpb);    segundabase.getEstadistica().masDatos(tvsb, hlsb);
-		 TerceraBase.getEstadistica().masDatos(tltb, hltb);         shortstop.getEstadistica().masDatos(tvss, hvss);      rigthfield.getEstadistica().masDatos(tvrf, hlrf);
-		 leftfield.getEstadistica().masDatos(tllf, hllf);           centerfield.getEstadistica().masDatos(tvcf, hvcf);    bateadesignado.getEstadistica().masDatos(tvbd, hlbd);
+			try {
+				catcher.getEstadistica().masDatos(tlcatcher, hlcatcher);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				primerabase.getEstadistica().masDatos(tlpb, hlpb);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				segundabase.getEstadistica().masDatos(tlsb, hlsb);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				TerceraBase.getEstadistica().masDatos(tltb, hltb);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				shortstop.getEstadistica().masDatos(tlss, hlss);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				rigthfield.getEstadistica().masDatos(tlrf, hlrf);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				leftfield.getEstadistica().masDatos(tllf, hllf);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				centerfield.getEstadistica().masDatos(tlcf, hlcf);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				bateadesignado.getEstadistica().masDatos(tlbd, hlbd);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				catcherv.getEstadistica().masDatos(tvcatcher, hvcatcher);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				primerabasev.getEstadistica().masDatos(tvpb, hvpb);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				segundabasev.getEstadistica().masDatos(tvsb, hvsb);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				tercerabasev.getEstadistica().masDatos(tvtb, hvtb);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				shortstopv.getEstadistica().masDatos(tvss, hvss); 
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				rigthfieldv.getEstadistica().masDatos(tvrf, hvrf);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				leftfieldv.getEstadistica().masDatos(tvlf, hvlf);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				centerfieldv.getEstadistica().masDatos(tvcf, hvcf);
+			} catch (NullPointerException e) {
+				
+			}
+			try {
+				bateadesignadov.getEstadistica().masDatos(tvbd, hvbd);
+			} catch (NullPointerException e) {
+				
+			}
 		 
-		 catcherv.getEstadistica().masDatos(tvcatcher, hvcatcher);  primerabasev.getEstadistica().masDatos(tvpb, hvpb);   segundabasev.getEstadistica().masDatos(tvsb, hlsb);
-		 tercerabasev.getEstadistica().masDatos(tvtb, hvtb);        shortstopv.getEstadistica().masDatos(tvss, hvss);      rigthfieldv.getEstadistica().masDatos(tvrf, hlrf);
-		 leftfieldv.getEstadistica().masDatos(tvlf, hvlf);          centerfieldv.getEstadistica().masDatos(tvcf, hvcf);    bateadesignadov.getEstadistica().masDatos(tvbd, hlbd);		
-	}
+		}
 	
 	public void JugadoresGanaron(Equipos equipo){
 		int i=0;

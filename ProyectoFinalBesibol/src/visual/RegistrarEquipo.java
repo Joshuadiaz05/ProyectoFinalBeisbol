@@ -16,6 +16,9 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.border.EtchedBorder;
+
+import com.sun.prism.Image;
+
 import logical.Equipos;
 import logical.LigaBeisbol;
 
@@ -191,7 +194,8 @@ public class RegistrarEquipo extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("Registrar");
+				okButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if(update==false){
@@ -239,7 +243,8 @@ public class RegistrarEquipo extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
@@ -260,6 +265,8 @@ public class RegistrarEquipo extends JDialog {
 		cbxAgno.setSelectedIndex(0);
 		tdfEstadio.setText("");
 		cbxRegion.setSelectedIndex(0);
+		ImageIcon i = new ImageIcon(RegistrarEquipo.route2);
+		lbFoto.setIcon(i);
 	}
 	
 	public void cargarModificacion(Equipos equipo){

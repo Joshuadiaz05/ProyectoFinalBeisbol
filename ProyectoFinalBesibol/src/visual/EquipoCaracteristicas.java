@@ -39,6 +39,8 @@ import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -99,6 +101,9 @@ public class EquipoCaracteristicas extends JDialog {
 	private JPanel panel;
 	private static JLabel lblNombreEquipo, lblEquipo;
 	private static JLabel lbManager, lbAgnoEquipo, lbRegion, lbEstadioo;
+	private static JLabel promedio;
+	private static JLabel slg;
+	private JLabel lblPromedioDeSlg;
 
 	/**
 	 * Create the dialog.
@@ -138,7 +143,7 @@ public class EquipoCaracteristicas extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				int index = table.getSelectedRow();
 				jugador = (String) table.getModel().getValueAt(index, 0);
-				tabbedPane.setSelectedIndex(4);
+				tabbedPane.setSelectedIndex(3);
 				cargarJugadoresLesionadoPorEquipo();
 				cargarJugador(jugador);
 			}
@@ -167,7 +172,7 @@ public class EquipoCaracteristicas extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				int index = table_1.getSelectedRow();
 				jugador = (String) table_1.getModel().getValueAt(index, 0);
-				tabbedPane.setSelectedIndex(4);
+				tabbedPane.setSelectedIndex(3);
 				cargarJugadoresPorEquipo();
 				cargarJugador(jugador);
 				int resp = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas ver la información de la lesión?", "Alerta", JOptionPane.INFORMATION_MESSAGE);
@@ -194,31 +199,36 @@ public class EquipoCaracteristicas extends JDialog {
 		tabbedPane.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				tabbedPane.setEnabledAt(4, false);
+				tabbedPane.setEnabledAt(3, false);
 			}
 			});
 		tabbedPane.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		tabbedPane.setBounds(0, 0, 664, 488);
 		tab.add(tabbedPane);
 		JPanel panelPromedio = new JPanel();
-		JLabel et_p1 = new JLabel("Estas en el panel 1");
-		et_p1.setBounds(10, 11, 228, 31);
-		et_p1.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
+		panelPromedio.setLayout(null);
+		JLabel et_p1 = new JLabel("Promedio de Bateo");
+		et_p1.setBounds(192, 30, 275, 44);
+		et_p1.setFont(new Font("Times New Roman", Font.BOLD, 33));
 		panelPromedio.add(et_p1);
 		tabbedPane.addTab("Promedio", panelPromedio);
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Estadisticas", null, panel_2, null);
-		panel_2.setLayout(null);
 		
-		JLabel lblJuegosGanados = new JLabel("Juegos Ganados: ");
-		lblJuegosGanados.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
-		lblJuegosGanados.setBounds(10, 11, 210, 31);
-		panel_2.add(lblJuegosGanados);
+		promedio = new JLabel("");
+		promedio.setHorizontalAlignment(SwingConstants.CENTER);
+		promedio.setFont(new Font("Tw Cen MT", Font.PLAIN, 98));
+		promedio.setBounds(131, 68, 396, 159);
+		panelPromedio.add(promedio);
 		
-		JLabel label = new JLabel(""+aux.getJg());
-		label.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
-		label.setBounds(221, 11, 28, 31);
-		panel_2.add(label);
+		slg = new JLabel();
+		slg.setHorizontalAlignment(SwingConstants.CENTER);
+		slg.setFont(new Font("Tw Cen MT", Font.PLAIN, 98));
+		slg.setBounds(141, 281, 396, 159);
+		panelPromedio.add(slg);
+		
+		lblPromedioDeSlg = new JLabel("Porcentaje de Slugging");
+		lblPromedioDeSlg.setFont(new Font("Times New Roman", Font.BOLD, 33));
+		lblPromedioDeSlg.setBounds(162, 243, 335, 44);
+		panelPromedio.add(lblPromedioDeSlg);
 
 		JPanel panelCalendario = new JPanel();
 		tabbedPane.addTab("Calendario", null, panelCalendario, null);
@@ -340,6 +350,8 @@ public class EquipoCaracteristicas extends JDialog {
 		lbEligeUnJugador.setEnabled(false);
 
 		button = new JButton("");
+		ImageIcon eee = new ImageIcon("img/ediit.png");
+		button.setIcon(eee);
 		if (aux.getJugador().size() > 0) {
 			button.setVisible(true);
 		} else {
@@ -371,7 +383,7 @@ public class EquipoCaracteristicas extends JDialog {
 
 		table_4 = new JTable();
 		scrollPane_2.setViewportView(table_4);
-		String[] columndsheaders = {"AB", "C", "H", "2B", "3B", "HR", "RBI", "BB" };
+		String[] columndsheaders = {"AB", "C", "H", "2B", "3B", "HR", "RBI", "BB", "PROM"};
 		tablemodel4 = new DefaultTableModel();
 		tablemodel4.setColumnIdentifiers(columndsheaders);
 		table_4.setModel(tablemodel4);
@@ -394,7 +406,7 @@ public class EquipoCaracteristicas extends JDialog {
 		JPanel panelinfo = new JPanel();
 		tabbedPane.addTab("Informacion", null, panelinfo, null);
 		tabbedPane.addTab("Jugador", null, panel, null);
-		tabbedPane.setEnabledAt(4, false);
+		tabbedPane.setEnabledAt(3, false);
 		panelinfo.setLayout(null);
 		ImageIcon imagee = new ImageIcon("equipos/" + aux.getNombre() + ".png");
 		
@@ -461,7 +473,7 @@ public class EquipoCaracteristicas extends JDialog {
 		lbRegion.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		
 		lblNombreEquipo = new JLabel("");
-		lblNombreEquipo.setBounds(140, 17, 208, 35);
+		lblNombreEquipo.setBounds(140, 17, 399, 35);
 		panel_3.add(lblNombreEquipo);
 		lblNombreEquipo.setText(aux.getNombre());
 		lblNombreEquipo.setFont(new Font("Trebuchet MS", Font.BOLD, 26));
@@ -479,7 +491,7 @@ public class EquipoCaracteristicas extends JDialog {
 				reg.setVisible(true);
 			}
 		});
-		btnModificar.setIcon(new ImageIcon("img/modddf.png"));
+		btnModificar.setIcon(new ImageIcon("img/ediit.png"));
 		
 		JPanel panel_1 = new JPanel() {
 		    public void paintComponent(Graphics g) {
@@ -515,7 +527,7 @@ public class EquipoCaracteristicas extends JDialog {
 				}
 			}
 		});
-		ImageIcon ee = new ImageIcon("img/remove.png");
+		ImageIcon ee = new ImageIcon("img/borraequipo.png");
 		button_2.setIcon(ee);
 		button_2.setBounds(604, 11, 45, 34);
 		panel_3.add(button_2);
@@ -630,7 +642,7 @@ public class EquipoCaracteristicas extends JDialog {
 						JOptionPane.YES_NO_OPTION);
 				if (answer == JOptionPane.YES_OPTION) {
 					aux.eliminarJugador(jugador);
-					tabbedPane.setEnabledAt(4, false);
+					tabbedPane.setEnabledAt(3, false);
 					cargarJugadoresPorEquipo();
 					cargarJugadoresLesionadoPorEquipo();
 					tabbedPane.setSelectedIndex(0);
@@ -684,6 +696,20 @@ public class EquipoCaracteristicas extends JDialog {
 		button_1.setBounds(8, 50, 48, 40);
 		panel_8.add(button_1);
 		
+		if(aux.getJugador().size()==0){
+			promedio.setText("");
+		}else{
+			NumberFormat formatter = new DecimalFormat(".000###");
+			promedio.setText(""+formatter.format((double)aux.promedioBateoEquipo()/100));
+		}
+		
+		if(aux.getJugador().size()==0){
+			slg.setText("");
+		}else{
+			NumberFormat formatter = new DecimalFormat(".000###");
+			slg.setText(""+formatter.format((double)aux.porcenajeSLGequipo()/100));
+		}
+		
 		lblQuitarLesion = new JLabel("Quitar Lesion");
 		lblQuitarLesion.setVisible(false);
 		lblQuitarLesion.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
@@ -696,13 +722,13 @@ public class EquipoCaracteristicas extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cerrar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				cancelButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -758,24 +784,19 @@ public class EquipoCaracteristicas extends JDialog {
 				fila3[0] = partidos.getEquipoCasa();
 				fila3[1] = partidos.getEquipoVisita();
 				fila3[2] = partidos.getEstadio();
-				Date fecha = new Date(partidos.getFecha().getYear(), partidos.getFecha().getMonth(),
-						partidos.getFecha().getDate());
-				LocalDate localfecha = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				Locale spanishLocale = new Locale("es", "ES");
-				String fechaString = localfecha.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", spanishLocale));
-				fila3[3] = fechaString;
+				fila3[3] = partidos.getFecha();
 				fila3[4] = partidos.getHora();
-				/*
-				 * if(partidos.getCarrerasCasa()==0 &&
-				 * partidos.getCarrerasVisita()==0){ fila[5] = "-"; }else{
-				 * fila[5] = ""+partidos.getCarrerasCasa()+" - "+partidos.
-				 * getCarrerasVisita(); }
-				 */
+				if (partidos.getCarrerasCasa() == 0 && partidos.getCarrerasVisita() == 0) {
+					fila3[5] = "-";
+				} else {
+					fila3[5] = "" + partidos.getCarrerasCasa() + " - " + partidos.getCarrerasVisita();
+				}
 				tablemodelcalendario.addRow(fila3);
 			}
 		}
 	}
 
+	
 	public static void cargarJugador(String mijugador) {
 		lbEligeUnJugador.setVisible(false);
 		button.setVisible(true);
@@ -824,6 +845,8 @@ public class EquipoCaracteristicas extends JDialog {
 					pos = "CF";
 				} else if (aux.getPosicion().equalsIgnoreCase("Right fielder")) {
 					pos = "RF";
+				} else if (aux.getPosicion().equalsIgnoreCase("Bateador designado")) {
+					pos = "BD";
 				}
 				lbPos.setText(pos);
 				// lbZurdoODiestro.setText("");
@@ -838,8 +861,23 @@ public class EquipoCaracteristicas extends JDialog {
 						+ Math.abs(aux.getFechanacimiento().getYear() - LocalDate.now().getYear()) + ")");
 				lbUni.setText(aux.getUniversidad());
 				cargarEstadisticas(mijugador);
+				Equipos e = LigaBeisbol.getInstance().BuscarPorNombre(aux.getEquipo());
+				if(e.getJugador().size()==0){
+					promedio.setText("");
+				}else{
+					NumberFormat formatter = new DecimalFormat(".000###");
+					promedio.setText(""+formatter.format((double)e.promedioBateoEquipo()/100));
+				}
+				
+				if(e.getJugador().size()==0){
+					slg.setText("");
+				}else{
+					NumberFormat formatter = new DecimalFormat(".000###");
+					slg.setText(""+formatter.format((double)e.porcenajeSLGequipo()/100));
+				}
 			}
 		}
+		
 	}
 
 	public static void cargarEstadisticas(String mijugador) {
@@ -854,6 +892,7 @@ public class EquipoCaracteristicas extends JDialog {
 		table_4.getColumnModel().getColumn(5).setCellRenderer(tcr);
 		table_4.getColumnModel().getColumn(6).setCellRenderer(tcr);
 		table_4.getColumnModel().getColumn(7).setCellRenderer(tcr);
+		table_4.getColumnModel().getColumn(8).setCellRenderer(tcr);
 		table_4.getColumnModel().getColumn(0).setPreferredWidth(100);
 		table_4.getColumnModel().getColumn(1).setPreferredWidth(100);
 		table_4.getColumnModel().getColumn(2).setPreferredWidth(100);
@@ -862,6 +901,7 @@ public class EquipoCaracteristicas extends JDialog {
 		table_4.getColumnModel().getColumn(5).setPreferredWidth(100);
 		table_4.getColumnModel().getColumn(6).setPreferredWidth(100);
 		table_4.getColumnModel().getColumn(7).setPreferredWidth(100);
+		table_4.getColumnModel().getColumn(8).setPreferredWidth(100);
 		fila4 = new Object[tablemodel4.getColumnCount()];
 		for (Jugadores aux : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
 			if (aux.getNombre().equalsIgnoreCase(mijugador)) {
@@ -873,6 +913,7 @@ public class EquipoCaracteristicas extends JDialog {
 				fila4[5] = aux.getEstadistica().getHomeruns();
 				fila4[6] = aux.getEstadistica().getRBI();
 				fila4[7] = aux.getEstadistica().getBasebola();
+				fila4[8] = aux.getEstadistica().obtenerPromedioBateo();
 				tablemodel4.addRow(fila4);
 			}
 		}
@@ -886,5 +927,18 @@ public class EquipoCaracteristicas extends JDialog {
 		lbManager.setText(e.getManager());
 		lbRegion.setText(e.getRegion());
 		lbAgnoEquipo.setText(e.getAgnocreacion());
+		if(e.getJugador().size()==0){
+			promedio.setText("");
+		}else{
+			NumberFormat formatter = new DecimalFormat(".000###");
+			promedio.setText(""+formatter.format((double)e.promedioBateoEquipo()/100));
+		}
+		
+		if(e.getJugador().size()==0){
+			slg.setText("");
+		}else{
+			NumberFormat formatter = new DecimalFormat(".000###");
+			slg.setText(""+formatter.format((double)e.porcenajeSLGequipo()/100));
+		}
 	}
 }

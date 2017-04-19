@@ -14,11 +14,14 @@ import java.awt.Choice;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
+import java.util.Locale;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import javax.swing.SpinnerListModel;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
@@ -164,6 +167,9 @@ public class RegistrarPartido extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						if(update==false){
 							Date fecha = dateChooser.getDate();
+							Locale spanishLocale = new Locale("es", "ES");
+							DateFormat df = new SimpleDateFormat("dd MMMM yyyy", spanishLocale);
+							String reportDate = df.format(fecha);
 							String horario = cBoxHora.getSelectedItem().toString();
 							String local = cBlocal.getSelectedItem().toString();
 							String visita = cBvisita.getSelectedItem().toString();
@@ -171,37 +177,39 @@ public class RegistrarPartido extends JDialog {
 							
 							if(cBlocal.getSelectedIndex()==0 || cBvisita.getSelectedIndex()==0 || dateChooser.getDate()==null){
 								JOptionPane.showMessageDialog(null, "No dejes los espacios en blancos" , "Error", JOptionPane.WARNING_MESSAGE);
-							} else if(LigaBeisbol.getInstance().verificarEquipoPartido(local, fecha)==true || LigaBeisbol.getInstance().verificarEquipoPartido(visita, fecha)==true){
+							} else if(LigaBeisbol.getInstance().verificarEquipoPartido(local, reportDate)==true || LigaBeisbol.getInstance().verificarEquipoPartido(visita, reportDate)==true){
 								JOptionPane.showMessageDialog(null, "Uno de los equipos ya tiene partido para la fecha seleccionada", "Error", JOptionPane.WARNING_MESSAGE);
 							}else{
-								if(LigaBeisbol.getInstance().buscarPartidoBoolean(local, visita, fecha)==true){
+								if(LigaBeisbol.getInstance().buscarPartidoBoolean(local, visita, reportDate)==true){
 									JOptionPane.showMessageDialog(null, "Ya existe un evento con ambos equipo programado", "Error", JOptionPane.WARNING_MESSAGE);
 								}else{
-									Partido partido = new Partido(fecha, local, visita, estadio, horario);
+									Partido partido = new Partido(reportDate, local, visita, estadio, horario);
 									LigaBeisbol.getInstance().insertarPartido(partido);
 									Principal.cargar(); 
 									dispose();
 								}
 							}
 						}else{
-							Date fecha = dateChooser.getDate(); 
+							Date fecha = dateChooser.getDate();
+							Locale spanishLocale = new Locale("es", "ES");
+							DateFormat df = new SimpleDateFormat("dd MMMM yyyy", spanishLocale);
+							String reportDate = df.format(fecha);
 							String horario = cBoxHora.getSelectedItem().toString();
 							String local = cBlocal.getSelectedItem().toString();
 							String visita = cBvisita.getSelectedItem().toString();
 							String estadio = textField.getText();
-							System.out.println(fecha);
 							if(cBlocal.getSelectedIndex()==0 || cBvisita.getSelectedIndex()==0 || dateChooser.getDate()==null){
 								JOptionPane.showMessageDialog(null, "No dejes los espacios en blancos" , "Error", JOptionPane.WARNING_MESSAGE);
-							}else if(LigaBeisbol.getInstance().verificarEquipoPartido(local, fecha)==true || LigaBeisbol.getInstance().verificarEquipoPartido(visita, fecha)==true){
+							}else if(LigaBeisbol.getInstance().verificarEquipoPartido(local, reportDate)==true || LigaBeisbol.getInstance().verificarEquipoPartido(visita, reportDate)==true){
 								JOptionPane.showMessageDialog(null, "Uno de los equipos ya tiene partido para la fecha seleccionada", "Error", JOptionPane.WARNING_MESSAGE);
 							}else{
-								if(LigaBeisbol.getInstance().buscarPartidoBoolean(local, visita, fecha)==true){
+								if(LigaBeisbol.getInstance().buscarPartidoBoolean(local, visita, reportDate)==true){
 									JOptionPane.showMessageDialog(null, "Ya existe un evento con ambos equipo programado", "Error", JOptionPane.WARNING_MESSAGE);
 								}else{
 									miPartido.setEquipoCasa(local);
 									miPartido.setEquipoVisita(visita);
 									miPartido.setEstadio(estadio);
-									miPartido.setFecha(fecha);
+									miPartido.setFecha(reportDate);
 									miPartido.setHora(horario);
 									JOptionPane.showMessageDialog(null, "El partido se ha modificado correctamente", "Modificado", JOptionPane.INFORMATION_MESSAGE);
 									ListadoEventos.cargar();
@@ -234,7 +242,6 @@ public class RegistrarPartido extends JDialog {
 	}
 	
 	public void cargarModificar(Partido partido){
-		dateChooser.setDate(partido.getFecha());
 		cBoxHora.setSelectedItem(partido.getHora());
 		cBlocal.setSelectedItem(partido.getEquipoCasa());
 		cBvisita.setSelectedItem(partido.getEquipoVisita());

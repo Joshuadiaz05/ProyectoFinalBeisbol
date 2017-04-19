@@ -91,15 +91,7 @@ public class ListadoEventos extends JDialog {
 					String local = (String) table.getModel().getValueAt(ind, 0);
 					String visita = (String) table.getModel().getValueAt(ind, 1);
 					String fecha = (String) table.getModel().getValueAt(ind, 3);
-					Locale spanishLocale = new Locale("es", "ES");
-					DateFormat format = new SimpleDateFormat("dd MMMM yyyy", spanishLocale);
-					Date date = null;
-					try {
-						date = format.parse(fecha);
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
-					miPartido = LigaBeisbol.getInstance().buscarPartido(local, visita, date);
+					miPartido = LigaBeisbol.getInstance().buscarPartido(local, visita, fecha);
 					btnEliminar.setEnabled(true);
 					if(miPartido.getCarrerasCasa()==0 && miPartido.getCarrerasVisita()==0){ 
 						modificar.setEnabled(true);
@@ -132,8 +124,20 @@ public class ListadoEventos extends JDialog {
 				public void actionPerformed(ActionEvent arg0) {
 					LigaBeisbol.getInstance().eliminarPartido(miPartido);
 					ListadoEventos.cargar();
+					Principal.cargar();
 				}
 			});
+			
+			JButton btnGenerarPartidos = new JButton("Generar partidos");
+			btnGenerarPartidos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Principal.liga();
+					ListadoEventos.cargar();
+					Principal.cargar();
+				}
+			});
+			btnGenerarPartidos.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+			buttonPane.add(btnGenerarPartidos);
 			btnEliminar.setEnabled(false);
 			//ImageIcon btnEliminar = new ImageIcon(location);
 			//btnEliminar.setSelectedIcon(arg0);
@@ -176,16 +180,13 @@ public class ListadoEventos extends JDialog {
 		table.getColumnModel().getColumn(2).setCellRenderer(tcr);
 		table.getColumnModel().getColumn(3).setCellRenderer(tcr);
 		table.getColumnModel().getColumn(4).setCellRenderer(tcr);
+		table.getColumnModel().getColumn(5).setCellRenderer(tcr);
 		fila = new Object[tablemodel.getColumnCount()];
 		for (Partido aux : LigaBeisbol.getInstance().getPartido()) {
 			fila[0] = aux.getEquipoCasa();
 			fila[1] = aux.getEquipoVisita();
 			fila[2] = aux.getEstadio();
-			Date fecha = new Date(aux.getFecha().getYear(), aux.getFecha().getMonth(), aux.getFecha().getDate());
-			LocalDate localfecha = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			Locale spanishLocale = new Locale("es", "ES");
-			String fechaString = localfecha.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", spanishLocale));
-			fila[3] = fechaString;
+			fila[3] = aux.getFecha();
 			fila[4] = aux.getHora();
 			if(aux.getCarrerasCasa()==0 && aux.getCarrerasVisita()==0){
 				fila[5] = "-";
@@ -202,22 +203,18 @@ public class ListadoEventos extends JDialog {
 				String name = "informePartido.txt";
 				File file = new File(name);
 				Writer writer = new BufferedWriter(new FileWriter(file));
-				writer.write("+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+");
-				writer.write(separador+"|  Equipo Local                                     Equipo Visitante                                     Estadio                                     Fecha                                     Hora                                     Finalizado   |");
+				writer.write(separador+"+---------------------------------------------------------------------------------------------------------------------------------+");
+				writer.write(separador+"|  Equipo Local              Equipo Visitante          Estadio               Fecha               Hora                Finalizado   |");
 				for (Partido aux : LigaBeisbol.getInstance().getPartido()) {
-					Date fecha = new Date(aux.getFecha().getYear(), aux.getFecha().getMonth(), aux.getFecha().getDate());
-					LocalDate localfecha = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-					Locale spanishLocale = new Locale("es", "ES");
-					String fechaString = localfecha.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", spanishLocale));
 					String vacio;
 					if (aux.getCarrerasCasa() == 0 && aux.getCarrerasVisita() == 0) {
 						vacio =  "-";
 					} else {
 						vacio = aux.getCarrerasCasa() + " - " + aux.getCarrerasVisita();
 					}
-					writer.write(separador+"|    "+ padRight(aux.getEquipoCasa(), 55) +  "           " + padRight(aux.getEquipoVisita(), 35) +  "           "  + padRight(aux.getEstadio(), 25) +  "           "  + padRight(fechaString, 32) +  "           " + padRight(aux.getHora(), 32) + "           " + padRight(vacio, 18) + " |");
+					writer.write(separador+"|    "+ padRight(aux.getEquipoCasa(), 28) +  padRight(aux.getEquipoVisita(), 23) + padRight(aux.getEstadio(), 16) + padRight(aux.getFecha(), 11) +  "           " + padRight(aux.getHora(), 23) +  padRight(vacio, 11) + "|");
 				}
-				writer.write(separador+"+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+");
+				writer.write(separador+"+---------------------------------------------------------------------------------------------------------------------------------+");
 				writer.flush();
 				writer.close();
 			} catch (IOException e) {

@@ -12,6 +12,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import java.io.*;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 public class InformePartidos extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -24,7 +26,8 @@ public class InformePartidos extends JDialog {
 		setTitle("Informe del partido");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 919, 570);
+		setBounds(100, 100, 1107, 570);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -36,10 +39,11 @@ public class InformePartidos extends JDialog {
 		contentPanel.add(lblInformes);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 56, 893, 2);
+		separator.setBounds(10, 49, 1079, 9);
 		contentPanel.add(separator);
 		
 		textArea = new JTextArea();
+		textArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
 		textArea.setEditable(false);
 		try {
 			cargar();
@@ -47,20 +51,20 @@ public class InformePartidos extends JDialog {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		textArea.setBounds(10, 69, 893, 418);
+		textArea.setBounds(10, 69, 1079, 418);
 		contentPanel.add(textArea);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cerrar");
+				cancelButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

@@ -114,9 +114,9 @@ import java.awt.event.ActionListener;
                  frame.setVisible(true);
              }
          };
-         time2 = new Timer(0, al1);
+         time2 = new Timer(60, al1);
          time2.start();
-         timer1 = new Timer(0, al);
+         timer1 = new Timer(60, al);
          timer1.start();
      }
  

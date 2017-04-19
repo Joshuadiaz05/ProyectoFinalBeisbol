@@ -68,6 +68,7 @@ public class RegistrarJugador extends JDialog {
 	private JTextField textEquipo;
 	private String equipotext = "";
 	private Equipos miEquipos;
+	public static String route2;
 	
 	public RegistrarJugador(boolean fromprincipal, boolean modificacion, String jugador) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("./Imag/baseball.png"));
@@ -245,7 +246,7 @@ public class RegistrarJugador extends JDialog {
 						JFileChooser chooser = new JFileChooser();
 						chooser.showOpenDialog(null);
 						File f = chooser.getSelectedFile();
-						String route2 = "";
+						route2 = "";
 						try {
 							route2 = f.getAbsolutePath();
 						} catch (NullPointerException e2) {
@@ -344,6 +345,7 @@ public class RegistrarJugador extends JDialog {
 			panel.add(label);
 			
 			chckbxNewCheckBox = new JCheckBox("Titular");
+			chckbxNewCheckBox.setSelected(true);
 			chckbxNewCheckBox.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 			chckbxNewCheckBox.setBounds(575, 326, 89, 32);
 			panel.add(chckbxNewCheckBox);
@@ -405,6 +407,7 @@ public class RegistrarJugador extends JDialog {
 		panel.add(lblPromedio);
 		
 		spinab = new JSpinner();
+		spinab.setModel(new SpinnerNumberModel(500, 0, 999, 100));
 		spinab.setBounds(30, 46, 47, 32);
 		panel.add(spinab);
 		
@@ -414,6 +417,7 @@ public class RegistrarJugador extends JDialog {
 		panel.add(lblH);
 		
 		spinh = new JSpinner();
+		spinh.setModel(new SpinnerNumberModel(400, 1, 999, 1));
 		spinh.setBounds(117, 46, 47, 32);
 		panel.add(spinh);
 		
@@ -423,6 +427,7 @@ public class RegistrarJugador extends JDialog {
 		panel.add(lblb);
 		
 		spin2b = new JSpinner();
+		spin2b.setModel(new SpinnerNumberModel(600, 1, 999, 1));
 		spin2b.setBounds(213, 47, 47, 31);
 		panel.add(spin2b);
 		
@@ -432,6 +437,7 @@ public class RegistrarJugador extends JDialog {
 		panel.add(lblb_1);
 		
 		spin3b = new JSpinner();
+		spin3b.setModel(new SpinnerNumberModel(40, 0, 999, 1));
 		spin3b.setBounds(305, 46, 47, 32);
 		panel.add(spin3b);
 		
@@ -441,6 +447,7 @@ public class RegistrarJugador extends JDialog {
 		panel.add(lblHr);
 		
 		spinhr = new JSpinner();
+		spinhr.setModel(new SpinnerNumberModel(35, 1, 999, 1));
 		spinhr.setBounds(396, 46, 47, 32);
 		panel.add(spinhr);
 		
@@ -450,10 +457,12 @@ public class RegistrarJugador extends JDialog {
 		panel.add(lblBb);
 		
 		spinbb = new JSpinner();
+		spinbb.setModel(new SpinnerNumberModel(100, 1, 999, 1));
 		spinbb.setBounds(489, 46, 47, 32);
 		panel.add(spinbb);
 		
 		spinc = new JSpinner();
+		spinc.setModel(new SpinnerNumberModel(15, 1, 999, 1));
 		spinc.setBounds(575, 46, 47, 32);
 		panel.add(spinc);
 		
@@ -468,6 +477,7 @@ public class RegistrarJugador extends JDialog {
 		panel.add(lblRbi);
 		
 		spinrbi = new JSpinner();
+		spinrbi.setModel(new SpinnerNumberModel(new Integer(22), new Integer(1), null, new Integer(1)));
 		spinrbi.setBounds(674, 46, 47, 32);
 		panel.add(spinrbi);
 		{
@@ -579,6 +589,7 @@ public class RegistrarJugador extends JDialog {
 								EquipoCaracteristicas.cargarJugadoresLesionadoPorEquipo();
 								EquipoCaracteristicas.cargarJugador(nom);
 								EquipoCaracteristicas.cargarEstadisticas(nom);
+								dispose();
 							}
 							
 						}
@@ -624,14 +635,14 @@ public class RegistrarJugador extends JDialog {
 		}
 		ImageIcon image = new ImageIcon("img/player_blank.png");
 		lbFoto.setIcon(image);
-		spinab.setValue(0);
-		spin2b.setValue(0);
-		spin3b.setValue(0);
-		spinbb.setValue(0);
-		spinc.setValue(0);
-		spinh.setValue(0);
-		spinhr.setValue(0);
-		spinrbi.setValue(0);
+		spinab.setValue(500);
+		spin2b.setValue(3);
+		spin3b.setValue(35);
+		spinbb.setValue(10);
+		spinc.setValue(15);
+		spinh.setValue(400);
+		spinhr.setValue(30);
+		spinrbi.setValue(25);
 	}
 	
 	public void modificar(String mijugador){

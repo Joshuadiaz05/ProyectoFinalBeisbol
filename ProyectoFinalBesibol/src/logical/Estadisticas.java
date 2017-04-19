@@ -109,9 +109,9 @@ public class Estadisticas implements Serializable{
 		RBI = rBI;
 	}
 
-	public float obtenerPromedioBateo(){
-		float promediobateo=hits/turnosjugados;
-		return (float) promediobateo;
+	public double obtenerPromedioBateo(){
+		double promediobateo = (double)hits/turnosjugados;
+		return (double) promediobateo;
 	}
 	
 	public float obtenerSlugging(){

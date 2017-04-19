@@ -106,7 +106,7 @@ public class LigaBeisbol implements Serializable {
 		equipo.remove(miEquipo);
 	}
 
-	public Partido buscarPartido(String local, String visita, Date fecha) {
+	public Partido buscarPartido(String local, String visita, String fecha) {
 		Partido miPartido = null;
 		boolean find = false;
 		int i = 0;
@@ -122,7 +122,7 @@ public class LigaBeisbol implements Serializable {
 		return miPartido;
 	}
 	
-	public boolean buscarPartidoBoolean(String local, String visita, Date fecha) {
+	public boolean buscarPartidoBoolean(String local, String visita, String fecha) {
 		Partido miPartido = null;
 		boolean find = false;
 		int i = 0;
@@ -137,7 +137,7 @@ public class LigaBeisbol implements Serializable {
 		return find;
 	}
 	
-	public boolean verificarEquipoPartido(String nomb, Date fecha) {
+	public boolean verificarEquipoPartido(String nomb, String fecha) {
 		Partido miPartido = null;
 		boolean find = false;
 		int i = 0;
@@ -205,4 +205,6 @@ public class LigaBeisbol implements Serializable {
 	public void eliminarPartido(Partido miPartido) {
 		partido.remove(miPartido);		
 	}
+	
+
 }

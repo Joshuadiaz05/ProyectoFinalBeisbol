@@ -43,6 +43,7 @@ public class PosicionCampo extends JDialog {
 	private String seleccionarjugador7;
 	private String seleccionarjugador8;
 	private String seleccionarjugador9;
+	private JLabel labelshortstop;
 
 	public PosicionCampo() {
 		setTitle("Posici\u00F3n en el campo");
@@ -238,7 +239,7 @@ public class PosicionCampo extends JDialog {
 		lblSegundaBase = new JLabel("Segunda Base");
 		lblSegundaBase.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSegundaBase.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblSegundaBase.setBounds(323, 370, 172, 20);
+		lblSegundaBase.setBounds(439, 399, 172, 20);
 		contentPanel.add(lblSegundaBase);
 		
 		JButton btnSb = new JButton("S.B");
@@ -277,7 +278,7 @@ public class PosicionCampo extends JDialog {
 				}
 			}
 		});
-		btnSb.setBounds(386, 335, 46, 28);
+		btnSb.setBounds(502, 368, 46, 28);
 		contentPanel.add(btnSb);
 		
 		lblPrimeraBase = new JLabel("Primera Base");
@@ -415,6 +416,51 @@ public class PosicionCampo extends JDialog {
 		btnCatcher.setBounds(384, 638, 35, 28);
 		contentPanel.add(btnCatcher);
 		
+		JButton btnSS = new JButton("S.S");
+		btnSS.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ArrayList<String> jugadores = new ArrayList<String>();
+				for (Jugadores aux : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
+					if (aux.getPosicion().equalsIgnoreCase("Short Stop") && !aux.isLesion()) {
+						jugadores.add(aux.getNombre().toString());
+						aux.setTitular(false);
+					}
+				}
+				try {
+					String[] jugadoresArr = new String[jugadores.size()];
+					jugadoresArr = jugadores.toArray(jugadoresArr);
+					seleccionarjugador = (String) JOptionPane.showInputDialog(null, 
+					        "Seleccione un jugador",
+					        "Seleccionar Jugador",
+					        JOptionPane.QUESTION_MESSAGE, 
+					        null, 
+					        jugadoresArr,
+					        jugadoresArr[0]);
+						for (Jugadores aux : LigaBeisbol.getInstance().BuscarPorNombre(TablaPosiciones.nombreEquipo).getJugador()) {
+							try {
+								if (seleccionarjugador.equalsIgnoreCase(aux.getNombre())) {
+									labelshortstop.setText(seleccionarjugador);
+									aux.setTitular(true);
+								}
+							} catch (NullPointerException e) {
+								
+							}
+							
+						}
+				} catch (ArrayIndexOutOfBoundsException e2) {
+					JOptionPane.showMessageDialog(null, "No hay jugadores", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnSS.setBounds(284, 368, 46, 28);
+		contentPanel.add(btnSS);
+		
+		labelshortstop = new JLabel("Short stop");
+		labelshortstop.setHorizontalAlignment(SwingConstants.CENTER);
+		labelshortstop.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelshortstop.setBounds(220, 400, 172, 20);
+		contentPanel.add(labelshortstop);
+		
 		JLabel label = new JLabel("");
 		label.setBounds(0, 0, 784, 728);
 		contentPanel.add(label);
@@ -476,6 +522,8 @@ public class PosicionCampo extends JDialog {
 			}
 			if(j.getPosicion().equalsIgnoreCase("Center fielder") && j.isTitular()==true){
 				lblCenterField.setText(j.getNombre().toString() + " " + j.getApellido().toString());
+			}if(j.getPosicion().equalsIgnoreCase("Short stop") && j.isTitular()==true){
+				labelshortstop.setText(j.getNombre().toString() + " " + j.getApellido().toString());
 			}
 		}
 	}

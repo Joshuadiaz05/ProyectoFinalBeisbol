@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JSeparator;
 import javax.swing.border.TitledBorder;
@@ -29,6 +31,9 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,6 +56,7 @@ public class ListadoJugadores extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListadoJugadores(boolean si) {
+		setTitle("Listado de jugadores");
 		if(si==true){
 			setTitle("Mostrar jugador - " + equipo.getNombre());
 			setBounds(100, 100, 1000, 570);
@@ -258,13 +264,56 @@ public class ListadoJugadores extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("Imprimir");
+				okButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							File file = new File("Listado de "+equipo.getNombre()+".txt");
+							if (!file.exists()) {
+								file.createNewFile();
+							}
+							String separador = System.getProperty("line.separator");
+							FileWriter fw = new FileWriter(file.getAbsoluteFile());
+							BufferedWriter bw = new BufferedWriter(fw);
+							bw.write(
+									"\n		                <<<<<<<<<<<Lista de Jugadores>>>>>>>>>>>   \r\n");
+							bw.write(
+									"\r\n ------------------------------------------------------------------------------------------------------------------------\r\n");
+							bw.write("#         Nombre       Apellido        Equipo                   Posicion                  Edad                 Lugar de Nacimiento \r\n");
+							bw.write(
+									"-------------------------------------------------------------------------------------------------------------------------\r\n");
+							for (int i = 0; i < tablemodel.getRowCount(); i++) {
+
+								for (int j = 0; j < tablemodel.getColumnCount(); j++) {
+									bw.write(table.getModel().getValueAt(i, j) + "          ");
+								}
+
+								bw.write("\r\n");
+							}
+							bw.write(
+									"-------------------------------------------------------------------------------------------------------------------------\r\n");
+							bw.close();
+							fw.close();
+							JOptionPane.showMessageDialog(null, "Lista de Jugadores impresa!");
+
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cerrar");
+				cancelButton.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

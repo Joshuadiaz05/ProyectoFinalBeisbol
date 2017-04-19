@@ -1,0 +1,13 @@
+
+		                <<<<<<<<<<<Lista de Jugadores>>>>>>>>>>>   
+
+ ------------------------------------------------------------------------------------------------------------------------
+#         Nombre       Apellido        Equipo                   Posicion                  Edad                 Lugar de Nacimiento 
+-------------------------------------------------------------------------------------------------------------------------
+0          Sandy          Leon          Boston Sox Red          Catcher          24          Cas, Andorra          
+1          Mitch          Moreland          Boston Sox Red          Tercera base          32          Santo Domingo, Afganistán          
+3          Dutin          Pedroia          Boston Sox Red          Segunda base          32          NY, Estados Unidos          
+15          Greg          Bird          Boston Sox Red          Primera base          45          Samana, República Dominicana          
+54          Moonkie          Hembre          Boston Sox Red          Center fielder          4          NY, Estados Unidos          
+40          Holt          Brock          Boston Sox Red          Left fielder          25          NY, Estados Unidos          
+-------------------------------------------------------------------------------------------------------------------------
